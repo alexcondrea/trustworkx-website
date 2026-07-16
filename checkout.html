@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="TrustworkX Mitglied werden – Paket wählen, bezahlen und Registrierungslink per E-Mail erhalten." />
+  <meta name="description"
+    content="TrustworkX Mitglied werden – Paket wählen, bezahlen und Registrierungslink per E-Mail erhalten." />
   <meta name="robots" content="noindex" />
   <title>trustworkX – Mitglied werden</title>
-  <link rel="icon" type="image/svg+xml" href="https://assets.cdn.filesafe.space/zX4w9KMO5mq76LaNi9KH/media/6a3fbc57c408020f97c464ab.svg">
+  <link rel="icon" type="image/svg+xml"
+    href="https://assets.cdn.filesafe.space/zX4w9KMO5mq76LaNi9KH/media/6a3fbc57c408020f97c464ab.svg">
   <link rel="stylesheet" href="/fonts/fonts.css">
   <style>
     :root {
@@ -20,30 +23,61 @@
       --sans: 'Inter', Arial, Helvetica, sans-serif;
       --mono: 'Geist Mono', ui-monospace, 'SF Mono', 'Courier New', monospace;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
       font-family: var(--sans);
       color: var(--text);
       line-height: 1.5;
       min-height: 100vh;
       background:
-        radial-gradient(circle at 78% 20%, rgba(46,196,182,.16), transparent 34%),
-        radial-gradient(circle at 15% 85%, rgba(46,196,182,.08), transparent 30%),
+        radial-gradient(circle at 78% 20%, rgba(46, 196, 182, .16), transparent 34%),
+        radial-gradient(circle at 15% 85%, rgba(46, 196, 182, .08), transparent 30%),
         linear-gradient(135deg, #050f1e 0%, #091a32 55%, #050f1e 100%);
       display: flex;
       flex-direction: column;
     }
-    a { text-decoration: none; color: inherit; }
-    .container { width: min(1180px, 92%); margin: 0 auto; }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: min(1180px, 92%);
+      margin: 0 auto;
+    }
+
     /* Dunkle Kopfleiste wie auf den übrigen Unterseiten */
     .topbar {
-      background: rgba(5,15,30,.96);
-      border-bottom: 1px solid rgba(255,255,255,.06);
+      background: rgba(5, 15, 30, .96);
+      border-bottom: 1px solid rgba(255, 255, 255, .06);
       padding: 10px 0;
     }
-    .logo-horizontal { height: 52px; width: auto; display: block; }
-    main { flex: 1; display: flex; align-items: flex-start; justify-content: center; padding: 40px 0 72px; }
-    .checkout-wrap { width: min(520px, 92%); }
+
+    .logo-horizontal {
+      height: 52px;
+      width: auto;
+      display: block;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 40px 0 72px;
+    }
+
+    .checkout-wrap {
+      width: min(520px, 92%);
+    }
+
     .back {
       display: inline-block;
       font-family: var(--mono);
@@ -52,14 +86,19 @@
       margin-bottom: 14px;
       transition: color .15s;
     }
-    .back:hover { color: var(--teal); }
+
+    .back:hover {
+      color: var(--teal);
+    }
+
     .card {
       background: #fff;
       border: 1px solid var(--line);
       border-radius: 18px;
       padding: 36px 34px 30px;
-      box-shadow: 0 30px 70px rgba(2,8,18,.55);
+      box-shadow: 0 30px 70px rgba(2, 8, 18, .55);
     }
+
     .eyebrow {
       font-family: var(--mono);
       font-weight: 500;
@@ -69,8 +108,20 @@
       color: var(--teal);
       margin-bottom: 8px;
     }
-    h1 { font-size: 24px; font-weight: 900; letter-spacing: -.5px; margin-bottom: 4px; color: var(--navy); }
-    h1 .plan-name { font-family: var(--mono); color: var(--teal); }
+
+    h1 {
+      font-size: 24px;
+      font-weight: 900;
+      letter-spacing: -.5px;
+      margin-bottom: 4px;
+      color: var(--navy);
+    }
+
+    h1 .plan-name {
+      font-family: var(--mono);
+      color: var(--teal);
+    }
+
     .plan-price {
       font-family: var(--mono);
       font-size: 17px;
@@ -78,8 +129,18 @@
       color: #33414f;
       margin-bottom: 6px;
     }
-    .plan-desc { font-size: 14px; color: var(--muted); margin-bottom: 24px; }
-    form { display: flex; flex-direction: column; }
+
+    .plan-desc {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
     label.field-label {
       font-family: var(--mono);
       font-size: 12px;
@@ -87,6 +148,7 @@
       color: var(--muted);
       margin-bottom: 7px;
     }
+
     input[type="email"] {
       width: 100%;
       padding: 13px 15px;
@@ -100,10 +162,25 @@
       transition: border-color .15s, background .15s;
       outline: none;
     }
-    input[type="email"]::placeholder { color: #9aa8b5; }
-    input[type="email"]:focus { border-color: var(--teal); background: rgba(46,196,182,.04); }
-    .consents { margin-bottom: 20px; }
-    .consents .loading { font-size: 13.5px; color: var(--muted); }
+
+    input[type="email"]::placeholder {
+      color: #9aa8b5;
+    }
+
+    input[type="email"]:focus {
+      border-color: var(--teal);
+      background: rgba(46, 196, 182, .04);
+    }
+
+    .consents {
+      margin-bottom: 20px;
+    }
+
+    .consents .loading {
+      font-size: 13.5px;
+      color: var(--muted);
+    }
+
     label.consent {
       display: flex;
       align-items: flex-start;
@@ -114,12 +191,15 @@
       margin-bottom: 12px;
       cursor: pointer;
     }
+
     label.consent input {
       accent-color: var(--teal);
-      width: 16px; height: 16px;
+      width: 16px;
+      height: 16px;
       margin-top: 2px;
       flex-shrink: 0;
     }
+
     .error {
       background: #fdeeee;
       border: 1px solid #f0bcbc;
@@ -130,6 +210,7 @@
       padding: 12px 14px;
       margin-bottom: 18px;
     }
+
     .btn {
       display: inline-flex;
       align-items: center;
@@ -146,10 +227,20 @@
       transition: all .2s ease;
       background: linear-gradient(135deg, var(--teal), var(--teal-dark));
       color: #fff;
-      box-shadow: 0 4px 18px rgba(46,196,182,.35);
+      box-shadow: 0 4px 18px rgba(46, 196, 182, .35);
     }
-    .btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(46,196,182,.45); }
-    .btn:disabled { opacity: .45; cursor: not-allowed; box-shadow: none; }
+
+    .btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(46, 196, 182, .45);
+    }
+
+    .btn:disabled {
+      opacity: .45;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
     .note {
       font-size: 12.5px;
       color: var(--muted);
@@ -157,6 +248,7 @@
       margin-top: 16px;
       text-align: center;
     }
+
     .card-foot {
       text-align: center;
       font-size: 13.5px;
@@ -165,14 +257,23 @@
       padding-top: 20px;
       border-top: 1px solid var(--line);
     }
-    .card-foot a { color: var(--teal); font-weight: 700; }
-    .card-foot a:hover { text-decoration: underline; }
+
+    .card-foot a {
+      color: var(--teal);
+      font-weight: 700;
+    }
+
+    .card-foot a:hover {
+      text-decoration: underline;
+    }
+
     /* ─── FOOTER (wie Unterseiten) ─── */
     footer {
       background: #040d1c;
       color: #cdd8df;
       padding: 32px 0 24px;
     }
+
     .footer-row {
       display: flex;
       justify-content: space-between;
@@ -181,11 +282,35 @@
       flex-wrap: wrap;
       margin-bottom: 20px;
     }
-    .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
-    footer a { font-size: 13.5px; color: #8fa4b0; transition: color .15s; }
-    footer a:hover { color: var(--teal); }
-    .logo-horizontal-footer { height: 30px; width: auto; display: block; }
-    .footer-divider { border: none; border-top: 1px solid rgba(255,255,255,.07); margin-bottom: 20px; }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    footer a {
+      font-size: 13.5px;
+      color: #8fa4b0;
+      transition: color .15s;
+    }
+
+    footer a:hover {
+      color: var(--teal);
+    }
+
+    .logo-horizontal-footer {
+      height: 30px;
+      width: auto;
+      display: block;
+    }
+
+    .footer-divider {
+      border: none;
+      border-top: 1px solid rgba(255, 255, 255, .07);
+      margin-bottom: 20px;
+    }
+
     .copyright {
       font-family: var(--mono);
       text-align: center;
@@ -193,226 +318,242 @@
       font-size: 13px;
       letter-spacing: .02em;
     }
+
     @media (max-width: 600px) {
-      .logo-horizontal { height: 40px; }
-      .card { padding: 28px 20px 24px; }
-      main { padding-top: 28px; }
+      .logo-horizontal {
+        height: 40px;
+      }
+
+      .card {
+        padding: 28px 20px 24px;
+      }
+
+      main {
+        padding-top: 28px;
+      }
     }
   </style>
 </head>
+
 <body>
 
-<header class="topbar">
-  <div class="container">
-    <a href="/" aria-label="trustworkX – zur Startseite">
-      <img class="logo-horizontal" src="https://assets.cdn.filesafe.space/zX4w9KMO5mq76LaNi9KH/media/6a3fbc5789d9cd8dc2cb8b9b.svg" alt="trustworkX Logo" />
-    </a>
-  </div>
-</header>
-
-<main>
-  <div class="checkout-wrap">
-    <a class="back" href="/#pricing">&larr; Zurück zur Paketauswahl</a>
-    <div class="card">
-      <div class="eyebrow">Mitglied werden</div>
-      <h1 id="plan-title">Paket wird geladen&hellip;</h1>
-      <p class="plan-price" id="plan-price"></p>
-      <p class="plan-desc" id="plan-desc"></p>
-
-      <form id="checkout-form">
-        <label class="field-label" for="email">E-Mail</label>
-        <input type="email" id="email" name="email" autocomplete="email" placeholder="name@unternehmen.de" required />
-
-        <div class="consents" id="consents">
-          <p class="loading">Rechtliche Dokumente werden geladen&hellip;</p>
-        </div>
-
-        <div class="error" id="error-box" hidden></div>
-
-        <button type="submit" class="btn" id="buy-btn" disabled>Kostenpflichtig bestellen</button>
-        <p class="note">Sie werden zur sicheren Bezahlung zu Stripe weitergeleitet. Nach erfolgreicher Zahlung erhalten Sie eine E-Mail mit Ihrem persönlichen Registrierungslink für die Kontoerstellung.</p>
-      </form>
-
-      <p class="card-foot">Bereits Mitglied? <a href="https://app.trustworkx.de/login">Zum Login</a></p>
+  <header class="topbar">
+    <div class="container">
+      <a href="/" aria-label="trustworkX – zur Startseite">
+        <img class="logo-horizontal"
+          src="https://assets.cdn.filesafe.space/zX4w9KMO5mq76LaNi9KH/media/6a3fbc5789d9cd8dc2cb8b9b.svg"
+          alt="trustworkX Logo" />
+      </a>
     </div>
-  </div>
-</main>
+  </header>
 
-<footer>
-  <div class="container">
-    <div class="footer-row">
-      <img class="logo-horizontal-footer" src="https://assets.cdn.filesafe.space/zX4w9KMO5mq76LaNi9KH/media/6a3fbc5789d9cd8dc2cb8b9b.svg" alt="trustworkX Logo" />
-      <div class="footer-links">
-        <a href="/impressum.html">Impressum</a>
-        <a href="/datenschutz.html">Datenschutz</a>
-        <a href="/agb.html">AGB</a>
-        <a href="/">Startseite</a>
+  <main>
+    <div class="checkout-wrap">
+      <a class="back" href="/#pricing">&larr; Zurück zur Paketauswahl</a>
+      <div class="card">
+        <div class="eyebrow">Mitglied werden</div>
+        <h1 id="plan-title">Paket wird geladen&hellip;</h1>
+        <p class="plan-price" id="plan-price"></p>
+        <p class="plan-desc" id="plan-desc"></p>
+
+        <form id="checkout-form">
+          <label class="field-label" for="email">E-Mail</label>
+          <input type="email" id="email" name="email" autocomplete="email" placeholder="name@unternehmen.de" required />
+
+          <div class="consents" id="consents">
+            <p class="loading">Rechtliche Dokumente werden geladen&hellip;</p>
+          </div>
+
+          <div class="error" id="error-box" hidden></div>
+
+          <button type="submit" class="btn" id="buy-btn" disabled>Kostenpflichtig bestellen</button>
+          <p class="note">Sie werden zur sicheren Bezahlung zu Stripe weitergeleitet. Nach erfolgreicher Zahlung
+            erhalten Sie eine E-Mail mit Ihrem persönlichen Registrierungslink für die Kontoerstellung.</p>
+        </form>
+
+        <p class="card-foot">Bereits Mitglied? <a href="https://app.trustworkx.de/login">Zum Login</a></p>
       </div>
     </div>
-    <hr class="footer-divider">
-    <p class="copyright">© 2026 TrustworkX. Alle Rechte vorbehalten.</p>
-  </div>
-</footer>
+  </main>
 
-<script>
-  // Integration laut HANDOVER_WEBSITE_AGENT.md (Pay-First Registration):
-  // 1. GET /api/products                    → priceId + Preisanzeige
-  // 2. GET /api/legal/booking-requirements  → Pflicht-Checkboxen (immer frisch laden)
-  // 3. POST /api/registration/start         → Redirect auf die zurückgegebene Stripe-URL
-  // Die Website hält keine Stripe-Keys, keine Konten, keine Passwörter.
-  // Gleiche Dateien auf Staging und Live: die Staging-Vorschau spricht mit
-  // der Staging-API, nur die Live-Domain mit der Produktiv-App.
-  var API_BASE = location.hostname === 'www.trustworkx.de'
-    ? 'https://app.trustworkx.de'
-    : 'https://staging.trustworkx.de';
+  <footer>
+    <div class="container">
+      <div class="footer-row">
+        <img class="logo-horizontal-footer"
+          src="https://assets.cdn.filesafe.space/zX4w9KMO5mq76LaNi9KH/media/6a3fbc5789d9cd8dc2cb8b9b.svg"
+          alt="trustworkX Logo" />
+        <div class="footer-links">
+          <a href="/impressum.html">Impressum</a>
+          <a href="/datenschutz.html">Datenschutz</a>
+          <a href="/agb.html">AGB</a>
+          <a href="/">Startseite</a>
+        </div>
+      </div>
+      <hr class="footer-divider">
+      <p class="copyright">© 2026 TrustworkX. Alle Rechte vorbehalten.</p>
+    </div>
+  </footer>
 
-  var params = new URLSearchParams(window.location.search);
-  var planParam = (params.get('plan') || '').toUpperCase();
-  var interval = params.get('interval') === 'year' ? 'year' : 'month';
+  <script>
+    // Integration laut HANDOVER_WEBSITE_AGENT.md (Pay-First Registration):
+    // 1. GET /api/products                    → priceId + Preisanzeige
+    // 2. GET /api/legal/booking-requirements  → Pflicht-Checkboxen (immer frisch laden)
+    // 3. POST /api/registration/start         → Redirect auf die zurückgegebene Stripe-URL
+    // Die Website hält keine Stripe-Keys, keine Konten, keine Passwörter.
+    // Gleiche Dateien auf Staging und Live: die Staging-Vorschau spricht mit
+    // der Staging-API, nur die Live-Domain mit der Produktiv-App.
+    var API_BASE = location.hostname === 'www.trustworkx.de'
+      ? 'https://app.trustworkx.de'
+      : 'https://staging.trustworkx.de';
 
-  var priceId = null;
-  var consentsLoaded = false;
+    var params = new URLSearchParams(window.location.search);
+    var planParam = (params.get('plan') || '').toUpperCase();
+    var interval = params.get('interval') === 'year' ? 'year' : 'month';
 
-  var titleEl = document.getElementById('plan-title');
-  var priceEl = document.getElementById('plan-price');
-  var descEl = document.getElementById('plan-desc');
-  var consentsBox = document.getElementById('consents');
-  var errorBox = document.getElementById('error-box');
-  var emailInput = document.getElementById('email');
-  var buyBtn = document.getElementById('buy-btn');
-  var form = document.getElementById('checkout-form');
+    var priceId = null;
+    var consentsLoaded = false;
 
-  function fmtEuro(cents) {
-    // Ganze Beträge ohne Nachkommastellen, krumme Beträge (z. B. 49,90 €) exakt.
-    var digits = cents % 100 === 0 ? 0 : 2;
-    return (cents / 100).toLocaleString('de-DE', {
-      minimumFractionDigits: digits, maximumFractionDigits: digits
-    }) + ' €';
-  }
-  function showError(message) {
-    errorBox.textContent = message;
-    errorBox.hidden = false;
-  }
-  function clearError() {
-    errorBox.hidden = true;
-  }
-  function updateButton() {
-    var boxes = consentsBox.querySelectorAll('input[type="checkbox"]');
-    var allChecked = Array.prototype.every.call(boxes, function (b) { return b.checked; });
-    buyBtn.disabled = !(priceId && consentsLoaded && allChecked &&
-      emailInput.value.trim() !== '' && emailInput.checkValidity());
-  }
+    var titleEl = document.getElementById('plan-title');
+    var priceEl = document.getElementById('plan-price');
+    var descEl = document.getElementById('plan-desc');
+    var consentsBox = document.getElementById('consents');
+    var errorBox = document.getElementById('error-box');
+    var emailInput = document.getElementById('email');
+    var buyBtn = document.getElementById('buy-btn');
+    var form = document.getElementById('checkout-form');
 
-  function loadPlan() {
-    return fetch(API_BASE + '/api/products')
-      .then(function (res) { if (!res.ok) throw new Error('HTTP ' + res.status); return res.json(); })
-      .then(function (data) {
-        var product = (data.products || []).find(function (p) {
-          return String(p.name).toUpperCase() === planParam;
-        });
-        var price = product && (product.prices || []).find(function (p) {
-          return p.interval === interval;
-        });
-        if (!product || !price) {
-          titleEl.textContent = 'Paket nicht verfügbar';
-          showError('Das gewählte Paket ist derzeit nicht verfügbar. Bitte wählen Sie ein Paket auf der Preisseite aus.');
-          return;
-        }
-        priceId = price.id;
-        titleEl.innerHTML = 'Paket <span class="plan-name"></span>';
-        titleEl.querySelector('.plan-name').textContent = product.name;
-        priceEl.textContent = fmtEuro(price.amountCents) + (interval === 'year' ? ' / Jahr' : ' / Monat');
-        descEl.textContent = product.description || '';
-        updateButton();
-      })
-      .catch(function () {
-        titleEl.textContent = 'Paket konnte nicht geladen werden';
-        showError('Die Paketdaten konnten nicht geladen werden. Bitte versuchen Sie es später erneut.');
-      });
-  }
+    function fmtEuro(cents) {
+      // Ganze Beträge ohne Nachkommastellen, krumme Beträge (z. B. 49,90 €) exakt.
+      var digits = cents % 100 === 0 ? 0 : 2;
+      return (cents / 100).toLocaleString('de-DE', {
+        minimumFractionDigits: digits, maximumFractionDigits: digits
+      }) + ' €';
+    }
+    function showError(message) {
+      errorBox.textContent = message;
+      errorBox.hidden = false;
+    }
+    function clearError() {
+      errorBox.hidden = true;
+    }
+    function updateButton() {
+      var boxes = consentsBox.querySelectorAll('input[type="checkbox"]');
+      var allChecked = Array.prototype.every.call(boxes, function (b) { return b.checked; });
+      buyBtn.disabled = !(priceId && consentsLoaded && allChecked &&
+        emailInput.value.trim() !== '' && emailInput.checkValidity());
+    }
 
-  function loadRequirements() {
-    return fetch(API_BASE + '/api/legal/booking-requirements')
-      .then(function (res) { if (!res.ok) throw new Error('HTTP ' + res.status); return res.json(); })
-      .then(function (data) {
-        consentsBox.innerHTML = '';
-        (data.requirements || []).forEach(function (req) {
-          var label = document.createElement('label');
-          label.className = 'consent';
-          var cb = document.createElement('input');
-          cb.type = 'checkbox';
-          cb.value = req.id;
-          cb.addEventListener('change', updateButton);
-          var text = document.createElement('span');
-          text.textContent = req.checkboxText; /* verbatim laut Vertrag */
-          label.appendChild(cb);
-          label.appendChild(text);
-          consentsBox.appendChild(label);
-        });
-        consentsLoaded = true;
-        updateButton();
-      })
-      .catch(function () {
-        consentsBox.innerHTML = '<p class="loading">Die rechtlichen Dokumente konnten nicht geladen werden.</p>';
-        showError('Die rechtlichen Dokumente konnten nicht geladen werden. Ohne Zustimmung ist keine Bestellung möglich – bitte versuchen Sie es später erneut.');
-      });
-  }
-
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-    if (buyBtn.disabled) return;
-    clearError();
-    buyBtn.disabled = true;
-    buyBtn.textContent = 'Einen Moment…';
-
-    var acceptedIds = Array.prototype.map.call(
-      consentsBox.querySelectorAll('input[type="checkbox"]:checked'),
-      function (b) { return b.value; }
-    );
-
-    fetch(API_BASE + '/api/registration/start', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        email: emailInput.value.trim(),
-        priceId: priceId,
-        acceptedLegalRequirementIds: acceptedIds
-      })
-    })
-      .then(function (res) {
-        return res.json().catch(function () { return {}; }).then(function (data) {
-          if (res.status === 201 && data.url) {
-            window.location.href = data.url;
+    function loadPlan() {
+      return fetch(API_BASE + '/api/products')
+        .then(function (res) { if (!res.ok) throw new Error('HTTP ' + res.status); return res.json(); })
+        .then(function (data) {
+          var product = (data.products || []).find(function (p) {
+            return String(p.name).toUpperCase() === planParam;
+          });
+          var price = product && (product.prices || []).find(function (p) {
+            return p.interval === interval;
+          });
+          if (!product || !price) {
+            titleEl.textContent = 'Paket nicht verfügbar';
+            showError('Das gewählte Paket ist derzeit nicht verfügbar. Bitte wählen Sie ein Paket auf der Preisseite aus.');
             return;
           }
-          if (res.status === 429) {
-            /* Rate-Limit: Meldung anzeigen, kein automatischer Retry */
-            showError(data.error || 'Zu viele Anfragen. Bitte versuchen Sie es später erneut.');
-          } else {
-            showError(data.error || 'Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.');
-          }
+          priceId = price.id;
+          titleEl.innerHTML = 'Paket <span class="plan-name"></span>';
+          titleEl.querySelector('.plan-name').textContent = product.name;
+          priceEl.textContent = fmtEuro(price.amountCents) + (interval === 'year' ? ' / Jahr' : ' / Monat');
+          descEl.textContent = product.description || '';
+          updateButton();
+        })
+        .catch(function () {
+          titleEl.textContent = 'Paket konnte nicht geladen werden';
+          showError('Die Paketdaten konnten nicht geladen werden. Bitte versuchen Sie es später erneut.');
+        });
+    }
+
+    function loadRequirements() {
+      return fetch(API_BASE + '/api/legal/booking-requirements')
+        .then(function (res) { if (!res.ok) throw new Error('HTTP ' + res.status); return res.json(); })
+        .then(function (data) {
+          consentsBox.innerHTML = '';
+          (data.requirements || []).forEach(function (req) {
+            var label = document.createElement('label');
+            label.className = 'consent';
+            var cb = document.createElement('input');
+            cb.type = 'checkbox';
+            cb.value = req.id;
+            cb.addEventListener('change', updateButton);
+            var text = document.createElement('span');
+            text.textContent = req.checkboxText; /* verbatim laut Vertrag */
+            label.appendChild(cb);
+            label.appendChild(text);
+            consentsBox.appendChild(label);
+          });
+          consentsLoaded = true;
+          updateButton();
+        })
+        .catch(function () {
+          consentsBox.innerHTML = '<p class="loading">Die rechtlichen Dokumente konnten nicht geladen werden.</p>';
+          showError('Die rechtlichen Dokumente konnten nicht geladen werden. Ohne Zustimmung ist keine Bestellung möglich – bitte versuchen Sie es später erneut.');
+        });
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (buyBtn.disabled) return;
+      clearError();
+      buyBtn.disabled = true;
+      buyBtn.textContent = 'Einen Moment…';
+
+      var acceptedIds = Array.prototype.map.call(
+        consentsBox.querySelectorAll('input[type="checkbox"]:checked'),
+        function (b) { return b.value; }
+      );
+
+      fetch(API_BASE + '/api/registration/start', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: emailInput.value.trim(),
+          priceId: priceId,
+          acceptedLegalRequirementIds: acceptedIds
+        })
+      })
+        .then(function (res) {
+          return res.json().catch(function () { return {}; }).then(function (data) {
+            if (res.status === 201 && data.url) {
+              window.location.href = data.url;
+              return;
+            }
+            if (res.status === 429) {
+              /* Rate-Limit: Meldung anzeigen, kein automatischer Retry */
+              showError(data.error || 'Zu viele Anfragen. Bitte versuchen Sie es später erneut.');
+            } else {
+              showError(data.error || 'Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.');
+            }
+            buyBtn.textContent = 'Kostenpflichtig bestellen';
+            updateButton();
+          });
+        })
+        .catch(function () {
+          showError('Verbindung fehlgeschlagen. Bitte prüfen Sie Ihre Internetverbindung und versuchen Sie es erneut.');
           buyBtn.textContent = 'Kostenpflichtig bestellen';
           updateButton();
         });
-      })
-      .catch(function () {
-        showError('Verbindung fehlgeschlagen. Bitte prüfen Sie Ihre Internetverbindung und versuchen Sie es erneut.');
-        buyBtn.textContent = 'Kostenpflichtig bestellen';
-        updateButton();
-      });
-  });
+    });
 
-  emailInput.addEventListener('input', updateButton);
+    emailInput.addEventListener('input', updateButton);
 
-  if (!planParam) {
-    titleEl.textContent = 'Kein Paket gewählt';
-    showError('Bitte wählen Sie zunächst ein Paket auf der Preisseite aus.');
-    loadRequirements();
-  } else {
-    loadPlan();
-    loadRequirements();
-  }
-</script>
+    if (!planParam) {
+      titleEl.textContent = 'Kein Paket gewählt';
+      showError('Bitte wählen Sie zunächst ein Paket auf der Preisseite aus.');
+      loadRequirements();
+    } else {
+      loadPlan();
+      loadRequirements();
+    }
+  </script>
 
 </body>
+
 </html>
