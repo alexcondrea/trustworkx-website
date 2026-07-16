@@ -123,22 +123,28 @@
       .legal-page h1 { font-size: 32px; }
     }
 
-    /* ─── STICKY SITE NAV ─── */
+    /* ─── STICKY SITE NAV (schwebende Pill) ─── */
     .site-nav {
       position: sticky;
       top: 0;
       z-index: 500;
-      background: rgba(5,15,30,.92);
-      -webkit-backdrop-filter: blur(10px);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(255,255,255,.06);
+      padding: 12px 0;
+      pointer-events: none;
     }
     .site-nav .nav {
+      pointer-events: auto;
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 24px;
-      padding: 10px 0;
+      margin: 0 auto;
+      padding: 8px 18px;
+      background: rgba(5,15,30,.88);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 18px;
+      box-shadow: 0 12px 40px rgba(2,8,18,.4);
     }
     .site-nav .logo-horizontal { height: 52px; }
     .nav-links { display: flex; gap: 26px; }
@@ -159,11 +165,19 @@
       padding: 6px;
     }
     .nav-mobile {
+      pointer-events: auto;
       display: none;
       flex-direction: column;
       gap: 2px;
-      padding: 6px 4% 14px;
-      border-top: 1px solid rgba(255,255,255,.08);
+      width: min(1180px, 92%);
+      margin: 8px auto 0;
+      padding: 8px 12px 12px;
+      background: rgba(5,15,30,.94);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 16px;
+      box-shadow: 0 12px 40px rgba(2,8,18,.4);
     }
     .nav-mobile.open { display: flex; }
     .nav-mobile a {
@@ -179,7 +193,8 @@
       .nav-burger { display: inline-flex; }
     }
     @media (max-width: 600px) {
-      .site-nav .nav { gap: 8px; }
+      .site-nav { padding: 10px 0; }
+      .site-nav .nav { gap: 8px; padding: 7px 12px; border-radius: 15px; }
       .site-nav .logo-horizontal { height: 34px; max-width: 40vw; object-fit: contain; }
       .site-nav .nav-actions { gap: 6px; }
       .site-nav .btn-primary { padding: 9px 12px; font-size: 12.5px; }

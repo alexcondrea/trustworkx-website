@@ -66,7 +66,7 @@
         radial-gradient(circle at 20% 70%, rgba(46,196,182,.10), transparent 28%),
         linear-gradient(135deg, #050f1e 0%, #091a32 55%, #050f1e 100%);
       color: #fff;
-      padding: 56px 0;
+      padding: 122px 0 56px;
       overflow: hidden;
       position: relative;
     }
@@ -1223,7 +1223,7 @@
       .network-svg { max-width: 340px; }
       h1 { font-size: 42px; }
       .logo-horizontal { height: 88px; }
-      .hero { padding: 40px 0 56px; }
+      .hero { padding: 122px 0 56px; }
       .hero-sub { max-width: 100%; }
       .challenge-grid { grid-template-columns: repeat(2, 1fr) !important; }
       .challenge { border-right: none !important; border-bottom: 1px solid var(--line); }
@@ -1237,23 +1237,28 @@
       .pricing-grid { grid-template-columns: 1fr 1fr; }
     }
 
-    /* ─── STICKY SITE NAV ─── */
+    /* ─── STICKY SITE NAV (schwebende Pill) ─── */
     .site-nav {
       position: sticky;
       top: 0;
       z-index: 500;
-      background: rgba(5,15,30,.92);
-      -webkit-backdrop-filter: blur(10px);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(255,255,255,.06);
+      padding: 12px 0;
+      pointer-events: none;
     }
     .site-nav .nav {
+      pointer-events: auto;
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 24px;
-      padding: 10px 0;
-      margin-bottom: 0;
+      margin: 0 auto;
+      padding: 8px 18px;
+      background: rgba(5,15,30,.88);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 18px;
+      box-shadow: 0 12px 40px rgba(2,8,18,.4);
     }
     .site-nav .logo-horizontal { height: 52px; }
     .nav-links { display: flex; gap: 26px; }
@@ -1274,11 +1279,19 @@
       padding: 6px;
     }
     .nav-mobile {
+      pointer-events: auto;
       display: none;
       flex-direction: column;
       gap: 2px;
-      padding: 6px 4% 14px;
-      border-top: 1px solid rgba(255,255,255,.08);
+      width: min(1180px, 92%);
+      margin: 8px auto 0;
+      padding: 8px 12px 12px;
+      background: rgba(5,15,30,.94);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 16px;
+      box-shadow: 0 12px 40px rgba(2,8,18,.4);
     }
     .nav-mobile.open { display: flex; }
     .nav-mobile a {
@@ -1294,12 +1307,16 @@
       .nav-burger { display: inline-flex; }
     }
     @media (max-width: 600px) {
-      .site-nav .nav { gap: 8px; }
+      .site-nav { padding: 10px 0; }
+      .site-nav .nav { gap: 8px; padding: 7px 12px; border-radius: 15px; }
       .site-nav .logo-horizontal { height: 34px; max-width: 40vw; object-fit: contain; }
       .site-nav .nav-actions { gap: 6px; }
       .site-nav .btn-primary { padding: 9px 12px; font-size: 12.5px; }
       .nav-burger { padding: 4px; }
     }
+    /* Pill schwebt über dem Hero */
+    .site-nav { margin-bottom: -94px; }
+    @media (max-width: 600px) { .site-nav { margin-bottom: -70px; } }
 
     /* Mobile (≤600px) */
     @media (max-width: 600px) {
@@ -1311,7 +1328,7 @@
       .nav { gap: 16px; margin-bottom: 32px; }
       h1 { font-size: 34px; letter-spacing: -0.8px; }
       h2 { font-size: 26px; }
-      .hero { padding: 32px 0 48px; }
+      .hero { padding: 96px 0 48px; }
       .hero-actions { flex-direction: column; gap: 10px; }
       .hero-actions .btn { width: 100%; justify-content: center; padding: 14px; }
       .trust-row { gap: 16px; }
