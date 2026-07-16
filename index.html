@@ -756,24 +756,41 @@
       pointer-events: none;
     }
 
-    /* Dashed animated stripe on the track */
-    .zt-track::after {
+    /* Flowing light impulse along the track (step 1 → 6), like the hero animation */
+    .zt-pulse {
+      position: absolute;
+      top: 50%;
+      left: 0%;
+      width: 14px;
+      height: 14px;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background: radial-gradient(circle, #F5F7FA 0%, var(--teal) 40%, rgba(46,196,182,0) 72%);
+      box-shadow: 0 0 12px 2px rgba(46,196,182,.55);
+      opacity: 0;
+      animation: ztPulse 5.5s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+    }
+    /* small tail behind the dot */
+    .zt-pulse::before {
       content: "";
       position: absolute;
-      inset: 0;
-      background: repeating-linear-gradient(
-        90deg,
-        rgba(46,196,182,.6) 0px,
-        rgba(46,196,182,.6) 6px,
-        transparent 6px,
-        transparent 14px
-      );
-      background-size: 200% 100%;
-      animation: trackFlow 3s linear infinite;
+      right: 55%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 30px;
+      height: 2.5px;
+      border-radius: 3px;
+      background: linear-gradient(270deg, rgba(46,196,182,.6), rgba(46,196,182,0));
     }
-    @keyframes trackFlow {
-      0%   { background-position: 0 0; }
-      100% { background-position: -200px 0; }
+    @keyframes ztPulse {
+      0%   { left: 0%;   opacity: 0; }
+      4%   { opacity: 1; }
+      72%  { opacity: 1; }
+      78%  { left: 100%; opacity: 0; }
+      100% { left: 100%; opacity: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .zt-pulse { display: none; }
     }
 
     .zt-steps {
@@ -1453,7 +1470,7 @@
 
     <!-- ── Desktop + Tablet: Zeitstrahl ── -->
     <div class="zt-outer">
-      <div class="zt-track"></div>
+      <div class="zt-track"><i class="zt-pulse"></i></div>
       <div class="zt-steps">
 
         <!-- Step 1 -->
