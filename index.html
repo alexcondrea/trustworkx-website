@@ -67,7 +67,7 @@
         radial-gradient(circle at 20% 70%, rgba(46,196,182,.10), transparent 28%),
         linear-gradient(135deg, #050f1e 0%, #091a32 55%, #050f1e 100%);
       color: #fff;
-      padding: 24px 0 56px;
+      padding: 56px 0;
       overflow: hidden;
       position: relative;
     }
@@ -1156,7 +1156,7 @@
       .network-svg { max-width: 340px; }
       h1 { font-size: 42px; }
       .logo-horizontal { height: 88px; }
-      .hero { padding: 24px 0 56px; }
+      .hero { padding: 40px 0 56px; }
       .hero-sub { max-width: 100%; }
       .challenge-grid { grid-template-columns: repeat(2, 1fr) !important; }
       .challenge { border-right: none !important; border-bottom: 1px solid var(--line); }
@@ -1170,6 +1170,70 @@
       .pricing-grid { grid-template-columns: 1fr 1fr; }
     }
 
+    /* ─── STICKY SITE NAV ─── */
+    .site-nav {
+      position: sticky;
+      top: 0;
+      z-index: 500;
+      background: rgba(5,15,30,.92);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .site-nav .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      padding: 10px 0;
+      margin-bottom: 0;
+    }
+    .site-nav .logo-horizontal { height: 52px; }
+    .nav-links { display: flex; gap: 26px; }
+    .nav-links a {
+      color: #d8e8ef;
+      font-size: 15px;
+      font-weight: 600;
+      transition: color .15s;
+      white-space: nowrap;
+    }
+    .nav-links a:hover, .nav-links a.on { color: var(--teal); }
+    .nav-burger {
+      display: none;
+      background: none;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      padding: 6px;
+    }
+    .nav-mobile {
+      display: none;
+      flex-direction: column;
+      gap: 2px;
+      padding: 6px 4% 14px;
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+    .nav-mobile.open { display: flex; }
+    .nav-mobile a {
+      color: #d8e8ef;
+      font-size: 16px;
+      font-weight: 600;
+      padding: 10px 8px;
+      border-radius: 8px;
+    }
+    .nav-mobile a:hover { background: rgba(255,255,255,.06); color: var(--teal); }
+    @media (max-width: 1024px) {
+      .nav-links { display: none; }
+      .nav-burger { display: inline-flex; }
+    }
+    @media (max-width: 600px) {
+      .site-nav .nav { gap: 8px; }
+      .site-nav .logo-horizontal { height: 34px; max-width: 40vw; object-fit: contain; }
+      .site-nav .nav-actions { gap: 6px; }
+      .site-nav .btn-primary { padding: 9px 12px; font-size: 12.5px; }
+      .nav-burger { padding: 4px; }
+    }
+
     /* Mobile (≤600px) */
     @media (max-width: 600px) {
       section { padding: 56px 0; }
@@ -1180,7 +1244,7 @@
       .nav { gap: 16px; margin-bottom: 32px; }
       h1 { font-size: 34px; letter-spacing: -0.8px; }
       h2 { font-size: 26px; }
-      .hero { padding: 20px 0 48px; }
+      .hero { padding: 32px 0 48px; }
       .hero-actions { flex-direction: column; gap: 10px; }
       .hero-actions .btn { width: 100%; justify-content: center; padding: 14px; }
       .trust-row { gap: 16px; }
@@ -1198,19 +1262,38 @@
 </head>
 <body>
 
+<!-- ═══════════════════════════════════════════ SITE NAV ═══ -->
+<div class="site-nav">
+  <div class="container nav">
+    <a href="/" class="brand" aria-label="trustworkX">
+      <img class="logo-horizontal" src="https://assets.cdn.filesafe.space/zX4w9KMO5mq76LaNi9KH/media/6a3fbc5789d9cd8dc2cb8b9b.svg" alt="trustworkX Logo" />
+    </a>
+    <nav class="nav-links" aria-label="Hauptnavigation">
+      <a href="#how-it-works">Wie es funktioniert</a>
+      <a href="#pricing">Preise</a>
+      <a href="#faq">FAQ</a>
+      <a href="/ueber-uns.html">Über uns</a>
+    </nav>
+    <div class="nav-actions">
+      <a class="btn btn-secondary" href="https://app.trustworkx.de/login">Login</a>
+      <a class="btn btn-primary" href="#pricing">Jetzt Mitglied werden</a>
+      <button type="button" class="nav-burger" id="navBurger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="navMobile">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+  <nav class="nav-mobile" id="navMobile" aria-label="Mobile Navigation">
+    <a href="#how-it-works">Wie es funktioniert</a>
+    <a href="#pricing">Preise</a>
+    <a href="#faq">FAQ</a>
+    <a href="/ueber-uns.html">Über uns</a>
+    <a href="https://app.trustworkx.de/login">Login</a>
+  </nav>
+</div>
+
 <!-- ═══════════════════════════════════════════════ HERO ═══ -->
 <header class="hero">
   <div class="container">
-    <nav class="nav">
-      <a href="/" class="brand" aria-label="trustworkX">
-        <img class="logo-horizontal" src="https://assets.cdn.filesafe.space/zX4w9KMO5mq76LaNi9KH/media/6a3fbc5789d9cd8dc2cb8b9b.svg" alt="trustworkX Logo" />
-      </a>
-      <div class="nav-actions">
-        <a class="btn btn-secondary" href="https://app.trustworkx.de/login">Login</a>
-        <a class="btn btn-primary" href="#pricing">Jetzt Mitglied werden</a>
-      </div>
-    </nav>
-
     <div class="hero-grid">
       <div>
         <h1>Auslastung sichern.<br>Lieferfähigkeit <span class="teal">stärken.</span></h1>
@@ -2310,6 +2393,23 @@
     closeBtn.addEventListener('click', closeModal);
     // click on the dark overlay closes; clicks inside the modal do not
     overlay.addEventListener('click', function(e) { if (e.target === overlay) closeModal(); });
+  })();
+
+  /* ─── MOBILE NAV ─── */
+  (function() {
+    var burger = document.getElementById('navBurger');
+    var panel  = document.getElementById('navMobile');
+    if (!burger || !panel) return;
+    burger.addEventListener('click', function() {
+      var open = panel.classList.toggle('open');
+      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    panel.querySelectorAll('a').forEach(function(a) {
+      a.addEventListener('click', function() {
+        panel.classList.remove('open');
+        burger.setAttribute('aria-expanded', 'false');
+      });
+    });
   })();
 
   function toggleFaq(btn) {

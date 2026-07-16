@@ -167,23 +167,101 @@
       .legal-page { padding: 48px 0 64px; }
       .legal-page h1 { font-size: 32px; }
     }
+
+    /* ─── STICKY SITE NAV ─── */
+    .site-nav {
+      position: sticky;
+      top: 0;
+      z-index: 500;
+      background: rgba(5,15,30,.92);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .site-nav .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      padding: 10px 0;
+    }
+    .site-nav .logo-horizontal { height: 52px; }
+    .nav-links { display: flex; gap: 26px; }
+    .nav-links a {
+      color: #d8e8ef;
+      font-size: 15px;
+      font-weight: 600;
+      transition: color .15s;
+      white-space: nowrap;
+    }
+    .nav-links a:hover, .nav-links a.on { color: var(--teal); }
+    .nav-burger {
+      display: none;
+      background: none;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      padding: 6px;
+    }
+    .nav-mobile {
+      display: none;
+      flex-direction: column;
+      gap: 2px;
+      padding: 6px 4% 14px;
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+    .nav-mobile.open { display: flex; }
+    .nav-mobile a {
+      color: #d8e8ef;
+      font-size: 16px;
+      font-weight: 600;
+      padding: 10px 8px;
+      border-radius: 8px;
+    }
+    .nav-mobile a:hover { background: rgba(255,255,255,.06); color: var(--teal); }
+    @media (max-width: 1024px) {
+      .nav-links { display: none; }
+      .nav-burger { display: inline-flex; }
+    }
+    @media (max-width: 600px) {
+      .site-nav .nav { gap: 8px; }
+      .site-nav .logo-horizontal { height: 34px; max-width: 40vw; object-fit: contain; }
+      .site-nav .nav-actions { gap: 6px; }
+      .site-nav .btn-primary { padding: 9px 12px; font-size: 12.5px; }
+      .nav-burger { padding: 4px; }
+    }
   </style>
 </head>
 <body>
 
-<header class="page-header">
-  <div class="container">
-    <nav class="nav">
-      <a href="/" class="brand" aria-label="trustworkX – zur Startseite">
-        <img class="logo-horizontal" src="https://assets.cdn.filesafe.space/zX4w9KMO5mq76LaNi9KH/media/6a3fbc5789d9cd8dc2cb8b9b.svg" alt="trustworkX Logo" />
-      </a>
-      <div class="nav-actions">
-        <a class="btn btn-secondary" href="https://app.trustworkx.de/login">Login</a>
-        <a class="btn btn-primary" href="/#pricing">Jetzt Mitglied werden</a>
-      </div>
+<!-- ═══════════════════════════════════════════ SITE NAV ═══ -->
+<div class="site-nav">
+  <div class="container nav">
+    <a href="/" class="brand" aria-label="trustworkX – zur Startseite">
+      <img class="logo-horizontal" src="https://assets.cdn.filesafe.space/zX4w9KMO5mq76LaNi9KH/media/6a3fbc5789d9cd8dc2cb8b9b.svg" alt="trustworkX Logo" />
+    </a>
+    <nav class="nav-links" aria-label="Hauptnavigation">
+      <a href="/#how-it-works">Wie es funktioniert</a>
+      <a href="/#pricing">Preise</a>
+      <a href="/#faq">FAQ</a>
+      <a href="/ueber-uns.html">Über uns</a>
     </nav>
+    <div class="nav-actions">
+      <a class="btn btn-secondary" href="https://app.trustworkx.de/login">Login</a>
+      <a class="btn btn-primary" href="/#pricing">Jetzt Mitglied werden</a>
+      <button type="button" class="nav-burger" id="navBurger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="navMobile">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
   </div>
-</header>
+  <nav class="nav-mobile" id="navMobile" aria-label="Mobile Navigation">
+    <a href="/#how-it-works">Wie es funktioniert</a>
+    <a href="/#pricing">Preise</a>
+    <a href="/#faq">FAQ</a>
+    <a href="/ueber-uns.html">Über uns</a>
+    <a href="https://app.trustworkx.de/login">Login</a>
+  </nav>
+</div>
 
 <main class="legal-page">
   <div class="container">
@@ -594,5 +672,16 @@
   </div>
 </footer>
 
+<script>
+  (function() {
+    var burger = document.getElementById('navBurger');
+    var panel  = document.getElementById('navMobile');
+    if (!burger || !panel) return;
+    burger.addEventListener('click', function() {
+      var open = panel.classList.toggle('open');
+      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  })();
+</script>
 </body>
 </html>
