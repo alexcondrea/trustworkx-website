@@ -2267,7 +2267,11 @@
   // ── Registrierung: Pakete & Preise live von der App laden ──
   // Vertrag: HANDOVER_WEBSITE_AGENT.md – Preise kommen aus GET /api/products,
   // die statischen Werte oben sind nur Fallback, falls die API nicht erreichbar ist.
-  const API_BASE = 'https://app.trustworkx.de';
+  // Gleiche Dateien auf Staging und Live: die Staging-Vorschau spricht mit
+  // der Staging-API, nur die Live-Domain mit der Produktiv-App.
+  const API_BASE = location.hostname === 'www.trustworkx.de'
+    ? 'https://app.trustworkx.de'
+    : 'https://staging.trustworkx.de';
   const planNames = { access: 'ACCESS', core: 'CORE', growth: 'GROWTH', unlimited: 'UNLIMITED' };
 
   function updateCtaLinks() {
@@ -2278,7 +2282,11 @@
   }
 
   function fmtEuro(cents) {
-    return Math.round(cents / 100).toLocaleString('de-DE') + ' €';
+    // Ganze Beträge ohne Nachkommastellen, krumme Beträge (z. B. 49,90 €) exakt.
+    const digits = cents % 100 === 0 ? 0 : 2;
+    return (cents / 100).toLocaleString('de-DE', {
+      minimumFractionDigits: digits, maximumFractionDigits: digits
+    }) + ' €';
   }
 
   fetch(API_BASE + '/api/products')
