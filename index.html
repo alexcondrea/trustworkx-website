@@ -1938,7 +1938,7 @@
     .toggle {
       width: 48px;
       height: 26px;
-      background: var(--teal);
+      background: var(--navy);
       border-radius: 13px;
       position: relative;
       cursor: pointer;
@@ -1960,6 +1960,7 @@
       box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
     }
 
+    .toggle.yearly { background: var(--teal); }
     .toggle.yearly::after {
       transform: translateX(22px);
     }
@@ -3345,7 +3346,6 @@
         <button class="toggle" id="billing-toggle" onclick="switchBilling()"
           aria-label="Abrechnungszeitraum wechseln"></button>
         <span class="toggle-label" id="lbl-yearly">Jährlich</span>
-        <span class="save-badge" id="save-label" style="display:none">bis zu 15 % sparen</span>
       </div>
 
       <div class="pricing-grid">
@@ -4098,7 +4098,6 @@
       toggle.classList.toggle('yearly', isYearly);
       document.getElementById('lbl-monthly').classList.toggle('active', !isYearly);
       document.getElementById('lbl-yearly').classList.toggle('active', isYearly);
-      document.getElementById('save-label').style.display = isYearly ? 'inline-flex' : 'none';
       renderPrices();
       updateCtaLinks();
     }
