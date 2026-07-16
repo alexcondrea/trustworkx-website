@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Über TrustworkX – das kuratierte Netzwerk, das IT-Dienstleister bei Auslastung, Projektanfragen und Lieferfähigkeit verbindet." />
+  <title>Über uns | trustworkX</title>
+  <link rel="icon" type="image/svg+xml" href="https://assets.cdn.filesafe.space/zX4w9KMO5mq76LaNi9KH/media/6a3fbc57c408020f97c464ab.svg">
+  <link rel="stylesheet" href="/fonts/fonts.css">
+  <style>
+    :root {
+      --navy: #0B1F3B;
+      --teal: #2EC4B6;
+      --text: #0B1F3B;
+      --muted: #5f6b7a;
+      --bg: #F5F7FA;
+      --line: #dfe8ef;
+      --sans: 'Inter', Arial, Helvetica, sans-serif;
+      --mono: 'Geist Mono', ui-monospace, 'SF Mono', 'Courier New', monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--sans);
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.5;
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+    }
+    a { text-decoration: none; color: inherit; }
+    .container { width: min(1180px, 92%); margin: 0 auto; }
+
+    /* ─── HEADER (dark, like main page hero) ─── */
+    .page-header {
+      background:
+        radial-gradient(circle at 78% 38%, rgba(46,196,182,.26), transparent 32%),
+        linear-gradient(135deg, #050f1e 0%, #091a32 55%, #050f1e 100%);
+      color: #fff;
+      padding: 24px 0 64px;
+    }
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 48px;
+    }
+    .brand { display: flex; align-items: center; font-family: var(--mono); letter-spacing: -1px; }
+    .logo-horizontal { height: 88px; width: auto; display: block; }
+    .nav-actions { display: flex; gap: 10px; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 22px;
+      border-radius: 8px;
+      font-family: var(--mono);
+      font-weight: 600;
+      font-size: 15px;
+      letter-spacing: -.2px;
+      border: 1.5px solid rgba(255,255,255,.3);
+      transition: all .2s ease;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--teal), #22a99d);
+      border: none;
+      color: #fff;
+      box-shadow: 0 4px 18px rgba(46,196,182,.35);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(46,196,182,.45); }
+    .btn-secondary { background: transparent; color: #fff; }
+    .btn-secondary:hover { background: rgba(255,255,255,.08); transform: translateY(-1px); }
+    .page-header .eyebrow {
+      font-family: var(--mono);
+      color: var(--teal);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: .18em;
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+    .page-header h1 {
+      font-size: 44px;
+      font-weight: 900;
+      letter-spacing: -1.2px;
+      max-width: 720px;
+    }
+
+    /* ─── CONTENT ─── */
+    .about-page { flex: 1; padding: 64px 0 96px; }
+    .about-page .inner { max-width: 760px; }
+    .about-page h2 {
+      font-size: 24px;
+      font-weight: 900;
+      letter-spacing: -.4px;
+      margin: 48px 0 14px;
+    }
+    .about-page p { margin: 0 0 14px; color: #33414f; font-size: 16.5px; line-height: 1.65; }
+    .about-page .lead { font-size: 19px; color: var(--navy); font-weight: 600; }
+    .about-page ul { list-style: none; margin: 0 0 14px; }
+    .about-page li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 10px;
+      color: #33414f;
+      font-size: 16.5px;
+    }
+    .about-page li svg { flex-shrink: 0; color: var(--teal); margin-top: 4px; }
+    .about-card {
+      background: linear-gradient(135deg, rgba(46,196,182,.08), rgba(46,196,182,.03));
+      border: 1px solid rgba(46,196,182,.3);
+      border-radius: 14px;
+      padding: 22px 24px;
+      margin: 0 0 14px;
+    }
+    .about-card p:last-child { margin-bottom: 0; }
+    .about-claim {
+      font-family: var(--mono);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--teal);
+      letter-spacing: -.5px;
+      margin-top: 10px;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: #040d1c;
+      color: #cdd8df;
+      padding: 32px 0 24px;
+    }
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+    footer a { font-size: 13.5px; color: #8fa4b0; transition: color .15s; }
+    footer a:hover { color: var(--teal); }
+    .logo-horizontal-footer { height: 30px; width: auto; display: block; }
+    .footer-divider { border: none; border-top: 1px solid rgba(255,255,255,.07); margin-bottom: 20px; }
+    .copyright { text-align: center; color: #4d6070; font-size: 13px; font-family: var(--mono); letter-spacing: .02em; }
+
+    @media (max-width: 600px) {
+      .logo-horizontal { height: 64px; }
+      .nav-actions .btn-secondary { display: none; }
+      .nav-actions .btn-primary { padding: 10px 14px; font-size: 13px; }
+      .page-header { padding-bottom: 48px; }
+      .page-header h1 { font-size: 32px; }
+      .about-page { padding: 48px 0 64px; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="page-header">
+  <div class="container">
+    <nav class="nav">
+      <a href="/" class="brand" aria-label="trustworkX – zur Startseite">
+        <img class="logo-horizontal" src="https://assets.cdn.filesafe.space/zX4w9KMO5mq76LaNi9KH/media/6a3fbc5789d9cd8dc2cb8b9b.svg" alt="trustworkX Logo" />
+      </a>
+      <div class="nav-actions">
+        <a class="btn btn-secondary" href="https://app.trustworkx.de/login">Login</a>
+        <a class="btn btn-primary" href="/#pricing">Jetzt Mitglied werden</a>
+      </div>
+    </nav>
+    <p class="eyebrow">Über uns</p>
+    <h1>Zusammenarbeit neu gedacht.</h1>
+  </div>
+</header>
+
+<main class="about-page">
+  <div class="container">
+    <div class="inner">
+      <p class="lead">TrustworkX ist aus einer einfachen Beobachtung entstanden:</p>
+      <p>Jeden Tag bleiben bei IT-Dienstleistern hochqualifizierte Mitarbeitende ohne Projekt. Gleichzeitig lehnen andere Unternehmen Kundenanfragen ab, weil ihnen genau diese Kapazitäten fehlen.</p>
+      <p>Nicht, weil der Markt zu klein ist. Sondern weil die richtigen Unternehmen nicht zusammenfinden.</p>
+      <p class="lead">Genau hier setzt TrustworkX an.</p>
+
+      <h2>Warum wir TrustworkX gegründet haben</h2>
+      <p>Wir kennen die IT-Dienstleistungsbranche aus eigener Erfahrung. Wir wissen, wie viel Aufwand in Vertrieb, Recruiting und dem Aufbau von Vertrauen steckt. Und wir wissen, dass erfolgreiche Zusammenarbeit nicht durch Zufall entsteht.</p>
+      <p>Deshalb haben wir TrustworkX entwickelt – ein kuratiertes Netzwerk, das Unternehmen dabei unterstützt, freie Kapazitäten und konkrete Projektbedarfe sicher und kontrolliert zusammenzubringen.</p>
+      <p>Nicht öffentlich. Nicht anonym. Sondern auf Basis klarer Regeln, geprüfter Mitglieder und eines strukturierten Matching-Prozesses.</p>
+
+      <h2>Unsere Überzeugung</h2>
+      <p>Wir glauben nicht, dass jede Anfrage ausgeschrieben werden muss. Wir glauben nicht, dass Zusammenarbeit über unübersichtliche Marktplätze oder Massenplattformen entsteht. Wir glauben nicht, dass ungenutzte Kapazitäten zum Alltag gehören müssen.</p>
+      <p>Wir glauben an starke Partnerschaften. An Vertrauen. An langfristige Zusammenarbeit.</p>
+      <p>Und daran, dass Netzwerke erfolgreicher sind als Einzelkämpfer.</p>
+
+      <h2>Was TrustworkX besonders macht</h2>
+      <ul>
+        <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Ausschließlich geprüfte IT-Dienstleister und Systemhäuser</li>
+        <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Keine Freelancer-Plattform</li>
+        <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Keine Personalvermittlung</li>
+        <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Keine Vermittlungsprovisionen</li>
+        <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Strukturierter Matching-Prozess statt öffentlicher Ausschreibungen</li>
+        <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Fokus auf Qualität statt Quantität</li>
+        <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Klare Regeln für Vertrauen, Kundenschutz und Fairness</li>
+      </ul>
+
+      <h2>Unsere Mission</h2>
+      <div class="about-card">
+        <p>Wir schaffen das vertrauenswürdigste Netzwerk für IT-Dienstleister.</p>
+        <p>Ein Netzwerk, in dem freie Kapazitäten sinnvoll eingesetzt werden, Projekte schneller realisiert werden und Zusammenarbeit einfacher wird.</p>
+      </div>
+
+      <h2>Unsere Vision</h2>
+      <div class="about-card">
+        <p>Wir möchten dazu beitragen, dass Zusammenarbeit zwischen Unternehmen selbstverständlich wird. Nicht als Ausnahme, sondern als neuer Standard.</p>
+        <p>Heute beginnt das in der IT-Branche. Morgen überall dort, wo Unternehmen gemeinsam erfolgreicher sein können.</p>
+      </div>
+
+      <h2>Hinter TrustworkX</h2>
+      <p>TrustworkX wurde von Menschen gegründet, die den IT-Dienstleistungsmarkt seit vielen Jahren aus der Praxis kennen.</p>
+      <p>Unsere Motivation ist einfach: Wir möchten Unternehmen dabei helfen, vorhandene Potenziale besser zu nutzen, anstatt ständig neue Ressourcen suchen zu müssen.</p>
+      <p>Denn wir sind überzeugt: Die größte Chance liegt oft nicht darin, mehr Unternehmen zu finden – sondern die richtigen miteinander zu verbinden.</p>
+
+      <h2>Unser Versprechen</h2>
+      <p>Wir wollen kein weiteres Netzwerk sein. Wir wollen die Infrastruktur schaffen, auf der vertrauensvolle Zusammenarbeit entsteht.</p>
+      <p class="about-claim">Mehr Umsatz durch Netzwerk.</p>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-row">
+      <img class="logo-horizontal-footer" src="https://assets.cdn.filesafe.space/zX4w9KMO5mq76LaNi9KH/media/6a3fbc5789d9cd8dc2cb8b9b.svg" alt="trustworkX Logo" />
+      <div class="footer-links">
+        <a href="/impressum.html">Impressum</a>
+        <a href="/datenschutz.html">Datenschutz</a>
+        <a href="/agb.html">AGB</a>
+        <a href="/ueber-uns.html">Über uns</a>
+        <a href="/">Startseite</a>
+      </div>
+    </div>
+    <hr class="footer-divider">
+    <p class="copyright">© 2025 TrustworkX. Alle Rechte vorbehalten.</p>
+  </div>
+</footer>
+
+</body>
+</html>
