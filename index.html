@@ -512,6 +512,9 @@
       filter: brightness(.9);
       cursor: pointer;
     }
+    /* Die Dashboard-Benachrichtigung gehört zur Hauptansicht –
+       ausblenden, solange die Projektübersicht vorn steht */
+    .dm-stage.swapped .dm-notify { opacity: 0; }
     @media (prefers-reduced-motion: reduce) {
       .dm-screen { transition: none; }
     }
