@@ -3362,8 +3362,8 @@
           <div class="package-name">Paket</div>
           <h3>ACCESS</h3>
           <p class="package-sub">Ideal für Unternehmen, die erste Kooperationen über TrustworkX aufbauen möchten.</p>
-          <div class="price-amount" id="price-access">49 €<span class="price-period"> / Monat</span></div>
-          <div class="price-yearly" id="year-access">(499 € / Jahr)</div>
+          <div class="price-amount" id="price-access">49,00 €<span class="price-period"> / Monat</span></div>
+          <div class="price-yearly" id="year-access">(499,00 € / Jahr)</div>
           <ul class="features">
             <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
                 stroke-linecap="round" stroke-linejoin="round">
@@ -3409,8 +3409,8 @@
           <div class="package-name">Paket</div>
           <h3>CORE</h3>
           <p class="package-sub">Für Unternehmen mit regelmäßigem Projektbedarf und wachsendem Partnernetzwerk.</p>
-          <div class="price-amount" id="price-core">99 €<span class="price-period"> / Monat</span></div>
-          <div class="price-yearly" id="year-core">(999 € / Jahr)</div>
+          <div class="price-amount" id="price-core">99,00 €<span class="price-period"> / Monat</span></div>
+          <div class="price-yearly" id="year-core">(999,00 € / Jahr)</div>
           <ul class="features">
             <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
                 stroke-linecap="round" stroke-linejoin="round">
@@ -3459,8 +3459,8 @@
           <h3>GROWTH</h3>
           <p class="package-sub">Für Unternehmen, die ihre Auslastung steigern und neue Geschäftschancen erschließen
             möchten.</p>
-          <div class="price-amount" id="price-growth">149 €<span class="price-period"> / Monat</span></div>
-          <div class="price-yearly" id="year-growth">(1.499 € / Jahr)</div>
+          <div class="price-amount" id="price-growth">149,00 €<span class="price-period"> / Monat</span></div>
+          <div class="price-yearly" id="year-growth">(1.499,00 € / Jahr)</div>
           <ul class="features">
             <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
                 stroke-linecap="round" stroke-linejoin="round">
@@ -3507,8 +3507,8 @@
           <div class="package-name">Paket</div>
           <h3>UNLIMITED</h3>
           <p class="package-sub">Für Unternehmen mit hohem Projektvolumen und maximalem Netzwerkbedarf.</p>
-          <div class="price-amount" id="price-unlimited">199 €<span class="price-period"> / Monat</span></div>
-          <div class="price-yearly" id="year-unlimited">(1.999 € / Jahr)</div>
+          <div class="price-amount" id="price-unlimited">199,00 €<span class="price-period"> / Monat</span></div>
+          <div class="price-yearly" id="year-unlimited">(1.999,00 € / Jahr)</div>
           <ul class="features">
             <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
                 stroke-linecap="round" stroke-linejoin="round">
@@ -4070,12 +4070,12 @@
     // ── Pricing toggle ──────────────────────────────────────────
     let isYearly = false;
     const prices = {
-      monthly: { access: '49 €', core: '99 €', growth: '149 €', unlimited: '199 €' },
-      yearly: { access: '499 €', core: '999 €', growth: '1.499 €', unlimited: '1.999 €' }
+      monthly: { access: '49,00 €', core: '99,00 €', growth: '149,00 €', unlimited: '199,00 €' },
+      yearly: { access: '499,00 €', core: '999,00 €', growth: '1.499,00 €', unlimited: '1.999,00 €' }
     };
     const monthlyEquiv = {
-      // kaufmännisch gerundete Monatsäquivalente der Jahrespreise
-      access: '42 €', core: '83 €', growth: '125 €', unlimited: '167 €'
+      // exakte Monatsäquivalente der Jahrespreise (Jahrespreis / 12)
+      access: '41,58 €', core: '83,25 €', growth: '124,92 €', unlimited: '166,58 €'
     };
     function renderPrices() {
       ['access', 'core', 'growth', 'unlimited'].forEach(pkg => {
@@ -4121,10 +4121,9 @@
     }
 
     function fmtEuro(cents) {
-      // Ganze Beträge ohne Nachkommastellen, krumme Beträge (z. B. 49,90 €) exakt.
-      const digits = cents % 100 === 0 ? 0 : 2;
+      // Immer zwei Nachkommastellen – konsistent zur Preisanzeige bei Stripe.
       return (cents / 100).toLocaleString('de-DE', {
-        minimumFractionDigits: digits, maximumFractionDigits: digits
+        minimumFractionDigits: 2, maximumFractionDigits: 2
       }) + ' €';
     }
 
@@ -4139,7 +4138,7 @@
               prices.monthly[pkg] = fmtEuro(price.amountCents);
             } else if (price.interval === 'year') {
               prices.yearly[pkg] = fmtEuro(price.amountCents);
-              monthlyEquiv[pkg] = Math.round(price.amountCents / 1200).toLocaleString('de-DE') + ' €';
+              monthlyEquiv[pkg] = fmtEuro(Math.round(price.amountCents / 12));
             }
           });
         });

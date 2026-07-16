@@ -423,10 +423,9 @@
     var form = document.getElementById('checkout-form');
 
     function fmtEuro(cents) {
-      // Ganze Beträge ohne Nachkommastellen, krumme Beträge (z. B. 49,90 €) exakt.
-      var digits = cents % 100 === 0 ? 0 : 2;
+      // Immer zwei Nachkommastellen – konsistent zur Preisanzeige bei Stripe.
       return (cents / 100).toLocaleString('de-DE', {
-        minimumFractionDigits: digits, maximumFractionDigits: digits
+        minimumFractionDigits: 2, maximumFractionDigits: 2
       }) + ' €';
     }
     function showError(message) {
