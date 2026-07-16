@@ -1002,6 +1002,16 @@
       border: 2px solid var(--teal);
       box-shadow: 0 12px 36px rgba(46,196,182,.18);
     }
+    /* Zeilen (Icon, Titel, Beschreibung, Preis, Features, Button) über alle
+       Karten hinweg auf gleicher Höhe ausrichten – unabhängig von Textlängen. */
+    @supports (grid-template-rows: subgrid) {
+      .price-card {
+        display: grid;
+        grid-template-rows: subgrid;
+        grid-row: span 8;
+        align-content: start;
+      }
+    }
     .badge {
       position: absolute;
       top: -13px;
