@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="TrustworkX Mitglied werden – Paket wählen, bezahlen und Registrierungslink per E-Mail erhalten." />
+  <meta name="robots" content="noindex" />
+  <title>trustworkX – Mitglied werden</title>
+  <link rel="icon" type="image/svg+xml" href="https://assets.cdn.filesafe.space/zX4w9KMO5mq76LaNi9KH/media/6a3fbc57c408020f97c464ab.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #0B1F3B;
+      --teal: #2EC4B6;
+      --teal-dark: #22a99d;
+      --muted: #5f6b7a;
+      --sans: 'Inter', Arial, Helvetica, sans-serif;
+      --mono: 'Geist Mono', ui-monospace, 'SF Mono', 'Courier New', monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--sans);
+      color: #fff;
+      line-height: 1.5;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 78% 20%, rgba(46,196,182,.20), transparent 34%),
+        radial-gradient(circle at 15% 85%, rgba(46,196,182,.10), transparent 30%),
+        linear-gradient(135deg, #050f1e 0%, #091a32 55%, #050f1e 100%);
+      display: flex;
+      flex-direction: column;
+    }
+    a { text-decoration: none; color: inherit; }
+    .container { width: min(1180px, 92%); margin: 0 auto; }
+    .topbar { padding: 24px 0; }
+    .logo-horizontal { height: 72px; width: auto; display: block; }
+    main { flex: 1; display: flex; align-items: flex-start; justify-content: center; padding: 12px 0 64px; }
+    .checkout-wrap { width: min(520px, 92%); }
+    .back {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 13px;
+      color: #8fa8b8;
+      margin-bottom: 14px;
+      transition: color .15s;
+    }
+    .back:hover { color: var(--teal); }
+    .card {
+      background: linear-gradient(135deg, #071629, #0d2343);
+      border: 1px solid rgba(46,196,182,.28);
+      border-radius: 18px;
+      padding: 36px 34px 30px;
+      box-shadow: 0 30px 70px rgba(2,8,18,.55);
+    }
+    .eyebrow {
+      font-family: var(--mono);
+      font-weight: 500;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      font-size: 12px;
+      color: var(--teal);
+      margin-bottom: 8px;
+    }
+    h1 { font-size: 24px; font-weight: 900; letter-spacing: -.5px; margin-bottom: 4px; }
+    h1 .plan-name { font-family: var(--mono); color: var(--teal); }
+    .plan-price {
+      font-family: var(--mono);
+      font-size: 17px;
+      font-weight: 600;
+      color: #d8e8ef;
+      margin-bottom: 6px;
+    }
+    .plan-desc { font-size: 14px; color: #b8c8d4; margin-bottom: 24px; }
+    form { display: flex; flex-direction: column; }
+    label.field-label {
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: .04em;
+      color: #c8dce5;
+      margin-bottom: 7px;
+    }
+    input[type="email"] {
+      width: 100%;
+      padding: 13px 15px;
+      margin-bottom: 20px;
+      background: rgba(255,255,255,.04);
+      border: 1.5px solid rgba(255,255,255,.16);
+      border-radius: 9px;
+      color: #fff;
+      font-size: 15px;
+      font-family: var(--sans);
+      transition: border-color .15s, background .15s;
+      outline: none;
+    }
+    input[type="email"]::placeholder { color: #6c7f8f; }
+    input[type="email"]:focus { border-color: var(--teal); background: rgba(46,196,182,.06); }
+    .consents { margin-bottom: 20px; }
+    .consents .loading { font-size: 13.5px; color: #8fa8b8; }
+    label.consent {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13.5px;
+      color: #b8c8d4;
+      line-height: 1.55;
+      margin-bottom: 12px;
+      cursor: pointer;
+    }
+    label.consent input {
+      accent-color: var(--teal);
+      width: 16px; height: 16px;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+    .error {
+      background: rgba(224, 90, 90, .12);
+      border: 1px solid rgba(224, 90, 90, .45);
+      border-radius: 9px;
+      color: #ffb4b4;
+      font-size: 13.5px;
+      line-height: 1.55;
+      padding: 12px 14px;
+      margin-bottom: 18px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 14px 22px;
+      border-radius: 8px;
+      border: none;
+      font-family: var(--mono);
+      font-weight: 600;
+      font-size: 15px;
+      letter-spacing: -.2px;
+      cursor: pointer;
+      transition: all .2s ease;
+      background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+      color: #fff;
+      box-shadow: 0 4px 18px rgba(46,196,182,.35);
+    }
+    .btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(46,196,182,.45); }
+    .btn:disabled { opacity: .45; cursor: not-allowed; box-shadow: none; }
+    .note {
+      font-size: 12.5px;
+      color: #8fa8b8;
+      line-height: 1.6;
+      margin-top: 16px;
+      text-align: center;
+    }
+    .card-foot {
+      text-align: center;
+      font-size: 13.5px;
+      color: #8ba0b4;
+      margin-top: 22px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+    .card-foot a { color: var(--teal); font-weight: 700; }
+    .card-foot a:hover { text-decoration: underline; }
+    .copyright {
+      font-family: var(--mono);
+      text-align: center;
+      color: #4d6070;
+      font-size: 13px;
+      padding: 0 0 24px;
+    }
+    @media (max-width: 600px) {
+      .logo-horizontal { height: 56px; }
+      .card { padding: 28px 20px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="container">
+    <a href="/" aria-label="trustworkX – zur Startseite">
+      <img class="logo-horizontal" src="https://assets.cdn.filesafe.space/zX4w9KMO5mq76LaNi9KH/media/6a3fbc5789d9cd8dc2cb8b9b.svg" alt="trustworkX Logo" />
+    </a>
+  </div>
+</header>
+
+<main>
+  <div class="checkout-wrap">
+    <a class="back" href="/#pricing">&larr; Zurück zur Paketauswahl</a>
+    <div class="card">
+      <div class="eyebrow">Mitglied werden</div>
+      <h1 id="plan-title">Paket wird geladen&hellip;</h1>
+      <p class="plan-price" id="plan-price"></p>
+      <p class="plan-desc" id="plan-desc"></p>
+
+      <form id="checkout-form">
+        <label class="field-label" for="email">E-Mail</label>
+        <input type="email" id="email" name="email" autocomplete="email" placeholder="name@unternehmen.de" required />
+
+        <div class="consents" id="consents">
+          <p class="loading">Rechtliche Dokumente werden geladen&hellip;</p>
+        </div>
+
+        <div class="error" id="error-box" hidden></div>
+
+        <button type="submit" class="btn" id="buy-btn" disabled>Kostenpflichtig bestellen</button>
+        <p class="note">Sie werden zur sicheren Bezahlung zu Stripe weitergeleitet. Nach erfolgreicher Zahlung erhalten Sie eine E-Mail mit Ihrem persönlichen Registrierungslink für die Kontoerstellung.</p>
+      </form>
+
+      <p class="card-foot">Bereits Mitglied? <a href="https://app.trustworkx.de/login">Zum Login</a></p>
+    </div>
+  </div>
+</main>
+
+<p class="copyright">© 2025 TrustworkX. Alle Rechte vorbehalten.</p>
+
+<script>
+  // Integration laut HANDOVER_WEBSITE_AGENT.md (Pay-First Registration):
+  // 1. GET /api/products                    → priceId + Preisanzeige
+  // 2. GET /api/legal/booking-requirements  → Pflicht-Checkboxen (immer frisch laden)
+  // 3. POST /api/registration/start         → Redirect auf die zurückgegebene Stripe-URL
+  // Die Website hält keine Stripe-Keys, keine Konten, keine Passwörter.
+  var API_BASE = 'https://app.trustworkx.de';
+
+  var params = new URLSearchParams(window.location.search);
+  var planParam = (params.get('plan') || '').toUpperCase();
+  var interval = params.get('interval') === 'year' ? 'year' : 'month';
+
+  var priceId = null;
+  var consentsLoaded = false;
+
+  var titleEl = document.getElementById('plan-title');
+  var priceEl = document.getElementById('plan-price');
+  var descEl = document.getElementById('plan-desc');
+  var consentsBox = document.getElementById('consents');
+  var errorBox = document.getElementById('error-box');
+  var emailInput = document.getElementById('email');
+  var buyBtn = document.getElementById('buy-btn');
+  var form = document.getElementById('checkout-form');
+
+  function fmtEuro(cents) {
+    return Math.round(cents / 100).toLocaleString('de-DE') + ' €';
+  }
+  function showError(message) {
+    errorBox.textContent = message;
+    errorBox.hidden = false;
+  }
+  function clearError() {
+    errorBox.hidden = true;
+  }
+  function updateButton() {
+    var boxes = consentsBox.querySelectorAll('input[type="checkbox"]');
+    var allChecked = Array.prototype.every.call(boxes, function (b) { return b.checked; });
+    buyBtn.disabled = !(priceId && consentsLoaded && allChecked &&
+      emailInput.value.trim() !== '' && emailInput.checkValidity());
+  }
+
+  function loadPlan() {
+    return fetch(API_BASE + '/api/products')
+      .then(function (res) { if (!res.ok) throw new Error('HTTP ' + res.status); return res.json(); })
+      .then(function (data) {
+        var product = (data.products || []).find(function (p) {
+          return String(p.name).toUpperCase() === planParam;
+        });
+        var price = product && (product.prices || []).find(function (p) {
+          return p.interval === interval;
+        });
+        if (!product || !price) {
+          titleEl.textContent = 'Paket nicht verfügbar';
+          showError('Das gewählte Paket ist derzeit nicht verfügbar. Bitte wählen Sie ein Paket auf der Preisseite aus.');
+          return;
+        }
+        priceId = price.id;
+        titleEl.innerHTML = 'Paket <span class="plan-name"></span>';
+        titleEl.querySelector('.plan-name').textContent = product.name;
+        priceEl.textContent = fmtEuro(price.amountCents) + (interval === 'year' ? ' / Jahr' : ' / Monat');
+        descEl.textContent = product.description || '';
+        updateButton();
+      })
+      .catch(function () {
+        titleEl.textContent = 'Paket konnte nicht geladen werden';
+        showError('Die Paketdaten konnten nicht geladen werden. Bitte versuchen Sie es später erneut.');
+      });
+  }
+
+  function loadRequirements() {
+    return fetch(API_BASE + '/api/legal/booking-requirements')
+      .then(function (res) { if (!res.ok) throw new Error('HTTP ' + res.status); return res.json(); })
+      .then(function (data) {
+        consentsBox.innerHTML = '';
+        (data.requirements || []).forEach(function (req) {
+          var label = document.createElement('label');
+          label.className = 'consent';
+          var cb = document.createElement('input');
+          cb.type = 'checkbox';
+          cb.value = req.id;
+          cb.addEventListener('change', updateButton);
+          var text = document.createElement('span');
+          text.textContent = req.checkboxText; /* verbatim laut Vertrag */
+          label.appendChild(cb);
+          label.appendChild(text);
+          consentsBox.appendChild(label);
+        });
+        consentsLoaded = true;
+        updateButton();
+      })
+      .catch(function () {
+        consentsBox.innerHTML = '<p class="loading">Die rechtlichen Dokumente konnten nicht geladen werden.</p>';
+        showError('Die rechtlichen Dokumente konnten nicht geladen werden. Ohne Zustimmung ist keine Bestellung möglich – bitte versuchen Sie es später erneut.');
+      });
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (buyBtn.disabled) return;
+    clearError();
+    buyBtn.disabled = true;
+    buyBtn.textContent = 'Einen Moment…';
+
+    var acceptedIds = Array.prototype.map.call(
+      consentsBox.querySelectorAll('input[type="checkbox"]:checked'),
+      function (b) { return b.value; }
+    );
+
+    fetch(API_BASE + '/api/registration/start', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: emailInput.value.trim(),
+        priceId: priceId,
+        acceptedLegalRequirementIds: acceptedIds
+      })
+    })
+      .then(function (res) {
+        return res.json().catch(function () { return {}; }).then(function (data) {
+          if (res.status === 201 && data.url) {
+            window.location.href = data.url;
+            return;
+          }
+          if (res.status === 429) {
+            /* Rate-Limit: Meldung anzeigen, kein automatischer Retry */
+            showError(data.error || 'Zu viele Anfragen. Bitte versuchen Sie es später erneut.');
+          } else {
+            showError(data.error || 'Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.');
+          }
+          buyBtn.textContent = 'Kostenpflichtig bestellen';
+          updateButton();
+        });
+      })
+      .catch(function () {
+        showError('Verbindung fehlgeschlagen. Bitte prüfen Sie Ihre Internetverbindung und versuchen Sie es erneut.');
+        buyBtn.textContent = 'Kostenpflichtig bestellen';
+        updateButton();
+      });
+  });
+
+  emailInput.addEventListener('input', updateButton);
+
+  if (!planParam) {
+    titleEl.textContent = 'Kein Paket gewählt';
+    showError('Bitte wählen Sie zunächst ein Paket auf der Preisseite aus.');
+    loadRequirements();
+  } else {
+    loadPlan();
+    loadRequirements();
+  }
+</script>
+
+</body>
+</html>
