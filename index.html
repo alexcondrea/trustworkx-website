@@ -360,10 +360,280 @@
       align-items: center;
       gap: 20px;
       font-size: 17px;
+      width: 100%;
+      text-align: left;
+      font-family: inherit;
+      cursor: pointer;
+      transition: border-color .2s ease, background .2s ease, transform .2s ease;
     }
+    .dashboard:hover, .dashboard:focus-visible {
+      background: linear-gradient(135deg, rgba(46,196,182,.16), rgba(46,196,182,.08));
+      border-color: rgba(46,196,182,.45);
+      transform: translateY(-1px);
+    }
+    .dashboard:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
     .dashboard svg { color: var(--teal); flex-shrink: 0; }
     .dashboard strong { font-size: 19px; color: var(--navy); }
     .dashboard span { color: var(--muted); font-size: 15px; }
+    .dashboard-link {
+      margin-left: auto;
+      flex-shrink: 0;
+      color: var(--teal) !important;
+      font-weight: 700;
+      font-size: 15px !important;
+      font-family: var(--mono);
+      white-space: nowrap;
+    }
+
+    /* ─── DASHBOARD PREVIEW MODAL ─── */
+    .dm-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(5,15,30,.72);
+      -webkit-backdrop-filter: blur(6px);
+      backdrop-filter: blur(6px);
+      opacity: 0;
+      transition: opacity 220ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .dm-overlay.open { opacity: 1; }
+    .dm-overlay[hidden] { display: none; }
+    .dm-modal {
+      width: min(92vw, 1100px);
+      max-height: 88vh;
+      overflow-y: auto;
+      background: linear-gradient(160deg, #0d2342 0%, #0B1F3B 45%, #081729 100%);
+      border: 1px solid rgba(46,196,182,.25);
+      border-radius: 22px;
+      box-shadow: 0 40px 90px rgba(2,8,18,.6), 0 12px 30px rgba(2,8,18,.4);
+      padding: 36px;
+      position: relative;
+      color: #fff;
+      transform: translateY(8px);
+      opacity: 0;
+      transition: opacity 220ms cubic-bezier(0.22, 1, 0.36, 1), transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .dm-overlay.open .dm-modal { transform: translateY(0); opacity: 1; }
+    .dm-close {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      z-index: 5;
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.06);
+      color: #d8e8ef;
+      font-size: 18px;
+      line-height: 1;
+      cursor: pointer;
+      transition: background .2s, border-color .2s, color .2s;
+    }
+    .dm-close:hover, .dm-close:focus-visible { background: rgba(46,196,182,.15); border-color: rgba(46,196,182,.5); color: #fff; }
+    .dm-eyebrow {
+      font-family: var(--mono);
+      color: var(--teal);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: .18em;
+      font-size: 12px;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    .dm-title { font-size: 28px; font-weight: 900; letter-spacing: -.5px; text-align: center; }
+    .dm-sub { color: #c8dce5; font-size: 15px; text-align: center; margin: 6px 0 28px; }
+
+    /* Staged product views */
+    .dm-stage { position: relative; padding-bottom: 12px; }
+    .dm-screen {
+      background: var(--bg);
+      color: var(--text);
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 16px;
+      box-shadow: 0 24px 60px rgba(2,8,18,.55);
+      overflow: hidden;
+      font-size: 12px;
+      line-height: 1.4;
+    }
+    .dm-screen-main {
+      position: relative;
+      z-index: 2;
+      width: 78%;
+      display: flex;
+    }
+    .dm-screen-projects {
+      position: absolute;
+      z-index: 1;
+      right: 0;
+      top: 44px;
+      width: 50%;
+      transform: rotate(1.5deg);
+      filter: brightness(.92);
+    }
+    /* Sidebar of the mini app */
+    .dm-side {
+      background: linear-gradient(180deg, #0B1F3B, #081729);
+      color: #b9cbd6;
+      padding: 14px 0;
+      width: 138px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+    }
+    .dm-side img { height: 20px; width: auto; margin: 2px 14px 14px; display: block; }
+    .dm-side a {
+      display: block;
+      padding: 7px 14px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #b9cbd6;
+      border-left: 2px solid transparent;
+    }
+    .dm-side a.on {
+      color: #fff;
+      background: rgba(46,196,182,.14);
+      border-left-color: var(--teal);
+    }
+    .dm-main { flex: 1; padding: 14px 16px 16px; min-width: 0; }
+    .dm-hello { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+    .dm-hello strong { font-size: 15px; color: var(--navy); display: block; }
+    .dm-hello em { font-style: normal; color: var(--muted); font-size: 11px; }
+    .dm-bell { color: var(--muted); flex-shrink: 0; margin-top: 2px; }
+    .dm-cards { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 8px; margin-top: 12px; }
+    .dm-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px 12px;
+    }
+    .dm-card h5 { font-size: 10px; color: var(--muted); font-weight: 600; margin-bottom: 4px; }
+    .dm-card .big { font-family: var(--mono); font-weight: 700; font-size: 15px; color: var(--navy); }
+    .dm-card .tiny { font-size: 10px; color: var(--muted); }
+    .dm-pill {
+      display: inline-block;
+      margin-top: 6px;
+      background: var(--teal);
+      color: #fff;
+      font-size: 9.5px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 5px;
+    }
+    .dm-bar { height: 4px; background: #e4ebf1; border-radius: 3px; margin-top: 7px; overflow: hidden; }
+    .dm-bar i { display: block; height: 100%; background: var(--teal); border-radius: 3px; }
+    .dm-sect { font-size: 11px; font-weight: 800; color: var(--navy); margin: 14px 0 7px; }
+    .dm-tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+    .dm-tile {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 9px 11px;
+      transition: border-color .3s ease, box-shadow .3s ease;
+    }
+    .dm-tile h5 { font-size: 9.5px; color: var(--muted); font-weight: 600; margin-bottom: 2px; }
+    .dm-tile .num { font-family: var(--mono); font-weight: 700; font-size: 17px; color: var(--navy); }
+    .dm-tile .lbl { font-size: 9.5px; color: var(--teal); font-weight: 700; }
+    .dm-tile.hl { border-color: rgba(46,196,182,.6); box-shadow: 0 0 0 3px rgba(46,196,182,.12); }
+    .dm-count { display: inline-block; }
+    .dm-count.pop { animation: dm-pop 450ms cubic-bezier(0.22, 1, 0.36, 1); }
+    @keyframes dm-pop {
+      0% { opacity: 0; transform: translateY(8px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    /* status line under the tiles */
+    .dm-status {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin-top: 10px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--navy);
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 250ms cubic-bezier(0.22, 1, 0.36, 1), transform 250ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .dm-status.show { opacity: 1; transform: translateY(0); }
+    .dm-status .dm-check {
+      display: none;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background: var(--teal);
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .dm-status.done .dm-check { display: inline-flex; align-items: center; justify-content: center; }
+    .dm-status .dm-spin {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--teal);
+      flex-shrink: 0;
+    }
+    .dm-status.done .dm-spin { display: none; }
+    /* notification, top right of the main screen */
+    .dm-notify {
+      position: absolute;
+      z-index: 3;
+      top: 10px;
+      right: 24.5%;
+      margin-right: 10px;
+      background: #fff;
+      color: var(--navy);
+      border: 1px solid rgba(46,196,182,.5);
+      border-left: 3px solid var(--teal);
+      border-radius: 9px;
+      box-shadow: 0 10px 28px rgba(2,8,18,.35);
+      padding: 8px 12px;
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      opacity: 0;
+      transform: translateY(-8px);
+      transition: opacity 250ms cubic-bezier(0.22, 1, 0.36, 1), transform 250ms cubic-bezier(0.22, 1, 0.36, 1);
+      pointer-events: none;
+    }
+    .dm-notify.show { opacity: 1; transform: translateY(0); }
+    .dm-notify svg { color: var(--teal); flex-shrink: 0; }
+    /* second view: projects */
+    .dm-proj { padding: 12px 14px; background: #fff; }
+    .dm-proj h4 { font-size: 13px; color: var(--navy); margin-bottom: 8px; }
+    .dm-proj table { width: 100%; border-collapse: collapse; font-size: 10.5px; }
+    .dm-proj th { text-align: left; color: var(--muted); font-weight: 600; padding: 4px 4px; border-bottom: 1px solid var(--line); }
+    .dm-proj td { padding: 5px 4px; border-bottom: 1px solid #edf2f6; color: var(--text); }
+    .dm-badge { font-size: 9px; font-weight: 700; padding: 2px 7px; border-radius: 20px; white-space: nowrap; }
+    .dm-badge.ok { background: rgba(46,196,182,.15); color: #1d968b; }
+    .dm-badge.wait { background: #f2f5f8; color: var(--muted); border: 1px solid var(--line); }
+    .dm-proj .tiny { font-size: 10px; color: var(--muted); margin-top: 8px; }
+
+    /* Modal responsive */
+    @media (max-width: 1023px) {
+      .dm-screen-main { width: 88%; }
+      .dm-screen-projects { width: 46%; top: 60px; transform: rotate(1deg); }
+      .dm-notify { right: 14.5%; }
+    }
+    @media (max-width: 767px) {
+      .dm-modal { width: calc(100vw - 24px); padding: 20px 18px; border-radius: 18px; }
+      .dm-title { font-size: 21px; }
+      .dm-sub { margin-bottom: 18px; }
+      .dm-screen-projects { display: none; }
+      .dm-screen-main { width: 100%; }
+      .dm-side { display: none; }
+      .dm-cards { grid-template-columns: 1fr 1fr; }
+      .dm-tiles { grid-template-columns: 1fr 1fr; }
+      .dm-notify { right: 8px; top: -12px; }
+      .dm-close { top: 12px; right: 12px; }
+    }
+    /* Reduced motion: show content directly, no movement */
+    @media (prefers-reduced-motion: reduce) {
+      .dm-overlay, .dm-modal, .dm-notify, .dm-status, .dm-tile { transition: none; }
+      .dm-count.pop { animation: none; }
+    }
 
     /* ─── HOW IT WORKS – ZEITSTRAHL ─── */
     .how-section { background: #fff; }
@@ -1061,14 +1331,15 @@
       </div>
     </div>
 
-    <!-- Dashboard strip -->
-    <div class="dashboard">
+    <!-- Dashboard strip (opens the dashboard preview modal) -->
+    <button type="button" class="dashboard" id="dashboardBanner" aria-haspopup="dialog" aria-controls="dashboardModal">
       <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
       <div>
         <strong>Ihr eigenes Dashboard.</strong>
         <span style="margin-left:8px">Verwalten Sie Netzwerkaktivitäten, Projektanfragen, Kooperationen und Ihre Auslastung zentral an einem Ort.</span>
       </div>
-    </div>
+      <span class="dashboard-link">Dashboard ansehen&nbsp;→</span>
+    </button>
   </div>
 </section>
 
@@ -1496,6 +1767,112 @@
   </div>
 </footer>
 
+<!-- ═══════════════════════════ DASHBOARD PREVIEW MODAL ═══ -->
+<div class="dm-overlay" id="dashboardModal" role="dialog" aria-modal="true" aria-labelledby="dmTitle" aria-describedby="dmSub" hidden>
+  <div class="dm-modal">
+    <button type="button" class="dm-close" id="dmClose" aria-label="Dashboard-Vorschau schließen">✕</button>
+    <p class="dm-eyebrow">Ihr Dashboard in Aktion</p>
+    <h3 class="dm-title" id="dmTitle">So behalten Sie alles im Blick.</h3>
+    <p class="dm-sub" id="dmSub">Projekte, Anfragen und Kooperationen zentral verwalten.</p>
+
+    <div class="dm-stage">
+      <!-- Second view: small project overview, offset behind right -->
+      <div class="dm-screen dm-screen-projects" aria-hidden="true">
+        <div class="dm-proj">
+          <h4>Projekte</h4>
+          <table>
+            <tr><th>Titel</th><th>Status</th><th>Bewerbungen</th></tr>
+            <tr><td>IT-Infrastruktur Migration</td><td><span class="dm-badge ok">Aktiv</span></td><td>5</td></tr>
+            <tr><td>Microsoft 365 Rollout</td><td><span class="dm-badge ok">Aktiv</span></td><td>3</td></tr>
+            <tr><td>IT-Infrastruktur Update</td><td><span class="dm-badge wait">In Prüfung</span></td><td>2</td></tr>
+            <tr><td>Cloud Backup Lösung</td><td><span class="dm-badge wait">Abgeschlossen</span></td><td>7</td></tr>
+          </table>
+          <p class="tiny">Verbleibende Projekte (Jahr): 4 / 10</p>
+          <div class="dm-bar"><i style="width:40%"></i></div>
+        </div>
+      </div>
+
+      <!-- Main view: dashboard start page -->
+      <div class="dm-screen dm-screen-main">
+        <div class="dm-side" aria-hidden="true">
+          <img src="https://assets.cdn.filesafe.space/zX4w9KMO5mq76LaNi9KH/media/6a3fbc5789d9cd8dc2cb8b9b.svg" alt="">
+          <a class="on">Dashboard</a>
+          <a>Projekte</a>
+          <a>Bewerbungen</a>
+          <a>Matching-Anfragen</a>
+          <a>Unternehmen</a>
+          <a>Nachrichten</a>
+          <a>Einstellungen</a>
+          <a>Hilfe &amp; Support</a>
+        </div>
+        <div class="dm-main">
+          <div class="dm-hello">
+            <div>
+              <strong>Willkommen, Max Mustermann!</strong>
+              <em>Schön, dass Sie da sind.</em>
+            </div>
+            <svg class="dm-bell" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          </div>
+          <div class="dm-cards">
+            <div class="dm-card">
+              <h5>Aktuelles Paket</h5>
+              <span class="big">GROWTH</span>
+              <div class="tiny">149 € / Monat</div>
+              <span class="dm-pill">Paket verwalten</span>
+            </div>
+            <div class="dm-card">
+              <h5>Projekte (Jahr)</h5>
+              <span class="big">4 / 10</span>
+              <div class="tiny">40 % genutzt</div>
+              <div class="dm-bar"><i style="width:40%"></i></div>
+            </div>
+            <div class="dm-card">
+              <h5>Bewerbungen (Jahr)</h5>
+              <span class="big">4 / 10</span>
+              <div class="tiny">40 % genutzt</div>
+              <div class="dm-bar"><i style="width:40%"></i></div>
+            </div>
+          </div>
+          <p class="dm-sect">Übersicht</p>
+          <div class="dm-tiles">
+            <div class="dm-tile" id="dmMatchTile">
+              <h5>Matching-Anfragen</h5>
+              <span class="num"><span class="dm-count" id="dmCount">1</span></span>
+              <div class="lbl">Neu</div>
+            </div>
+            <div class="dm-tile">
+              <h5>Offene Projekte</h5>
+              <span class="num">3</span>
+              <div class="lbl">Anzeigen</div>
+            </div>
+            <div class="dm-tile">
+              <h5>Aktive Bewertungen</h5>
+              <span class="num">2</span>
+              <div class="lbl">Anzeigen</div>
+            </div>
+            <div class="dm-tile">
+              <h5>Nachrichten</h5>
+              <span class="num">1</span>
+              <div class="lbl">Ungelesen</div>
+            </div>
+          </div>
+          <div class="dm-status" id="dmStatus">
+            <span class="dm-spin"></span>
+            <span class="dm-check"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span id="dmStatusText"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- One-time notification, top right of the dashboard -->
+      <div class="dm-notify" id="dmNotify" aria-hidden="true">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        Neue Matching-Anfrage eingegangen
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
   // ── Pricing toggle ──────────────────────────────────────────
   let isYearly = false;
@@ -1684,6 +2061,93 @@
     }
 
     setTimeout(runCycle, 900);
+  })();
+
+  /* ─── DASHBOARD PREVIEW MODAL ───
+     Banner click opens the dialog; a small product animation runs exactly
+     once per opening (timeline per briefing), then the preview stays calm. */
+  (function() {
+    var banner  = document.getElementById('dashboardBanner');
+    var overlay = document.getElementById('dashboardModal');
+    if (!banner || !overlay) return;
+    var closeBtn   = document.getElementById('dmClose');
+    var notify     = document.getElementById('dmNotify');
+    var count      = document.getElementById('dmCount');
+    var matchTile  = document.getElementById('dmMatchTile');
+    var status     = document.getElementById('dmStatus');
+    var statusText = document.getElementById('dmStatusText');
+    var timers = [];
+    var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function later(fn, ms) { timers.push(setTimeout(fn, ms)); }
+
+    function resetAnimation() {
+      timers.forEach(clearTimeout);
+      timers = [];
+      notify.classList.remove('show');
+      count.textContent = '1';
+      count.classList.remove('pop');
+      matchTile.classList.remove('hl');
+      status.classList.remove('show', 'done');
+      statusText.textContent = '';
+    }
+
+    function showFinalState() {
+      notify.classList.add('show');
+      count.textContent = '2';
+      status.classList.add('show', 'done');
+      statusText.textContent = 'Bereit zur Kontaktaufnahme';
+    }
+
+    // Timeline: 700ms notification → 1100ms counter 1→2 → 1700ms "analysiert"
+    // → 2700ms "Partner gefunden" → 3700ms "Bereit zur Kontaktaufnahme" + check.
+    function runAnimation() {
+      later(function() { notify.classList.add('show'); }, 700);
+      later(function() {
+        count.textContent = '2';
+        count.classList.add('pop');
+        matchTile.classList.add('hl');
+      }, 1100);
+      later(function() {
+        status.classList.add('show');
+        statusText.textContent = 'Anfrage wird analysiert …';
+      }, 1700);
+      later(function() { statusText.textContent = 'Passender Partner gefunden'; }, 2700);
+      later(function() {
+        status.classList.add('done');
+        statusText.textContent = 'Bereit zur Kontaktaufnahme';
+        matchTile.classList.remove('hl');
+      }, 3700);
+    }
+
+    function onKeydown(e) { if (e.key === 'Escape') closeModal(); }
+
+    function openModal() {
+      resetAnimation();
+      overlay.hidden = false;
+      // next frame so the open transition can play
+      requestAnimationFrame(function() { requestAnimationFrame(function() {
+        overlay.classList.add('open');
+      }); });
+      document.body.style.overflow = 'hidden';
+      document.addEventListener('keydown', onKeydown);
+      closeBtn.focus();
+      if (reduced) { showFinalState(); } else { runAnimation(); }
+    }
+
+    function closeModal() {
+      resetAnimation();
+      overlay.classList.remove('open');
+      overlay.hidden = true;
+      document.body.style.overflow = '';
+      document.removeEventListener('keydown', onKeydown);
+      banner.focus();
+    }
+
+    banner.addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModal);
+    // click on the dark overlay closes; clicks inside the modal do not
+    overlay.addEventListener('click', function(e) { if (e.target === overlay) closeModal(); });
   })();
 
   function toggleFaq(btn) {
