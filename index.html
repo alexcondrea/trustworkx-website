@@ -829,6 +829,33 @@
       box-shadow: 0 10px 30px rgba(46,196,182,.25);
       transform: translateY(-5px);
     }
+    /* Glow, wenn der Lichtpunkt den Kreis passiert – synchron zur 9s-ztPulse-Animation.
+       Punkt-Positionen an den Kreisen: 0 / 15.6 / 31.2 / 46.8 / 62.4 / 78 Prozent des Zyklus. */
+    .zt-circle::after {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      border-radius: 50%;
+      pointer-events: none;
+      opacity: 0;
+      box-shadow: 0 0 0 7px rgba(46,196,182,.14), 0 0 30px 6px rgba(46,196,182,.5);
+      animation: 9s linear infinite;
+    }
+    .zt-step:nth-child(1) .zt-circle::after { animation-name: ztGlow1; }
+    .zt-step:nth-child(2) .zt-circle::after { animation-name: ztGlow2; }
+    .zt-step:nth-child(3) .zt-circle::after { animation-name: ztGlow3; }
+    .zt-step:nth-child(4) .zt-circle::after { animation-name: ztGlow4; }
+    .zt-step:nth-child(5) .zt-circle::after { animation-name: ztGlow5; }
+    .zt-step:nth-child(6) .zt-circle::after { animation-name: ztGlow6; }
+    @keyframes ztGlow1 { 0% { opacity: .9; } 5% { opacity: 0; } 96.5% { opacity: 0; } 100% { opacity: .9; } }
+    @keyframes ztGlow2 { 0%, 12.1% { opacity: 0; } 15.6% { opacity: .9; } 19.1%, 100% { opacity: 0; } }
+    @keyframes ztGlow3 { 0%, 27.7% { opacity: 0; } 31.2% { opacity: .9; } 34.7%, 100% { opacity: 0; } }
+    @keyframes ztGlow4 { 0%, 43.3% { opacity: 0; } 46.8% { opacity: .9; } 50.3%, 100% { opacity: 0; } }
+    @keyframes ztGlow5 { 0%, 58.9% { opacity: 0; } 62.4% { opacity: .9; } 65.9%, 100% { opacity: 0; } }
+    @keyframes ztGlow6 { 0%, 74.5% { opacity: 0; } 78% { opacity: .9; } 81.5%, 100% { opacity: 0; } }
+    @media (prefers-reduced-motion: reduce) {
+      .zt-circle::after { animation: none; }
+    }
     .zt-badge {
       position: absolute;
       top: -7px; right: -4px;
@@ -871,6 +898,7 @@
     @media (max-width: 960px) {
       .zt-steps { grid-template-columns: repeat(3, 1fr); gap: 16px 24px; }
       .zt-track { display: none; }
+      .zt-circle::after { animation: none; }
     }
 
     /* Mobile: vertical timeline */
