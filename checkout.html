@@ -7,36 +7,42 @@
   <meta name="robots" content="noindex" />
   <title>trustworkX – Mitglied werden</title>
   <link rel="icon" type="image/svg+xml" href="https://assets.cdn.filesafe.space/zX4w9KMO5mq76LaNi9KH/media/6a3fbc57c408020f97c464ab.svg">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/fonts/fonts.css">
   <style>
     :root {
       --navy: #0B1F3B;
       --teal: #2EC4B6;
       --teal-dark: #22a99d;
+      --text: #0B1F3B;
       --muted: #5f6b7a;
+      --bg: #F5F7FA;
+      --line: #dfe8ef;
       --sans: 'Inter', Arial, Helvetica, sans-serif;
       --mono: 'Geist Mono', ui-monospace, 'SF Mono', 'Courier New', monospace;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: var(--sans);
-      color: #fff;
+      color: var(--text);
       line-height: 1.5;
       min-height: 100vh;
       background:
-        radial-gradient(circle at 78% 20%, rgba(46,196,182,.20), transparent 34%),
-        radial-gradient(circle at 15% 85%, rgba(46,196,182,.10), transparent 30%),
+        radial-gradient(circle at 78% 20%, rgba(46,196,182,.16), transparent 34%),
+        radial-gradient(circle at 15% 85%, rgba(46,196,182,.08), transparent 30%),
         linear-gradient(135deg, #050f1e 0%, #091a32 55%, #050f1e 100%);
       display: flex;
       flex-direction: column;
     }
     a { text-decoration: none; color: inherit; }
     .container { width: min(1180px, 92%); margin: 0 auto; }
-    .topbar { padding: 24px 0; }
-    .logo-horizontal { height: 72px; width: auto; display: block; }
-    main { flex: 1; display: flex; align-items: flex-start; justify-content: center; padding: 12px 0 64px; }
+    /* Dunkle Kopfleiste wie auf den übrigen Unterseiten */
+    .topbar {
+      background: rgba(5,15,30,.96);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      padding: 10px 0;
+    }
+    .logo-horizontal { height: 52px; width: auto; display: block; }
+    main { flex: 1; display: flex; align-items: flex-start; justify-content: center; padding: 40px 0 72px; }
     .checkout-wrap { width: min(520px, 92%); }
     .back {
       display: inline-block;
@@ -48,8 +54,8 @@
     }
     .back:hover { color: var(--teal); }
     .card {
-      background: linear-gradient(135deg, #071629, #0d2343);
-      border: 1px solid rgba(46,196,182,.28);
+      background: #fff;
+      border: 1px solid var(--line);
       border-radius: 18px;
       padding: 36px 34px 30px;
       box-shadow: 0 30px 70px rgba(2,8,18,.55);
@@ -63,47 +69,47 @@
       color: var(--teal);
       margin-bottom: 8px;
     }
-    h1 { font-size: 24px; font-weight: 900; letter-spacing: -.5px; margin-bottom: 4px; }
+    h1 { font-size: 24px; font-weight: 900; letter-spacing: -.5px; margin-bottom: 4px; color: var(--navy); }
     h1 .plan-name { font-family: var(--mono); color: var(--teal); }
     .plan-price {
       font-family: var(--mono);
       font-size: 17px;
       font-weight: 600;
-      color: #d8e8ef;
+      color: #33414f;
       margin-bottom: 6px;
     }
-    .plan-desc { font-size: 14px; color: #b8c8d4; margin-bottom: 24px; }
+    .plan-desc { font-size: 14px; color: var(--muted); margin-bottom: 24px; }
     form { display: flex; flex-direction: column; }
     label.field-label {
       font-family: var(--mono);
       font-size: 12px;
       letter-spacing: .04em;
-      color: #c8dce5;
+      color: var(--muted);
       margin-bottom: 7px;
     }
     input[type="email"] {
       width: 100%;
       padding: 13px 15px;
       margin-bottom: 20px;
-      background: rgba(255,255,255,.04);
-      border: 1.5px solid rgba(255,255,255,.16);
+      background: #fff;
+      border: 1.5px solid var(--line);
       border-radius: 9px;
-      color: #fff;
+      color: var(--text);
       font-size: 15px;
       font-family: var(--sans);
       transition: border-color .15s, background .15s;
       outline: none;
     }
-    input[type="email"]::placeholder { color: #6c7f8f; }
-    input[type="email"]:focus { border-color: var(--teal); background: rgba(46,196,182,.06); }
+    input[type="email"]::placeholder { color: #9aa8b5; }
+    input[type="email"]:focus { border-color: var(--teal); background: rgba(46,196,182,.04); }
     .consents { margin-bottom: 20px; }
-    .consents .loading { font-size: 13.5px; color: #8fa8b8; }
+    .consents .loading { font-size: 13.5px; color: var(--muted); }
     label.consent {
       display: flex;
       align-items: flex-start;
       gap: 10px;
       font-size: 13.5px;
-      color: #b8c8d4;
+      color: #33414f;
       line-height: 1.55;
       margin-bottom: 12px;
       cursor: pointer;
@@ -115,10 +121,10 @@
       flex-shrink: 0;
     }
     .error {
-      background: rgba(224, 90, 90, .12);
-      border: 1px solid rgba(224, 90, 90, .45);
+      background: #fdeeee;
+      border: 1px solid #f0bcbc;
       border-radius: 9px;
-      color: #ffb4b4;
+      color: #a83a3a;
       font-size: 13.5px;
       line-height: 1.55;
       padding: 12px 14px;
@@ -146,7 +152,7 @@
     .btn:disabled { opacity: .45; cursor: not-allowed; box-shadow: none; }
     .note {
       font-size: 12.5px;
-      color: #8fa8b8;
+      color: var(--muted);
       line-height: 1.6;
       margin-top: 16px;
       text-align: center;
@@ -154,23 +160,43 @@
     .card-foot {
       text-align: center;
       font-size: 13.5px;
-      color: #8ba0b4;
+      color: var(--muted);
       margin-top: 22px;
       padding-top: 20px;
-      border-top: 1px solid rgba(255,255,255,.08);
+      border-top: 1px solid var(--line);
     }
     .card-foot a { color: var(--teal); font-weight: 700; }
     .card-foot a:hover { text-decoration: underline; }
+    /* ─── FOOTER (wie Unterseiten) ─── */
+    footer {
+      background: #040d1c;
+      color: #cdd8df;
+      padding: 32px 0 24px;
+    }
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+    footer a { font-size: 13.5px; color: #8fa4b0; transition: color .15s; }
+    footer a:hover { color: var(--teal); }
+    .logo-horizontal-footer { height: 30px; width: auto; display: block; }
+    .footer-divider { border: none; border-top: 1px solid rgba(255,255,255,.07); margin-bottom: 20px; }
     .copyright {
       font-family: var(--mono);
       text-align: center;
-      color: #4d6070;
+      color: #7b90a0;
       font-size: 13px;
-      padding: 0 0 24px;
+      letter-spacing: .02em;
     }
     @media (max-width: 600px) {
-      .logo-horizontal { height: 56px; }
+      .logo-horizontal { height: 40px; }
       .card { padding: 28px 20px 24px; }
+      main { padding-top: 28px; }
     }
   </style>
 </head>
@@ -212,7 +238,21 @@
   </div>
 </main>
 
-<p class="copyright">© 2025 TrustworkX. Alle Rechte vorbehalten.</p>
+<footer>
+  <div class="container">
+    <div class="footer-row">
+      <img class="logo-horizontal-footer" src="https://assets.cdn.filesafe.space/zX4w9KMO5mq76LaNi9KH/media/6a3fbc5789d9cd8dc2cb8b9b.svg" alt="trustworkX Logo" />
+      <div class="footer-links">
+        <a href="/impressum.html">Impressum</a>
+        <a href="/datenschutz.html">Datenschutz</a>
+        <a href="/agb.html">AGB</a>
+        <a href="/">Startseite</a>
+      </div>
+    </div>
+    <hr class="footer-divider">
+    <p class="copyright">© 2026 TrustworkX. Alle Rechte vorbehalten.</p>
+  </div>
+</footer>
 
 <script>
   // Integration laut HANDOVER_WEBSITE_AGENT.md (Pay-First Registration):

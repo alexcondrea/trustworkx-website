@@ -6,9 +6,7 @@
   <meta name="description" content="TrustworkX – Das kuratierte Netzwerk, das IT-Dienstleister bei Auslastung, Projektanfragen und Lieferfähigkeit verbindet. 0% Vermittlungsgebühr." />
   <title>trustworkX – Auslastung sichern. Lieferfähigkeit stärken.</title>
   <link rel="icon" type="image/svg+xml" href="https://assets.cdn.filesafe.space/zX4w9KMO5mq76LaNi9KH/media/6a3fbc57c408020f97c464ab.svg">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/fonts/fonts.css">
   <style>
     :root {
       --navy: #0B1F3B;
@@ -68,7 +66,7 @@
         radial-gradient(circle at 20% 70%, rgba(46,196,182,.10), transparent 28%),
         linear-gradient(135deg, #050f1e 0%, #091a32 55%, #050f1e 100%);
       color: #fff;
-      padding: 24px 0 56px;
+      padding: 122px 0 56px;
       overflow: hidden;
       position: relative;
     }
@@ -195,41 +193,44 @@
     }
     .network-svg {
       width: 100%;
-      max-width: 400px;
+      max-width: 480px;
       height: auto;
       display: block;
       margin: 0 auto;
     }
-    @keyframes dash {
-      to { stroke-dashoffset: -40; }
-    }
+    /* Thin, semi-transparent dashed connections; active line brightens briefly */
     .net-line {
       stroke: var(--teal);
-      stroke-width: 1.2;
-      stroke-dasharray: 6 4;
-      animation: dash 3s linear infinite;
-      opacity: .45;
+      stroke-width: 1.1;
+      stroke-dasharray: 5 5;
+      opacity: .25;
+      transition: opacity .35s ease;
     }
-    /* Signal-flow animation – nodes stay fixed, no scale pulse */
-    .net-node { opacity: 1; }
-    .node-glow {
-      fill: rgba(46,196,182,.18);
-      r: 34;
+    .net-line.active { opacity: .95; }
+    /* Nodes: soft ambient halo, filled dot, optional thin ring */
+    .n-halo { fill: var(--teal); opacity: .14; filter: url(#soft-glow); }
+    .n-ring { fill: none; stroke: rgba(46,196,182,.35); stroke-width: 1; }
+    .n-glow {
+      fill: rgba(46,196,182,.5);
       opacity: 0;
       transition: opacity .25s ease;
-      filter: url(#signal-glow);
+      filter: url(#soft-glow);
     }
     .center-glow {
-      fill: rgba(46,196,182,.22);
+      fill: rgba(46,196,182,.35);
       opacity: 0;
-      transition: opacity .25s ease;
-      filter: url(#signal-glow);
+      transition: opacity .3s ease;
+      filter: url(#soft-glow);
     }
-    .impulse-dot {
-      fill: #2EC4B6;
-      r: 4.5;
+    /* Light impulse: bright core with small glowing tail */
+    .impulse-dot { fill: var(--teal); opacity: 0; filter: url(#imp-glow); }
+    .impulse-core { fill: #F5F7FA; opacity: 0; }
+    .impulse-trail {
+      stroke: var(--teal);
+      stroke-width: 2.5;
+      stroke-linecap: round;
       opacity: 0;
-      filter: url(#signal-glow);
+      filter: url(#imp-glow);
     }
 
     /* ─── SECTIONS ─── */
@@ -357,10 +358,408 @@
       align-items: center;
       gap: 20px;
       font-size: 17px;
+      width: 100%;
+      text-align: left;
+      font-family: inherit;
+      cursor: pointer;
+      transition: border-color .2s ease, background .2s ease, transform .2s ease;
     }
+    .dashboard:hover, .dashboard:focus-visible {
+      background: linear-gradient(135deg, rgba(46,196,182,.16), rgba(46,196,182,.08));
+      border-color: rgba(46,196,182,.45);
+      transform: translateY(-1px);
+    }
+    .dashboard:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
     .dashboard svg { color: var(--teal); flex-shrink: 0; }
     .dashboard strong { font-size: 19px; color: var(--navy); }
     .dashboard span { color: var(--muted); font-size: 15px; }
+    .dashboard-link {
+      margin-left: auto;
+      flex-shrink: 0;
+      color: var(--teal) !important;
+      font-weight: 700;
+      font-size: 15px !important;
+      font-family: var(--mono);
+      white-space: nowrap;
+    }
+
+    /* ─── DASHBOARD PREVIEW MODAL ─── */
+    .dm-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(5,15,30,.72);
+      -webkit-backdrop-filter: blur(6px);
+      backdrop-filter: blur(6px);
+      opacity: 0;
+      transition: opacity 220ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .dm-overlay.open { opacity: 1; }
+    .dm-overlay[hidden] { display: none; }
+    .dm-modal {
+      width: min(92vw, 1100px);
+      max-height: 88vh;
+      overflow-y: auto;
+      background: linear-gradient(160deg, #0d2342 0%, #0B1F3B 45%, #081729 100%);
+      border: 1px solid rgba(46,196,182,.25);
+      border-radius: 22px;
+      box-shadow: 0 40px 90px rgba(2,8,18,.6), 0 12px 30px rgba(2,8,18,.4);
+      padding: 36px;
+      position: relative;
+      color: #fff;
+      transform: translateY(8px);
+      opacity: 0;
+      transition: opacity 220ms cubic-bezier(0.22, 1, 0.36, 1), transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .dm-overlay.open .dm-modal { transform: translateY(0); opacity: 1; }
+    .dm-close {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      z-index: 5;
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.06);
+      color: #d8e8ef;
+      font-size: 18px;
+      line-height: 1;
+      cursor: pointer;
+      transition: background .2s, border-color .2s, color .2s;
+    }
+    .dm-close:hover, .dm-close:focus-visible { background: rgba(46,196,182,.15); border-color: rgba(46,196,182,.5); color: #fff; }
+    .dm-eyebrow {
+      font-family: var(--mono);
+      color: var(--teal);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: .18em;
+      font-size: 12px;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    .dm-title { font-size: 28px; font-weight: 900; letter-spacing: -.5px; text-align: center; }
+    .dm-sub { color: #c8dce5; font-size: 15px; text-align: center; margin: 6px 0 28px; }
+
+    /* Staged product views — dark device frames on a softly lit stage */
+    .dm-stage { position: relative; padding: 6px 0 18px; perspective: 1600px; }
+    .dm-stage::before {
+      content: "";
+      position: absolute;
+      left: 8%;
+      right: 8%;
+      top: 30%;
+      bottom: 0;
+      background: radial-gradient(ellipse at 50% 80%, rgba(46,196,182,.14), transparent 65%);
+      filter: blur(18px);
+      pointer-events: none;
+    }
+    .dm-screen {
+      background: var(--bg);
+      color: var(--text);
+      border: 8px solid #0a1728;
+      border-radius: 18px;
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,.09),
+        0 34px 70px rgba(2,8,18,.65),
+        0 10px 24px rgba(2,8,18,.45);
+      overflow: hidden;
+      font-size: 12px;
+      line-height: 1.4;
+    }
+    .dm-screen {
+      transition: transform .5s cubic-bezier(0.22, 1, 0.36, 1), filter .5s ease,
+                  width .5s cubic-bezier(0.22, 1, 0.36, 1), right .5s cubic-bezier(0.22, 1, 0.36, 1),
+                  top .5s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .dm-screen-main {
+      position: relative;
+      z-index: 2;
+      width: 78%;
+      display: flex;
+      transform: rotateY(7deg) rotateX(2deg) rotate(-0.8deg);
+      transform-origin: left center;
+    }
+    .dm-screen-projects {
+      position: absolute;
+      z-index: 1;
+      right: 0;
+      top: 48px;
+      width: 52%;
+      display: flex;
+      transform: rotateY(-9deg) rotateX(1.5deg) rotate(1.2deg);
+      filter: brightness(.9);
+      cursor: pointer;
+    }
+    .dm-screen-projects:focus-visible { outline: 2px solid var(--teal); outline-offset: 4px; }
+    /* Getauschter Zustand: Projektübersicht vorn, Dashboard tritt zurück */
+    .dm-stage.swapped .dm-screen-projects {
+      z-index: 3;
+      width: 76%;
+      top: 0;
+      right: 6%;
+      transform: rotateY(-6deg) rotateX(2deg) rotate(.6deg);
+      filter: none;
+      cursor: default;
+    }
+    .dm-stage.swapped .dm-screen-main {
+      z-index: 1;
+      transform: rotateY(9deg) rotateX(1.5deg) rotate(-1deg) translateX(-3%) scale(.82);
+      filter: brightness(.9);
+      cursor: pointer;
+    }
+    /* Die Dashboard-Benachrichtigung gehört zur Hauptansicht –
+       ausblenden, solange die Projektübersicht vorn steht */
+    .dm-stage.swapped .dm-notify { opacity: 0; }
+    @media (prefers-reduced-motion: reduce) {
+      .dm-screen { transition: none; }
+    }
+    /* Sidebar of the mini app */
+    .dm-side {
+      background: linear-gradient(180deg, #0B1F3B, #081729);
+      color: #b9cbd6;
+      padding: 14px 0;
+      width: 138px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+    }
+    .dm-side img { height: 20px; width: auto; margin: 2px 14px 14px; display: block; }
+    .dm-side a {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 10px;
+      margin: 1px 8px;
+      border-radius: 7px;
+      font-size: 10.5px;
+      font-weight: 600;
+      color: #b9cbd6;
+    }
+    .dm-side a svg { flex-shrink: 0; opacity: .75; }
+    .dm-side a.on {
+      color: #fff;
+      background: linear-gradient(135deg, rgba(46,196,182,.35), rgba(46,196,182,.18));
+      box-shadow: inset 0 0 0 1px rgba(46,196,182,.35);
+    }
+    .dm-side a.on svg { opacity: 1; color: var(--teal); }
+    .dm-side-proj { width: 118px; }
+    .dm-main { flex: 1; padding: 14px 16px 16px; min-width: 0; }
+    .dm-hello { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+    .dm-hello strong { font-size: 15px; color: var(--navy); display: block; }
+    .dm-hello em { font-style: normal; color: var(--muted); font-size: 11px; }
+    .dm-user { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+    .dm-bell { color: var(--muted); position: relative; margin-top: 2px; }
+    .dm-bell i {
+      position: absolute;
+      top: -2px; right: -2px;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--teal);
+    }
+    .dm-avatar {
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--teal), #1d968b);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .dm-user .who { line-height: 1.25; }
+    .dm-user .who b { display: block; font-size: 10px; color: var(--navy); }
+    .dm-user .who small { font-size: 9px; color: var(--muted); }
+    .dm-cards { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 8px; margin-top: 12px; }
+    .dm-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px 12px;
+    }
+    .dm-card h5 { font-size: 10px; color: var(--muted); font-weight: 600; margin-bottom: 4px; }
+    .dm-card .big { font-family: var(--mono); font-weight: 700; font-size: 15px; color: var(--navy); }
+    .dm-card .tiny { font-size: 10px; color: var(--muted); }
+    .dm-pill {
+      display: inline-block;
+      margin-top: 6px;
+      background: var(--teal);
+      color: #fff;
+      font-size: 9.5px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 5px;
+    }
+    .dm-bar { height: 4px; background: #e4ebf1; border-radius: 3px; margin-top: 7px; overflow: hidden; }
+    .dm-bar i { display: block; height: 100%; background: var(--teal); border-radius: 3px; }
+    .dm-sect { font-size: 11px; font-weight: 800; color: var(--navy); margin: 14px 0 7px; }
+    .dm-tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+    .dm-tile {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 9px 11px;
+      transition: border-color .3s ease, box-shadow .3s ease;
+    }
+    .dm-tile h5 { font-size: 9.5px; color: var(--muted); font-weight: 600; margin-bottom: 2px; }
+    .dm-tile .num { font-family: var(--mono); font-weight: 700; font-size: 17px; color: var(--navy); }
+    .dm-tile .lbl { font-size: 9.5px; color: var(--teal); font-weight: 700; }
+    .dm-tile.hl { border-color: rgba(46,196,182,.6); box-shadow: 0 0 0 3px rgba(46,196,182,.12); }
+    .dm-count { display: inline-block; }
+    .dm-count.pop { animation: dm-pop 450ms cubic-bezier(0.22, 1, 0.36, 1); }
+    @keyframes dm-pop {
+      0% { opacity: 0; transform: translateY(8px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    /* status line under the tiles */
+    .dm-status {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin-top: 10px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--navy);
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 250ms cubic-bezier(0.22, 1, 0.36, 1), transform 250ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .dm-status.show { opacity: 1; transform: translateY(0); }
+    .dm-status .dm-check {
+      display: none;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background: var(--teal);
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .dm-status.done .dm-check { display: inline-flex; align-items: center; justify-content: center; }
+    .dm-status .dm-spin {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--teal);
+      flex-shrink: 0;
+    }
+    .dm-status.done .dm-spin { display: none; }
+    /* notification, top right of the main screen */
+    .dm-notify {
+      position: absolute;
+      z-index: 3;
+      top: 0;
+      right: 24.5%;
+      margin-right: 10px;
+      background: #fff;
+      color: var(--navy);
+      border: 1px solid rgba(46,196,182,.5);
+      border-left: 3px solid var(--teal);
+      border-radius: 9px;
+      box-shadow: 0 10px 28px rgba(2,8,18,.35);
+      padding: 8px 12px;
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      opacity: 0;
+      transform: translateY(-8px);
+      transition: opacity 250ms cubic-bezier(0.22, 1, 0.36, 1), transform 250ms cubic-bezier(0.22, 1, 0.36, 1);
+      pointer-events: none;
+    }
+    .dm-notify.show { opacity: 1; transform: translateY(0); }
+    .dm-notify svg { color: var(--teal); flex-shrink: 0; }
+    /* activities + tips row on the dashboard start page */
+    .dm-lower { display: grid; grid-template-columns: 1.5fr 1fr; gap: 8px; margin-top: 12px; align-items: start; }
+    .dm-acts { background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 9px 11px; }
+    .dm-acts h6, .dm-tips h6 { font-size: 10.5px; font-weight: 800; color: var(--navy); margin-bottom: 6px; }
+    .dm-act { display: flex; gap: 8px; align-items: flex-start; padding: 5px 0; border-bottom: 1px solid #edf2f6; }
+    .dm-act:last-child { border-bottom: none; padding-bottom: 0; }
+    .dm-act .ic {
+      width: 20px; height: 20px;
+      border-radius: 6px;
+      background: rgba(46,196,182,.12);
+      color: #1d968b;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .dm-act .tx { flex: 1; min-width: 0; }
+    .dm-act .tx b { display: block; font-size: 9.5px; color: var(--navy); }
+    .dm-act .tx small { font-size: 9px; color: var(--muted); font-style: italic; }
+    .dm-act .when { font-size: 8.5px; color: var(--muted); white-space: nowrap; margin-top: 2px; }
+    .dm-tips {
+      background: linear-gradient(135deg, rgba(46,196,182,.09), rgba(46,196,182,.04));
+      border: 1px solid rgba(46,196,182,.3);
+      border-radius: 10px;
+      padding: 9px 11px;
+    }
+    .dm-tips p { font-size: 9.5px; color: #33414f; line-height: 1.45; }
+    .dm-tips .go { display: inline-block; margin-top: 6px; font-size: 9.5px; font-weight: 700; color: #1d968b; }
+    /* second view: projects */
+    .dm-proj { padding: 12px 14px; background: var(--bg); flex: 1; min-width: 0; }
+    .dm-proj h4 { font-size: 13px; color: var(--navy); margin-bottom: 7px; }
+    .dm-proj-bar { display: flex; align-items: center; gap: 6px; margin-bottom: 8px; }
+    .dm-tab { font-size: 9.5px; font-weight: 700; color: var(--muted); padding: 4px 8px; border-radius: 6px; white-space: nowrap; }
+    .dm-tab.on { color: #1d968b; background: rgba(46,196,182,.14); }
+    .dm-search {
+      margin-left: auto;
+      display: flex; align-items: center; gap: 4px;
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 6px;
+      padding: 3px 7px;
+      font-size: 9px; color: var(--muted);
+      white-space: nowrap;
+    }
+    .dm-newbtn {
+      background: var(--teal);
+      color: #fff;
+      font-size: 9px; font-weight: 700;
+      border-radius: 6px;
+      padding: 4px 7px;
+      white-space: nowrap;
+    }
+    .dm-proj table { width: 100%; border-collapse: collapse; font-size: 10px; background: #fff; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+    .dm-proj th { text-align: left; color: var(--muted); font-weight: 600; padding: 5px 7px; border-bottom: 1px solid var(--line); background: #fbfcfd; }
+    .dm-proj td { padding: 6px 7px; border-bottom: 1px solid #edf2f6; color: var(--text); }
+    .dm-proj tr:last-child td { border-bottom: none; }
+    .dm-badge { font-size: 8.5px; font-weight: 700; padding: 2px 7px; border-radius: 20px; white-space: nowrap; }
+    .dm-badge.ok { background: rgba(46,196,182,.15); color: #1d968b; }
+    .dm-badge.warn { background: #fdf3e2; color: #b07c25; }
+    .dm-badge.wait { background: #f2f5f8; color: var(--muted); border: 1px solid var(--line); }
+    .dm-proj .tiny { font-size: 10px; color: var(--muted); margin-top: 9px; font-weight: 600; }
+    .dm-proj-foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .dm-proj-foot .all { font-size: 9px; font-weight: 700; color: #1d968b; white-space: nowrap; margin-top: 9px; }
+
+    /* Modal responsive */
+    @media (max-width: 1023px) {
+      .dm-screen-main { width: 88%; }
+      .dm-screen-projects { width: 46%; top: 60px; transform: rotate(1deg); }
+      .dm-notify { right: 14.5%; }
+    }
+    @media (max-width: 767px) {
+      .dm-modal { width: calc(100vw - 24px); padding: 20px 18px; border-radius: 18px; }
+      .dm-title { font-size: 21px; }
+      .dm-sub { margin-bottom: 18px; }
+      .dm-screen-projects { display: none; }
+      .dm-screen-main { width: 100%; transform: none; }
+      .dm-side { display: none; }
+      .dm-cards { grid-template-columns: 1fr 1fr; }
+      .dm-tiles { grid-template-columns: 1fr 1fr; }
+      .dm-lower { grid-template-columns: 1fr; }
+      .dm-user .who { display: none; }
+      .dm-notify { right: 8px; top: -12px; }
+      .dm-close { top: 12px; right: 12px; }
+    }
+    /* Reduced motion: show content directly, no movement */
+    @media (prefers-reduced-motion: reduce) {
+      .dm-overlay, .dm-modal, .dm-notify, .dm-status, .dm-tile { transition: none; }
+      .dm-count.pop { animation: none; }
+    }
 
     /* ─── HOW IT WORKS – ZEITSTRAHL ─── */
     .how-section { background: #fff; }
@@ -385,24 +784,41 @@
       pointer-events: none;
     }
 
-    /* Dashed animated stripe on the track */
-    .zt-track::after {
+    /* Flowing light impulse along the track (step 1 → 6), like the hero animation */
+    .zt-pulse {
+      position: absolute;
+      top: 50%;
+      left: 0%;
+      width: 14px;
+      height: 14px;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background: radial-gradient(circle, #F5F7FA 0%, var(--teal) 40%, rgba(46,196,182,0) 72%);
+      box-shadow: 0 0 12px 2px rgba(46,196,182,.55);
+      opacity: 0;
+      animation: ztPulse 9s linear infinite;
+    }
+    /* small tail behind the dot */
+    .zt-pulse::before {
       content: "";
       position: absolute;
-      inset: 0;
-      background: repeating-linear-gradient(
-        90deg,
-        rgba(46,196,182,.6) 0px,
-        rgba(46,196,182,.6) 6px,
-        transparent 6px,
-        transparent 14px
-      );
-      background-size: 200% 100%;
-      animation: trackFlow 3s linear infinite;
+      right: 55%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 30px;
+      height: 2.5px;
+      border-radius: 3px;
+      background: linear-gradient(270deg, rgba(46,196,182,.6), rgba(46,196,182,0));
     }
-    @keyframes trackFlow {
-      0%   { background-position: 0 0; }
-      100% { background-position: -200px 0; }
+    @keyframes ztPulse {
+      0%   { left: 0%;   opacity: 0; }
+      4%   { opacity: 1; }
+      72%  { opacity: 1; }
+      78%  { left: 100%; opacity: 0; }
+      100% { left: 100%; opacity: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .zt-pulse { display: none; }
     }
 
     .zt-steps {
@@ -442,6 +858,33 @@
       border-color: var(--teal);
       box-shadow: 0 10px 30px rgba(46,196,182,.25);
       transform: translateY(-5px);
+    }
+    /* Glow, wenn der Lichtpunkt den Kreis passiert – synchron zur 9s-ztPulse-Animation.
+       Punkt-Positionen an den Kreisen: 0 / 15.6 / 31.2 / 46.8 / 62.4 / 78 Prozent des Zyklus. */
+    .zt-circle::after {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      border-radius: 50%;
+      pointer-events: none;
+      opacity: 0;
+      box-shadow: 0 0 0 7px rgba(46,196,182,.14), 0 0 30px 6px rgba(46,196,182,.5);
+      animation: 9s linear infinite;
+    }
+    .zt-step:nth-child(1) .zt-circle::after { animation-name: ztGlow1; }
+    .zt-step:nth-child(2) .zt-circle::after { animation-name: ztGlow2; }
+    .zt-step:nth-child(3) .zt-circle::after { animation-name: ztGlow3; }
+    .zt-step:nth-child(4) .zt-circle::after { animation-name: ztGlow4; }
+    .zt-step:nth-child(5) .zt-circle::after { animation-name: ztGlow5; }
+    .zt-step:nth-child(6) .zt-circle::after { animation-name: ztGlow6; }
+    @keyframes ztGlow1 { 0% { opacity: .9; } 5% { opacity: 0; } 96.5% { opacity: 0; } 100% { opacity: .9; } }
+    @keyframes ztGlow2 { 0%, 12.1% { opacity: 0; } 15.6% { opacity: .9; } 19.1%, 100% { opacity: 0; } }
+    @keyframes ztGlow3 { 0%, 27.7% { opacity: 0; } 31.2% { opacity: .9; } 34.7%, 100% { opacity: 0; } }
+    @keyframes ztGlow4 { 0%, 43.3% { opacity: 0; } 46.8% { opacity: .9; } 50.3%, 100% { opacity: 0; } }
+    @keyframes ztGlow5 { 0%, 58.9% { opacity: 0; } 62.4% { opacity: .9; } 65.9%, 100% { opacity: 0; } }
+    @keyframes ztGlow6 { 0%, 74.5% { opacity: 0; } 78% { opacity: .9; } 81.5%, 100% { opacity: 0; } }
+    @media (prefers-reduced-motion: reduce) {
+      .zt-circle::after { animation: none; }
     }
     .zt-badge {
       position: absolute;
@@ -485,6 +928,7 @@
     @media (max-width: 960px) {
       .zt-steps { grid-template-columns: repeat(3, 1fr); gap: 16px 24px; }
       .zt-track { display: none; }
+      .zt-circle::after { animation: none; }
     }
 
     /* Mobile: vertical timeline */
@@ -588,6 +1032,16 @@
       border: 2px solid var(--teal);
       box-shadow: 0 12px 36px rgba(46,196,182,.18);
     }
+    /* Zeilen (Icon, Titel, Beschreibung, Preis, Features, Button) über alle
+       Karten hinweg auf gleicher Höhe ausrichten – unabhängig von Textlängen. */
+    @supports (grid-template-rows: subgrid) {
+      .price-card {
+        display: grid;
+        grid-template-rows: subgrid;
+        grid-row: span 8;
+        align-content: start;
+      }
+    }
     .badge {
       position: absolute;
       top: -13px;
@@ -619,7 +1073,7 @@
     .price-amount { font-size: 28px; font-weight: 900; color: var(--navy); }
     .price-period { font-size: 14px; font-weight: 600; color: var(--muted); }
     .price-yearly { font-size: 13px; color: var(--muted); margin-bottom: 22px; margin-top: 2px; }
-    .price-yearly .save { color: var(--teal-dark); font-weight: 700; }
+    .price-yearly .save { color: var(--teal); font-weight: 700; }
     ul.features { list-style: none; padding: 0; margin: 0 0 24px; flex: 1; }
     ul.features li {
       margin: 10px 0;
@@ -691,7 +1145,7 @@
     .footer-brand .brand-x { color: var(--teal); }
     .footer-desc { font-size: 13.5px; color: #6a808e; line-height: 1.6; max-width: 260px; }
     .footer-divider { border: none; border-top: 1px solid rgba(255,255,255,.07); margin-bottom: 20px; }
-    .copyright { text-align: center; color: #4d6070; font-size: 13px; }
+    .copyright { text-align: center; color: #7b90a0; font-size: 13px; }
     .social-link {
       display: inline-flex;
       align-items: center;
@@ -755,16 +1209,21 @@
       .pricing-grid { grid-template-columns: repeat(2, 1fr); gap: 18px; }
       .footer-grid { grid-template-columns: 1.8fr 1fr 1fr 1fr; gap: 24px; }
       .footer-grid > div:last-child { grid-column: 1 / -1; }
+      /* Reduced network: hide the outermost extra nodes/links */
+      .net-lvl2 { display: none; }
     }
 
     /* Tablet portrait (≤860px) */
     @media (max-width: 860px) {
       section { padding: 72px 0; }
       .hero-grid { grid-template-columns: 1fr; gap: 0; }
-      .network-wrap { display: none; }
+      /* Reduced network (6–8 nodes) below the hero text, no overlap */
+      .net-lvl1 { display: none; }
+      .network-wrap { min-height: 0; margin-top: 40px; }
+      .network-svg { max-width: 340px; }
       h1 { font-size: 42px; }
       .logo-horizontal { height: 88px; }
-      .hero { padding: 24px 0 56px; }
+      .hero { padding: 122px 0 56px; }
       .hero-sub { max-width: 100%; }
       .challenge-grid { grid-template-columns: repeat(2, 1fr) !important; }
       .challenge { border-right: none !important; border-bottom: 1px solid var(--line); }
@@ -778,6 +1237,114 @@
       .pricing-grid { grid-template-columns: 1fr 1fr; }
     }
 
+    /* ─── STICKY SITE NAV (schwebende Pill) ─── */
+    .site-nav {
+      position: sticky;
+      top: 0;
+      z-index: 500;
+      padding: 12px 0;
+      pointer-events: none;
+    }
+    .site-nav .nav {
+      pointer-events: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      margin: 0 auto;
+      padding: 8px 18px;
+      background: rgba(5,15,30,.88);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 18px;
+      box-shadow: 0 12px 40px rgba(2,8,18,.4);
+    }
+    .site-nav .logo-horizontal { height: 52px; }
+    .nav-links { display: flex; gap: 26px; }
+    .nav-links a {
+      color: #d8e8ef;
+      font-size: 15px;
+      font-weight: 600;
+      transition: color .15s;
+      white-space: nowrap;
+    }
+    .nav-links a:hover, .nav-links a.on { color: var(--teal); }
+    .nav-burger {
+      display: none;
+      background: none;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      padding: 6px;
+    }
+    .nav-mobile {
+      pointer-events: auto;
+      display: none;
+      flex-direction: column;
+      gap: 2px;
+      width: min(1180px, 92%);
+      margin: 8px auto 0;
+      padding: 8px 12px 12px;
+      background: rgba(5,15,30,.94);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 16px;
+      box-shadow: 0 12px 40px rgba(2,8,18,.4);
+    }
+    .nav-mobile.open { display: flex; }
+    .nav-mobile a {
+      color: #d8e8ef;
+      font-size: 16px;
+      font-weight: 600;
+      padding: 10px 8px;
+      border-radius: 8px;
+    }
+    .nav-mobile a:hover { background: rgba(255,255,255,.06); color: var(--teal); }
+    @media (max-width: 1024px) {
+      .nav-links { display: none; }
+      .nav-burger { display: inline-flex; }
+    }
+    @media (max-width: 600px) {
+      .site-nav { padding: 10px 0; }
+      .site-nav .nav { gap: 8px; padding: 7px 12px; border-radius: 15px; }
+      .site-nav .logo-horizontal { height: 34px; max-width: 40vw; object-fit: contain; }
+      .site-nav .nav-actions { gap: 6px; }
+      .site-nav .btn-primary { padding: 9px 12px; font-size: 12.5px; }
+      .nav-burger { padding: 4px; }
+    }
+    /* Beim Scrollen: kompakter + Liquid-Glass (durchscheinend, starker Blur) */
+    .site-nav .nav {
+      transition: background .35s ease, padding .35s ease, box-shadow .35s ease, border-color .35s ease;
+    }
+    .site-nav .logo-horizontal { transition: height .35s ease; }
+    .site-nav.scrolled .nav {
+      background: rgba(7,18,34,.5);
+      -webkit-backdrop-filter: blur(22px) saturate(160%);
+      backdrop-filter: blur(22px) saturate(160%);
+      border-color: rgba(255,255,255,.14);
+      padding: 5px 14px;
+      box-shadow: 0 10px 34px rgba(2,8,18,.3);
+    }
+    .site-nav.scrolled .logo-horizontal { height: 38px; }
+    .site-nav.scrolled .btn { padding: 9px 16px; font-size: 14px; }
+    @media (max-width: 600px) {
+      .site-nav.scrolled .logo-horizontal { height: 28px; }
+      .site-nav.scrolled .nav { padding: 4px 10px; }
+      .site-nav.scrolled .btn-primary { padding: 8px 10px; font-size: 12px; }
+    }
+    /* Ohne Backdrop-Blur-Unterstützung: deckend bleiben (Lesbarkeit) */
+    @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+      .site-nav.scrolled .nav { background: rgba(5,15,30,.92); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .site-nav .nav, .site-nav .logo-horizontal { transition: none; }
+    }
+    /* Pill schwebt über dem Hero */
+    .site-nav { margin-bottom: -94px; }
+    @media (max-width: 600px) { .site-nav { margin-bottom: -70px; } }
+
     /* Mobile (≤600px) */
     @media (max-width: 600px) {
       section { padding: 56px 0; }
@@ -788,7 +1355,7 @@
       .nav { gap: 16px; margin-bottom: 32px; }
       h1 { font-size: 34px; letter-spacing: -0.8px; }
       h2 { font-size: 26px; }
-      .hero { padding: 20px 0 48px; }
+      .hero { padding: 96px 0 48px; }
       .hero-actions { flex-direction: column; gap: 10px; }
       .hero-actions .btn { width: 100%; justify-content: center; padding: 14px; }
       .trust-row { gap: 16px; }
@@ -806,19 +1373,38 @@
 </head>
 <body>
 
+<!-- ═══════════════════════════════════════════ SITE NAV ═══ -->
+<div class="site-nav">
+  <div class="container nav">
+    <a href="/" class="brand" aria-label="trustworkX">
+      <img class="logo-horizontal" src="https://assets.cdn.filesafe.space/zX4w9KMO5mq76LaNi9KH/media/6a3fbc5789d9cd8dc2cb8b9b.svg" alt="trustworkX Logo" />
+    </a>
+    <nav class="nav-links" aria-label="Hauptnavigation">
+      <a href="#how-it-works">Wie es funktioniert</a>
+      <a href="#pricing">Preise</a>
+      <a href="#faq">FAQ</a>
+      <a href="/ueber-uns.html">Über uns</a>
+    </nav>
+    <div class="nav-actions">
+      <a class="btn btn-secondary" href="https://app.trustworkx.de/login">Login</a>
+      <a class="btn btn-primary" href="#pricing">Jetzt Mitglied werden</a>
+      <button type="button" class="nav-burger" id="navBurger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="navMobile">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+  <nav class="nav-mobile" id="navMobile" aria-label="Mobile Navigation">
+    <a href="#how-it-works">Wie es funktioniert</a>
+    <a href="#pricing">Preise</a>
+    <a href="#faq">FAQ</a>
+    <a href="/ueber-uns.html">Über uns</a>
+    <a href="https://app.trustworkx.de/login">Login</a>
+  </nav>
+</div>
+
 <!-- ═══════════════════════════════════════════════ HERO ═══ -->
 <header class="hero">
   <div class="container">
-    <nav class="nav">
-      <a href="https://trustworkx.de/Demolink" class="brand" aria-label="trustworkX">
-        <img class="logo-horizontal" src="https://assets.cdn.filesafe.space/zX4w9KMO5mq76LaNi9KH/media/6a3fbc5789d9cd8dc2cb8b9b.svg" alt="trustworkX Logo" />
-      </a>
-      <div class="nav-actions">
-        <a class="btn btn-secondary" href="https://app.trustworkx.de/login">Login</a>
-        <a class="btn btn-primary" href="#pricing">Jetzt Mitglied werden</a>
-      </div>
-    </nav>
-
     <div class="hero-grid">
       <div>
         <h1>Auslastung sichern.<br>Lieferfähigkeit <span class="teal">stärken.</span></h1>
@@ -828,10 +1414,6 @@
           <a class="btn btn-secondary" href="#how-it-works">Wie es funktioniert</a>
         </div>
         <div class="trust-row">
-          <div class="trust-item">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
-            Kundenschutz garantiert
-          </div>
           <div class="trust-item">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
             Keine Vermittlungsgebühren
@@ -843,104 +1425,118 @@
         </div>
       </div>
 
-      <!-- Animated Network SVG -->
+      <!-- Animated Network SVG — organic, asymmetric network around the TrustworkX logo -->
       <div class="network-wrap">
-        <svg class="network-svg" viewBox="0 0 420 385" fill="none" xmlns="http://www.w3.org/2000/svg" id="network-svg">
+        <svg class="network-svg" viewBox="0 0 560 520" fill="none" xmlns="http://www.w3.org/2000/svg" id="network-svg" role="img" aria-label="TrustworkX Netzwerk: Anfragen laufen über TrustworkX zum passenden Partner">
           <defs>
-            <filter id="signal-glow" x="-60%" y="-60%" width="220%" height="220%">
-              <feGaussianBlur stdDeviation="5" result="blur"/>
+            <filter id="soft-glow" x="-80%" y="-80%" width="260%" height="260%">
+              <feGaussianBlur stdDeviation="7"/>
+            </filter>
+            <filter id="imp-glow" x="-120%" y="-120%" width="340%" height="340%">
+              <feGaussianBlur stdDeviation="3.5" result="blur"/>
               <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
             </filter>
+            <radialGradient id="disc-grad" cx="42%" cy="38%" r="75%">
+              <stop offset="0%" stop-color="#102645"/>
+              <stop offset="100%" stop-color="#081627"/>
+            </radialGradient>
           </defs>
-          <!-- Connection lines -->
-          <line class="net-line" x1="210" y1="180" x2="210" y2="60"/>
-          <line class="net-line" x1="210" y1="180" x2="340" y2="110" style="animation-delay:.4s"/>
-          <line class="net-line" x1="210" y1="180" x2="340" y2="260" style="animation-delay:.8s"/>
-          <line class="net-line" x1="210" y1="180" x2="210" y2="305" style="animation-delay:1.2s"/>
-          <line class="net-line" x1="210" y1="180" x2="78" y2="260" style="animation-delay:1.6s"/>
-          <line class="net-line" x1="210" y1="180" x2="78" y2="110" style="animation-delay:2.0s"/>
-          <!-- Center node -->
-          <circle cx="210" cy="180" r="62" fill="rgba(5,16,30,.9)" stroke="#2EC4B6" stroke-width="1.8"/>
-          <circle cx="210" cy="180" r="54" fill="rgba(46,196,182,.06)"/>
-          <!-- Center glow overlay (activated by JS) -->
-          <circle id="center-glow" class="center-glow" cx="210" cy="180" r="62"/>
-          <!-- Logo X in center -->
-          <image href="https://assets.cdn.filesafe.space/zX4w9KMO5mq76LaNi9KH/media/6a3fbc57c408020f97c464ab.svg" x="176" y="153" width="68" height="52"/>
-          <!-- Outer nodes with process icons -->
 
-          <!-- Node 1 (Top, 12 o'clock) – Projekt erfassen: Clipboard -->
-          <g class="net-node">
-            <circle cx="210" cy="48" r="34" fill="rgba(5,16,30,.9)" stroke="#2EC4B6" stroke-width="1.4"/>
-            <g transform="translate(200,38) scale(0.833)" fill="none" stroke="#2EC4B6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="5" y="2" width="14" height="20" rx="2"/>
-              <line x1="9" y1="7" x2="15" y2="7"/>
-              <line x1="9" y1="11" x2="15" y2="11"/>
-              <line x1="9" y1="15" x2="12" y2="15"/>
-            </g>
+          <!-- Spoke connections (node → TrustworkX) -->
+          <line class="net-line" id="sp0" x1="280" y1="255" x2="300" y2="48"/>
+          <line class="net-line" id="sp2" x1="280" y1="255" x2="226" y2="158"/>
+          <line class="net-line" id="sp3" x1="280" y1="255" x2="46"  y2="250"/>
+          <line class="net-line" id="sp5" x1="280" y1="255" x2="150" y2="458"/>
+          <line class="net-line" id="sp6" x1="280" y1="255" x2="342" y2="478"/>
+          <line class="net-line" id="sp7" x1="280" y1="255" x2="494" y2="385"/>
+          <line class="net-line" id="sp8" x1="280" y1="255" x2="492" y2="238"/>
+          <line class="net-line net-lvl1" id="sp9" x1="280" y1="255" x2="474" y2="110"/>
+
+          <!-- Cross connections for organic network character -->
+          <line class="net-line net-lvl2" x1="188" y1="55"  x2="300" y2="48"/>
+          <line class="net-line net-lvl2" x1="188" y1="55"  x2="106" y2="130"/>
+          <line class="net-line net-lvl1" x1="106" y1="130" x2="226" y2="158"/>
+          <line class="net-line net-lvl1" x1="46"  y1="250" x2="110" y2="362"/>
+          <line class="net-line net-lvl1" x1="110" y1="362" x2="150" y2="458"/>
+          <line class="net-line"          x1="150" y1="458" x2="342" y2="478"/>
+          <line class="net-line"          x1="342" y1="478" x2="494" y2="385"/>
+          <line class="net-line net-lvl1" x1="492" y1="238" x2="474" y2="110"/>
+          <line class="net-line net-lvl2" x1="544" y1="315" x2="492" y2="238"/>
+          <line class="net-line net-lvl2" x1="544" y1="315" x2="494" y2="385"/>
+
+          <!-- Outer nodes: asymmetric, different sizes and distances -->
+          <g class="node" id="node0">
+            <circle class="n-halo" cx="300" cy="48" r="20"/>
+            <circle class="n-dot" cx="300" cy="48" r="13" fill="#2EC4B6"/>
+            <circle class="n-ring" cx="300" cy="48" r="19"/>
+            <circle class="n-glow" id="nglow0" cx="300" cy="48" r="16"/>
+          </g>
+          <g class="node net-lvl1" id="node1">
+            <circle class="n-halo" cx="106" cy="130" r="16"/>
+            <circle class="n-dot" cx="106" cy="130" r="10" fill="#2EC4B6" fill-opacity=".8"/>
+            <circle class="n-ring" cx="106" cy="130" r="15"/>
+          </g>
+          <g class="node" id="node2">
+            <circle class="n-halo" cx="226" cy="158" r="17"/>
+            <circle class="n-dot" cx="226" cy="158" r="11" fill="#38d4c8"/>
+            <circle class="n-glow" id="nglow2" cx="226" cy="158" r="14"/>
+          </g>
+          <g class="node" id="node3">
+            <circle class="n-halo" cx="46" cy="250" r="18"/>
+            <circle class="n-dot" cx="46" cy="250" r="12" fill="#2EC4B6" fill-opacity=".7"/>
+            <circle class="n-glow" id="nglow3" cx="46" cy="250" r="15"/>
+          </g>
+          <g class="node net-lvl1" id="node4">
+            <circle class="n-halo" cx="110" cy="362" r="18"/>
+            <circle class="n-dot" cx="110" cy="362" r="12" fill="#22a99d"/>
+          </g>
+          <g class="node" id="node5">
+            <circle class="n-halo" cx="150" cy="458" r="20"/>
+            <circle class="n-dot" cx="150" cy="458" r="13" fill="#2EC4B6" fill-opacity=".9"/>
+            <circle class="n-glow" id="nglow5" cx="150" cy="458" r="16"/>
+          </g>
+          <g class="node" id="node6">
+            <circle class="n-halo" cx="342" cy="478" r="23"/>
+            <circle class="n-dot" cx="342" cy="478" r="15" fill="#38d4c8"/>
+            <circle class="n-ring" cx="342" cy="478" r="22"/>
+            <circle class="n-glow" id="nglow6" cx="342" cy="478" r="18"/>
+          </g>
+          <g class="node" id="node7">
+            <circle class="n-halo" cx="494" cy="385" r="18"/>
+            <circle class="n-dot" cx="494" cy="385" r="12" fill="#2EC4B6" fill-opacity=".85"/>
+            <circle class="n-glow" id="nglow7" cx="494" cy="385" r="15"/>
+          </g>
+          <g class="node" id="node8">
+            <circle class="n-halo" cx="492" cy="238" r="18"/>
+            <circle class="n-dot" cx="492" cy="238" r="12" fill="#2EC4B6"/>
+            <circle class="n-ring" cx="492" cy="238" r="18"/>
+            <circle class="n-glow" id="nglow8" cx="492" cy="238" r="15"/>
+          </g>
+          <g class="node net-lvl1" id="node9">
+            <circle class="n-halo" cx="474" cy="110" r="18"/>
+            <circle class="n-dot" cx="474" cy="110" r="12" fill="#27b2a5"/>
+            <circle class="n-ring" cx="474" cy="110" r="18"/>
+            <circle class="n-glow" id="nglow9" cx="474" cy="110" r="15"/>
+          </g>
+          <g class="node net-lvl2" id="node10">
+            <circle class="n-halo" cx="188" cy="55" r="13"/>
+            <circle class="n-dot" cx="188" cy="55" r="8" fill="#2EC4B6" fill-opacity=".75"/>
+          </g>
+          <g class="node net-lvl2" id="node11">
+            <circle class="n-halo" cx="544" cy="315" r="13"/>
+            <circle class="n-dot" cx="544" cy="315" r="8" fill="#22a99d"/>
           </g>
 
-          <!-- Node 2 (Top-right, 2 o'clock) – Anfrage analysiert: Lupe + Plus -->
-          <g class="net-node">
-            <circle cx="342" cy="100" r="34" fill="rgba(5,16,30,.9)" stroke="#2EC4B6" stroke-width="1.4"/>
-            <g transform="translate(332,90) scale(0.833)" fill="none" stroke="#2EC4B6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="10.5" cy="10.5" r="6.5"/>
-              <line x1="15.5" y1="15.5" x2="21" y2="21"/>
-              <line x1="8" y1="10.5" x2="13" y2="10.5"/>
-              <line x1="10.5" y1="8" x2="10.5" y2="13"/>
-            </g>
-          </g>
+          <!-- Center: TrustworkX logo on dark disc -->
+          <circle class="n-halo" cx="280" cy="255" r="92" opacity=".10"/>
+          <circle cx="280" cy="255" r="80" fill="url(#disc-grad)" stroke="rgba(46,196,182,.18)" stroke-width="1"/>
+          <circle id="center-glow" class="center-glow" cx="280" cy="255" r="82"/>
+          <image href="https://assets.cdn.filesafe.space/zX4w9KMO5mq76LaNi9KH/media/6a3fbc57c408020f97c464ab.svg" x="234" y="220" width="92" height="70"/>
 
-          <!-- Node 3 (Bottom-right, 4 o'clock) – Partner identifiziert: Netzwerk-Graph -->
-          <g class="net-node">
-            <circle cx="342" cy="264" r="34" fill="rgba(5,16,30,.9)" stroke="#2EC4B6" stroke-width="1.4"/>
-            <g transform="translate(332,254) scale(0.833)" fill="none" stroke="#2EC4B6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="5" r="2.5"/>
-              <circle cx="5" cy="19" r="2.5"/>
-              <circle cx="19" cy="19" r="2.5"/>
-              <line x1="12" y1="7.5" x2="5" y2="16.5"/>
-              <line x1="12" y1="7.5" x2="19" y2="16.5"/>
-              <line x1="7.4" y1="19" x2="16.6" y2="19"/>
-            </g>
-          </g>
-
-          <!-- Node 4 (Bottom, 6 o'clock) – Vorschläge erhalten: Inbox -->
-          <g class="net-node">
-            <circle cx="210" cy="318" r="34" fill="rgba(5,16,30,.9)" stroke="#2EC4B6" stroke-width="1.4"/>
-            <g transform="translate(200,308) scale(0.833)" fill="none" stroke="#2EC4B6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/>
-              <path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/>
-            </g>
-          </g>
-
-          <!-- Node 5 (Bottom-left, 8 o'clock) – Gespräche führen: Chat-Blase -->
-          <g class="net-node">
-            <circle cx="78" cy="264" r="34" fill="rgba(5,16,30,.9)" stroke="#2EC4B6" stroke-width="1.4"/>
-            <g transform="translate(68,254) scale(0.833)" fill="none" stroke="#2EC4B6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-              <line x1="9" y1="10" x2="15" y2="10"/>
-              <line x1="9" y1="13" x2="13" y2="13"/>
-            </g>
-          </g>
-
-          <!-- Node 6 (Top-left, 10 o'clock) – Zusammenarbeit starten: Stern/Rakete -->
-          <g class="net-node">
-            <circle cx="78" cy="100" r="34" fill="rgba(5,16,30,.9)" stroke="#2EC4B6" stroke-width="1.4"/>
-            <g transform="translate(68,90) scale(0.833)" fill="none" stroke="#2EC4B6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 2L8.5 8H4l3.5 3-1.5 6L12 14l6 3-1.5-6L20 8h-4.5L12 2z"/>
-              <line x1="12" y1="14" x2="12" y2="22"/>
-            </g>
-          </g>
-
-          <!-- Node glow overlays (activated by JS) – one per outer node -->
-          <circle id="ng0" class="node-glow" cx="210" cy="48"  r="34"/>
-          <circle id="ng1" class="node-glow" cx="342" cy="100" r="34"/>
-          <circle id="ng2" class="node-glow" cx="342" cy="264" r="34"/>
-          <circle id="ng3" class="node-glow" cx="210" cy="318" r="34"/>
-          <circle id="ng4" class="node-glow" cx="78"  cy="264" r="34"/>
-          <circle id="ng5" class="node-glow" cx="78"  cy="100" r="34"/>
-
-          <!-- Impulse dot (moved by JS) -->
-          <circle id="impulse-dot" class="impulse-dot" cx="0" cy="0" r="4.5"/>
+          <!-- Light impulse: trail + glowing dot with bright core (moved by JS) -->
+          <line id="impulse-trail" class="impulse-trail" x1="0" y1="0" x2="0" y2="0"/>
+          <circle id="impulse-dot" class="impulse-dot" cx="0" cy="0" r="5"/>
+          <circle id="impulse-core" class="impulse-core" cx="0" cy="0" r="2"/>
         </svg>
       </div>
     </div>
@@ -954,7 +1550,7 @@
     <div class="section-title">
       <div class="eyebrow">Die Herausforderung</div>
       <h2>Viele Risiken. Verpasste Chancen.</h2>
-      <p class="section-sub">Ungenutzte Expertenkapazitäten kosten Geld – obwohl passende Projektanfragen vorhanden sind.</p>
+      <p class="section-sub">Ungenutzte Fachkräftekapazitäten kosten Geld – obwohl passende Projektanfragen vorhanden sind.</p>
     </div>
 
     <div class="challenge-grid" style="grid-template-columns: repeat(5,1fr)">
@@ -963,14 +1559,14 @@
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
         </div>
         <h3>1. Freie Kapazitäten<br>auf der Payroll</h3>
-        <p>Ungenutzte Expertenkapazitäten kosten Geld, während anderswo passende Projektanfragen auf Unterstützung warten.</p>
+        <p>Ungenutzte Fachkräftekapazitäten kosten Geld, während anderswo passende Projektanfragen auf Unterstützung warten.</p>
       </div>
       <div class="challenge">
         <div class="ch-icon">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
         </div>
         <h3>2. Spezial Know-how<br>fehlt</h3>
-        <p>Die richtigen Experten sind nicht verfügbar oder schwer zu finden.</p>
+        <p>Die richtigen Fachkräfte sind nicht verfügbar oder schwer zu finden.</p>
       </div>
       <div class="challenge">
         <div class="ch-icon">
@@ -1012,7 +1608,7 @@
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
           </div>
           <h3>Geprüfte Systemhäuser statt Einzelpersonen</h3>
-          <p>Nur verifizierte Unternehmen – keine Freelancer. Qualität statt Quantität.</p>
+          <p>Nur verifizierte Unternehmen – unser Modell ist Zusammenarbeit zwischen Firmen, keine Einzelvermittlung.</p>
         </div>
         <div class="solution-item">
           <div class="sol-icon">
@@ -1043,14 +1639,15 @@
       </div>
     </div>
 
-    <!-- Dashboard strip -->
-    <div class="dashboard">
+    <!-- Dashboard strip (opens the dashboard preview modal) -->
+    <button type="button" class="dashboard" id="dashboardBanner" aria-haspopup="dialog" aria-controls="dashboardModal">
       <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
       <div>
         <strong>Ihr eigenes Dashboard.</strong>
         <span style="margin-left:8px">Verwalten Sie Netzwerkaktivitäten, Projektanfragen, Kooperationen und Ihre Auslastung zentral an einem Ort.</span>
       </div>
-    </div>
+      <span class="dashboard-link">Dashboard ansehen&nbsp;→</span>
+    </button>
   </div>
 </section>
 
@@ -1066,7 +1663,7 @@
 
     <!-- ── Desktop + Tablet: Zeitstrahl ── -->
     <div class="zt-outer">
-      <div class="zt-track"></div>
+      <div class="zt-track"><i class="zt-pulse"></i></div>
       <div class="zt-steps">
 
         <!-- Step 1 -->
@@ -1222,7 +1819,7 @@
       <span class="toggle-label active" id="lbl-monthly">Monatlich</span>
       <button class="toggle" id="billing-toggle" onclick="switchBilling()" aria-label="Abrechnungszeitraum wechseln"></button>
       <span class="toggle-label" id="lbl-yearly">Jährlich</span>
-      <span class="save-badge" id="save-label" style="display:none">2 Monate gratis</span>
+      <span class="save-badge" id="save-label" style="display:none">bis zu 15 % sparen</span>
     </div>
 
     <div class="pricing-grid">
@@ -1244,7 +1841,7 @@
           <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Bis zu 3 Projektanfragen pro Jahr einstellen</li>
           <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Bis zu 3 Projektbewerbungen pro Jahr</li>
           <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>TrustworkX Matching inklusive</li>
-          <li class="dimmed"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Priorisierte Bearbeitung</li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Bearbeitung Ihrer Projektanfragen innerhalb von 48 Stunden</li>
         </ul>
         <a class="btn btn-primary plan-cta" data-plan="ACCESS" href="checkout.html?plan=ACCESS&amp;interval=month">Jetzt Mitglied werden</a>
       </div>
@@ -1266,7 +1863,7 @@
           <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Bis zu 6 Projektanfragen pro Jahr einstellen</li>
           <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Bis zu 6 Projektbewerbungen pro Jahr</li>
           <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>TrustworkX Matching inklusive</li>
-          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Priorisierte Bearbeitung Ihrer Projektanfragen</li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Bearbeitung Ihrer Projektanfragen innerhalb von 48 Stunden</li>
         </ul>
         <a class="btn btn-primary plan-cta" data-plan="CORE" href="checkout.html?plan=CORE&amp;interval=month">Jetzt Mitglied werden</a>
       </div>
@@ -1289,7 +1886,7 @@
           <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Bis zu 10 Projektanfragen pro Jahr einstellen</li>
           <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Bis zu 10 Projektbewerbungen pro Jahr</li>
           <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>TrustworkX Matching inklusive</li>
-          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Priorisierte Bearbeitung Ihrer Projektanfragen</li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Priorisierte Bearbeitung Ihrer Projektanfragen innerhalb von 24 Stunden</li>
         </ul>
         <a class="btn btn-primary plan-cta" data-plan="GROWTH" href="checkout.html?plan=GROWTH&amp;interval=month">Jetzt Mitglied werden</a>
       </div>
@@ -1311,7 +1908,7 @@
           <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Unbegrenzte Projektanfragen einstellen</li>
           <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Unbegrenzte Projektbewerbungen</li>
           <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>TrustworkX Matching inklusive</li>
-          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Höchste Priorität bei der Bearbeitung Ihrer Projektanfragen</li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Priorisierte Bearbeitung Ihrer Projektanfragen innerhalb von 24 Stunden</li>
         </ul>
         <a class="btn btn-primary plan-cta" data-plan="UNLIMITED" href="checkout.html?plan=UNLIMITED&amp;interval=month">Jetzt Mitglied werden</a>
       </div>
@@ -1328,7 +1925,7 @@
       </div>
       <div class="final-buttons">
         <a class="btn btn-primary" href="#pricing">Jetzt Mitglied werden</a>
-        <a class="btn btn-outline-teal" href="https://app.trustworkx.de/login">Mitglieder-Login</a>
+        <a class="btn btn-outline-teal" href="https://app.trustworkx.de/login">Login</a>
       </div>
     </div>
 
@@ -1426,8 +2023,8 @@
     </div>
     <div style="text-align:center;margin-top:48px;padding:32px;background:linear-gradient(135deg,rgba(46,196,182,.07),rgba(46,196,182,.03));border:1px solid rgba(46,196,182,.2);border-radius:14px;">
       <p style="font-size:17px;font-weight:700;color:var(--navy);margin-bottom:8px;">Noch Fragen?</p>
-      <p style="color:var(--muted);font-size:15px;margin-bottom:20px;">Kontaktieren Sie uns direkt – wir antworten innerhalb von 24 Stunden.</p>
-      <a class="btn btn-primary" href="https://trustworkx.de/Demolink" style="display:inline-flex;">Kontakt aufnehmen</a>
+      <p style="color:var(--muted);font-size:15px;margin-bottom:20px;">Kontaktieren Sie uns direkt – wir antworten innerhalb von zwei Werktagen.</p>
+      <a class="btn btn-primary" href="mailto:info@trustworkx.de?subject=Kontaktanfrage%20TrustworkX" style="display:inline-flex;">Kontakt aufnehmen</a>
     </div>
   </div>
 </section>
@@ -1447,20 +2044,19 @@
       </div>
       <div>
         <h4>Rechtliches</h4>
-        <a href="https://trustworkx.de/Demolink">Impressum</a>
-        <a href="https://trustworkx.de/Demolink">Datenschutz</a>
-        <a href="https://trustworkx.de/Demolink">AGB</a>
+        <a href="/impressum.html">Impressum</a>
+        <a href="/datenschutz.html">Datenschutz</a>
+        <a href="/agb.html">AGB</a>
       </div>
       <div>
         <h4>Unternehmen</h4>
-        <a href="https://trustworkx.de/Demolink">Über uns</a>
-        <a href="https://trustworkx.de/Demolink">Kontakt</a>
+        <a href="/ueber-uns.html">Über uns</a>
+        <a href="mailto:info@trustworkx.de?subject=Kontaktanfrage%20TrustworkX">Kontakt</a>
         <a href="#how-it-works">Wie es funktioniert</a>
       </div>
       <div>
         <h4>Portal</h4>
         <a href="https://app.trustworkx.de/login">Login</a>
-        <a href="https://app.trustworkx.de/login">Mitgliederbereich</a>
         <a href="#pricing">Pakete &amp; Preise</a>
       </div>
       <div>
@@ -1469,14 +2065,167 @@
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:middle;margin-right:6px"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><a href="mailto:info@trustworkx.de" style="color:inherit">info@trustworkx.de</a>
         </p>
         <p>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:middle;margin-right:6px"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.55a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg><a href="tel:+491234567890" style="color:inherit">+49 123 4567890</a>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:middle;margin-right:6px"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.55a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg><a href="tel:+498924581717" style="color:inherit">089 24581717</a>
         </p>
       </div>
     </div>
     <hr class="footer-divider">
-    <p class="copyright">© 2025 TrustworkX. Alle Rechte vorbehalten.</p>
+    <p class="copyright">© 2026 TrustworkX. Alle Rechte vorbehalten.</p>
   </div>
 </footer>
+
+<!-- ═══════════════════════════ DASHBOARD PREVIEW MODAL ═══ -->
+<div class="dm-overlay" id="dashboardModal" role="dialog" aria-modal="true" aria-labelledby="dmTitle" aria-describedby="dmSub" hidden>
+  <div class="dm-modal">
+    <button type="button" class="dm-close" id="dmClose" aria-label="Dashboard-Vorschau schließen">✕</button>
+    <p class="dm-eyebrow">Ihr Dashboard in Aktion</p>
+    <h3 class="dm-title" id="dmTitle">So behalten Sie alles im Blick.</h3>
+    <p class="dm-sub" id="dmSub">Projekte, Anfragen und Kooperationen zentral verwalten.</p>
+
+    <div class="dm-stage">
+      <!-- Second view: small project overview, offset behind right; click/swipe brings it to front -->
+      <div class="dm-screen dm-screen-projects" id="dmProjScreen" role="button" tabindex="0" aria-pressed="false" aria-label="Projektübersicht in den Vordergrund holen">
+        <div class="dm-side dm-side-proj">
+          <img src="https://assets.cdn.filesafe.space/zX4w9KMO5mq76LaNi9KH/media/6a3fbc5789d9cd8dc2cb8b9b.svg" alt="">
+          <a><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Dashboard</a>
+          <a class="on"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>Projekte</a>
+          <a><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Bewerbungen</a>
+          <a><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Matching-Anfragen</a>
+          <a><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="1.5"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="9" y1="12" x2="15" y2="12"/></svg>Unternehmen</a>
+          <a><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Nachrichten</a>
+        </div>
+        <div class="dm-proj">
+          <h4>Projekte</h4>
+          <div class="dm-proj-bar">
+            <span class="dm-tab on">Meine Projekte</span>
+            <span class="dm-tab">Interessante Projekte</span>
+            <span class="dm-search"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>Projekt suchen</span>
+            <span class="dm-newbtn">+ Neues Projekt</span>
+          </div>
+          <table>
+            <tr><th>Titel</th><th>Status</th><th>Bewerbungen</th><th>Erstellt am</th></tr>
+            <tr><td>IT-Infrastruktur Migration</td><td><span class="dm-badge ok">Aktiv</span></td><td>5</td><td>12.05.2025</td></tr>
+            <tr><td>Microsoft 365 Rollout</td><td><span class="dm-badge ok">Aktiv</span></td><td>3</td><td>10.05.2025</td></tr>
+            <tr><td>IT-Infrastruktur Update</td><td><span class="dm-badge warn">In Prüfung</span></td><td>2</td><td>08.05.2025</td></tr>
+            <tr><td>Cloud Backup Lösung</td><td><span class="dm-badge wait">Abgeschlossen</span></td><td>7</td><td>30.04.2025</td></tr>
+          </table>
+          <div class="dm-proj-foot">
+            <p class="tiny">Verbleibende Projekte (Jahr): 4 / 10</p>
+            <span class="all">Alle Projekte anzeigen</span>
+          </div>
+          <div class="dm-bar"><i style="width:40%"></i></div>
+        </div>
+      </div>
+
+      <!-- Main view: dashboard start page -->
+      <div class="dm-screen dm-screen-main">
+        <div class="dm-side" aria-hidden="true">
+          <img src="https://assets.cdn.filesafe.space/zX4w9KMO5mq76LaNi9KH/media/6a3fbc5789d9cd8dc2cb8b9b.svg" alt="">
+          <a class="on"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Dashboard</a>
+          <a><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>Projekte</a>
+          <a><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Bewerbungen</a>
+          <a><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Matching-Anfragen</a>
+          <a><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="1.5"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="9" y1="12" x2="15" y2="12"/></svg>Unternehmen</a>
+          <a><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Nachrichten</a>
+          <a><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Einstellungen</a>
+          <a><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Hilfe &amp; Support</a>
+        </div>
+        <div class="dm-main">
+          <div class="dm-hello">
+            <div>
+              <strong>Willkommen, Marie Mustermann!</strong>
+              <em>Schön, dass Sie da sind.</em>
+            </div>
+            <div class="dm-user">
+              <span class="dm-bell"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><i></i></span>
+              <span class="dm-avatar">MM</span>
+              <span class="who"><b>Marie Mustermann</b><small>Systemhaus GmbH</small></span>
+            </div>
+          </div>
+          <div class="dm-cards">
+            <div class="dm-card">
+              <h5>Aktuelles Paket</h5>
+              <span class="big">GROWTH</span>
+              <div class="tiny">149 € / Monat</div>
+              <span class="dm-pill">Paket verwalten</span>
+            </div>
+            <div class="dm-card">
+              <h5>Projekte (Jahr)</h5>
+              <span class="big">4 / 10</span>
+              <div class="tiny">40 % genutzt</div>
+              <div class="dm-bar"><i style="width:40%"></i></div>
+            </div>
+            <div class="dm-card">
+              <h5>Bewerbungen (Jahr)</h5>
+              <span class="big">4 / 10</span>
+              <div class="tiny">40 % genutzt</div>
+              <div class="dm-bar"><i style="width:40%"></i></div>
+            </div>
+          </div>
+          <p class="dm-sect">Übersicht</p>
+          <div class="dm-tiles">
+            <div class="dm-tile" id="dmMatchTile">
+              <h5>Matching-Anfragen</h5>
+              <span class="num"><span class="dm-count" id="dmCount">1</span></span>
+              <div class="lbl">Neu</div>
+            </div>
+            <div class="dm-tile">
+              <h5>Offene Projekte</h5>
+              <span class="num">3</span>
+              <div class="lbl">Anzeigen</div>
+            </div>
+            <div class="dm-tile">
+              <h5>Aktive Bewertungen</h5>
+              <span class="num">2</span>
+              <div class="lbl">Anzeigen</div>
+            </div>
+            <div class="dm-tile">
+              <h5>Nachrichten</h5>
+              <span class="num">1</span>
+              <div class="lbl">Ungelesen</div>
+            </div>
+          </div>
+          <div class="dm-status" id="dmStatus">
+            <span class="dm-spin"></span>
+            <span class="dm-check"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span id="dmStatusText"></span>
+          </div>
+          <div class="dm-lower">
+            <div class="dm-acts">
+              <h6>Letzte Aktivitäten</h6>
+              <div class="dm-act">
+                <span class="ic"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></span>
+                <span class="tx"><b>Neue Matching-Anfrage erhalten</b><small>„IT-Infrastruktur Migration"</small></span>
+                <span class="when">vor 2 Stunden</span>
+              </div>
+              <div class="dm-act">
+                <span class="ic"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+                <span class="tx"><b>Ihre Bewertung wurde eingereicht</b><small>„IT-Infrastruktur Update"</small></span>
+                <span class="when">vor 15 Stunden</span>
+              </div>
+              <div class="dm-act">
+                <span class="ic"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></span>
+                <span class="tx"><b>Neues Projekt veröffentlicht</b><small>„Cloud Backup Lösung"</small></span>
+                <span class="when">vor 1 Tag</span>
+              </div>
+            </div>
+            <div class="dm-tips">
+              <h6>Tipps für Sie</h6>
+              <p>Vervollständigen Sie Ihr Profil, um mehr passende Anfragen zu erhalten.</p>
+              <span class="go">Zum Profil →</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- One-time notification, top right of the dashboard -->
+      <div class="dm-notify" id="dmNotify" aria-hidden="true">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        Neue Matching-Anfrage eingegangen
+      </div>
+    </div>
+  </div>
+</div>
 
 <script>
   // ── Pricing toggle ──────────────────────────────────────────
@@ -1486,7 +2235,8 @@
     yearly:  { access: '499 €', core: '999 €', growth: '1.499 €', unlimited: '1.999 €' }
   };
   const monthlyEquiv = {
-    access: '41 €', core: '83 €', growth: '124 €', unlimited: '166 €'
+    // kaufmännisch gerundete Monatsäquivalente der Jahrespreise
+    access: '42 €', core: '83 €', growth: '125 €', unlimited: '167 €'
   };
   function renderPrices() {
     ['access','core','growth','unlimited'].forEach(pkg => {
@@ -1494,7 +2244,7 @@
         document.getElementById('price-' + pkg).innerHTML =
           prices.yearly[pkg] + '<span class="price-period"> / Jahr</span>';
         document.getElementById('year-' + pkg).innerHTML =
-          monthlyEquiv[pkg] + ' / Monat&ensp;<span class="save">· 2 Monate gratis</span>';
+          monthlyEquiv[pkg] + ' / Monat&ensp;<span class="save">· bis zu 15 % sparen</span>';
       } else {
         document.getElementById('price-' + pkg).innerHTML =
           prices.monthly[pkg] + '<span class="price-period"> / Monat</span>';
@@ -1542,7 +2292,7 @@
             prices.monthly[pkg] = fmtEuro(price.amountCents);
           } else if (price.interval === 'year') {
             prices.yearly[pkg] = fmtEuro(price.amountCents);
-            monthlyEquiv[pkg] = Math.floor(price.amountCents / 1200).toLocaleString('de-DE') + ' €';
+            monthlyEquiv[pkg] = Math.round(price.amountCents / 1200).toLocaleString('de-DE') + ' €';
           }
         });
       });
@@ -1553,85 +2303,259 @@
   updateCtaLinks();
 
   // ── FAQ accordion ───────────────────────────────────────────
-  /* ─── HERO SIGNAL-FLOW ANIMATION ─── */
+  /* ─── HERO SIGNAL-FLOW ANIMATION ───
+     Random node → impulse to TrustworkX → soft logo glow ("analysis")
+     → impulse to another random node → node + line light up → pause.
+     Randomized source/target, durations and pauses: no two cycles alike. */
   (function() {
-    // Node positions (cx, cy) in SVG viewBox units
-    var nodes = [
-      {x: 210, y: 48},   // 0 – top
-      {x: 342, y: 100},  // 1 – top-right
-      {x: 342, y: 264},  // 2 – bottom-right
-      {x: 210, y: 318},  // 3 – bottom
-      {x: 78,  y: 264},  // 4 – bottom-left
-      {x: 78,  y: 100}   // 5 – top-left
-    ];
-    var center = {x: 210, y: 180};
-
-    // Predefined sequences: [source, target] — no same-consecutive
-    var sequences = [[0,3],[1,4],[2,5],[3,0],[4,1],[5,2],[0,2],[1,3],[2,4],[3,5],[4,0],[5,1]];
-    var seqIdx = 0;
+    // Nodes that have a direct spoke to the center (animation candidates)
+    var nodes = {
+      0: {x: 300, y: 48},
+      2: {x: 226, y: 158},
+      3: {x: 46,  y: 250},
+      5: {x: 150, y: 458},
+      6: {x: 342, y: 478},
+      7: {x: 494, y: 385},
+      8: {x: 492, y: 238},
+      9: {x: 474, y: 110}
+    };
+    var center = {x: 280, y: 255};
 
     var dot      = document.getElementById('impulse-dot');
+    var core     = document.getElementById('impulse-core');
+    var trail    = document.getElementById('impulse-trail');
     var centerGl = document.getElementById('center-glow');
-    var nodeGls  = [0,1,2,3,4,5].map(function(i){ return document.getElementById('ng'+i); });
-
     if (!dot || !centerGl) return;
 
-    function setGlow(el, on) {
-      el.style.opacity = on ? '1' : '0';
+    // Respect prefers-reduced-motion: keep the graphic static
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    function rand(min, max) { return min + Math.random() * (max - min); }
+    function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
+    // Only animate nodes that are visible at the current breakpoint
+    function visibleIds() {
+      return Object.keys(nodes).filter(function(i) {
+        var el = document.getElementById('node' + i);
+        return el && el.getBoundingClientRect().width > 0;
+      });
     }
 
-    function animateDot(fromX, fromY, toX, toY, duration, cb) {
+    function setGlow(el, on) { if (el) el.style.opacity = on ? '1' : '0'; }
+
+    // Move impulse (dot + bright core + short tail) along a straight path, easeInOutCubic
+    function travel(from, to, duration, line, cb) {
       var start = null;
-      dot.setAttribute('cx', fromX);
-      dot.setAttribute('cy', fromY);
+      var dx = to.x - from.x, dy = to.y - from.y;
+      var len = Math.sqrt(dx*dx + dy*dy);
+      var tailLen = Math.min(30, len * 0.15);
+      if (line) line.classList.add('active');
       dot.style.opacity = '1';
+      core.style.opacity = '.9';
+      trail.style.opacity = '.45';
+
+      function place(el, x, y) { el.setAttribute('cx', x); el.setAttribute('cy', y); }
 
       function step(ts) {
         if (!start) start = ts;
         var t = Math.min((ts - start) / duration, 1);
-        // ease in-out cubic
-        var e = t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2, 3)/2;
-        dot.setAttribute('cx', fromX + (toX - fromX) * e);
-        dot.setAttribute('cy', fromY + (toY - fromY) * e);
+        var e = t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3) / 2; // easeInOutCubic
+        var x = from.x + dx * e, y = from.y + dy * e;
+        place(dot, x, y); place(core, x, y);
+        // Tail trails behind the dot along the path
+        var back = Math.max(0, e * len - tailLen) / len;
+        trail.setAttribute('x1', from.x + dx * back);
+        trail.setAttribute('y1', from.y + dy * back);
+        trail.setAttribute('x2', x);
+        trail.setAttribute('y2', y);
         if (t < 1) { requestAnimationFrame(step); }
-        else { dot.style.opacity = '0'; cb && cb(); }
+        else {
+          dot.style.opacity = '0';
+          core.style.opacity = '0';
+          trail.style.opacity = '0';
+          if (line) line.classList.remove('active');
+          cb && cb();
+        }
       }
       requestAnimationFrame(step);
     }
 
-    function runSequence() {
-      var seq = sequences[seqIdx % sequences.length];
-      seqIdx++;
-      var src = nodes[seq[0]];
-      var tgt = nodes[seq[1]];
-      var ngSrc = nodeGls[seq[0]];
-      var ngTgt = nodeGls[seq[1]];
+    function runCycle() {
+      var ids = visibleIds();
+      if (ids.length < 2) { setTimeout(runCycle, 2000); return; }
+      var srcId = pick(ids);
+      var tgtId = pick(ids.filter(function(i) { return i !== srcId; }));
+      var src = nodes[srcId], tgt = nodes[tgtId];
+      var lineIn  = document.getElementById('sp' + srcId);
+      var lineOut = document.getElementById('sp' + tgtId);
+      var glowSrc = document.getElementById('nglow' + srcId);
+      var glowTgt = document.getElementById('nglow' + tgtId);
 
-      // Phase 1: source glow on → impulse toward center (700ms)
-      setGlow(ngSrc, true);
-      setTimeout(function() { setGlow(ngSrc, false); }, 300);
+      // 1. Random node sends the impulse
+      setGlow(glowSrc, true);
+      setTimeout(function() { setGlow(glowSrc, false); }, 350);
 
-      animateDot(src.x, src.y, center.x, center.y, 700, function() {
-        // Phase 2: center X glow (500ms)
+      // 2. Impulse travels smoothly to TrustworkX
+      travel(src, center, rand(950, 1350), lineIn, function() {
+        // 3. Logo reacts with a subtle glow ("analysis")
         setGlow(centerGl, true);
         setTimeout(function() {
           setGlow(centerGl, false);
-          // Phase 3: impulse center → target (700ms)
-          animateDot(center.x, center.y, tgt.x, tgt.y, 700, function() {
-            // Phase 4: target node glow (500ms)
-            setGlow(ngTgt, true);
+          // 4. TrustworkX sends the impulse to the matching node
+          travel(center, tgt, rand(950, 1350), lineOut, function() {
+            // 5. Target node lights up briefly
+            setGlow(glowTgt, true);
             setTimeout(function() {
-              setGlow(ngTgt, false);
-              // Pause then next
-              setTimeout(runSequence, 1100);
-            }, 500);
+              setGlow(glowTgt, false);
+              // 6. Short pause, then a new random cycle
+              setTimeout(runCycle, rand(800, 1900));
+            }, 450);
           });
-        }, 500);
+        }, rand(500, 750));
       });
     }
 
-    // Stagger start so page load isn't immediately busy
-    setTimeout(runSequence, 800);
+    setTimeout(runCycle, 900);
+  })();
+
+  /* ─── DASHBOARD PREVIEW MODAL ───
+     Banner click opens the dialog; a small product animation runs exactly
+     once per opening (timeline per briefing), then the preview stays calm. */
+  (function() {
+    var banner  = document.getElementById('dashboardBanner');
+    var overlay = document.getElementById('dashboardModal');
+    if (!banner || !overlay) return;
+    var closeBtn   = document.getElementById('dmClose');
+    var notify     = document.getElementById('dmNotify');
+    var count      = document.getElementById('dmCount');
+    var matchTile  = document.getElementById('dmMatchTile');
+    var status     = document.getElementById('dmStatus');
+    var statusText = document.getElementById('dmStatusText');
+    var timers = [];
+    var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function later(fn, ms) { timers.push(setTimeout(fn, ms)); }
+
+    function resetAnimation() {
+      timers.forEach(clearTimeout);
+      timers = [];
+      notify.classList.remove('show');
+      count.textContent = '1';
+      count.classList.remove('pop');
+      matchTile.classList.remove('hl');
+      status.classList.remove('show', 'done');
+      statusText.textContent = '';
+      // Fenster-Stapel zurücksetzen (Hauptansicht wieder vorn)
+      var st = overlay.querySelector('.dm-stage');
+      var ps = document.getElementById('dmProjScreen');
+      if (st) st.classList.remove('swapped');
+      if (ps) ps.setAttribute('aria-pressed', 'false');
+    }
+
+    function showFinalState() {
+      notify.classList.add('show');
+      count.textContent = '2';
+      status.classList.add('show', 'done');
+      statusText.textContent = 'Bereit zur Kontaktaufnahme';
+    }
+
+    // Timeline: 700ms notification → 1100ms counter 1→2 → 1700ms "analysiert"
+    // → 2700ms "Partner gefunden" → 3700ms "Bereit zur Kontaktaufnahme" + check.
+    function runAnimation() {
+      later(function() { notify.classList.add('show'); }, 700);
+      later(function() {
+        count.textContent = '2';
+        count.classList.add('pop');
+        matchTile.classList.add('hl');
+      }, 1100);
+      later(function() {
+        status.classList.add('show');
+        statusText.textContent = 'Anfrage wird analysiert …';
+      }, 1700);
+      later(function() { statusText.textContent = 'Passender Partner gefunden'; }, 2700);
+      later(function() {
+        status.classList.add('done');
+        statusText.textContent = 'Bereit zur Kontaktaufnahme';
+        matchTile.classList.remove('hl');
+      }, 3700);
+    }
+
+    function onKeydown(e) { if (e.key === 'Escape') closeModal(); }
+
+    function openModal() {
+      resetAnimation();
+      overlay.hidden = false;
+      // next frame so the open transition can play
+      requestAnimationFrame(function() { requestAnimationFrame(function() {
+        overlay.classList.add('open');
+      }); });
+      document.body.style.overflow = 'hidden';
+      document.addEventListener('keydown', onKeydown);
+      closeBtn.focus();
+      if (reduced) { showFinalState(); } else { runAnimation(); }
+    }
+
+    function closeModal() {
+      resetAnimation();
+      overlay.classList.remove('open');
+      overlay.hidden = true;
+      document.body.style.overflow = '';
+      document.removeEventListener('keydown', onKeydown);
+      banner.focus();
+    }
+
+    banner.addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModal);
+    // click on the dark overlay closes; clicks inside the modal do not
+    overlay.addEventListener('click', function(e) { if (e.target === overlay) closeModal(); });
+
+    // Screen swap: click/tap or swipe pulls the project view to the front
+    var stage      = overlay.querySelector('.dm-stage');
+    var projScreen = document.getElementById('dmProjScreen');
+    var mainScreen = overlay.querySelector('.dm-screen-main');
+    function setSwapped(on) {
+      stage.classList.toggle('swapped', on);
+      projScreen.setAttribute('aria-pressed', on ? 'true' : 'false');
+    }
+    projScreen.addEventListener('click', function() { setSwapped(true); });
+    projScreen.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSwapped(!stage.classList.contains('swapped')); }
+    });
+    mainScreen.addEventListener('click', function() {
+      if (stage.classList.contains('swapped')) setSwapped(false);
+    });
+    // Swipe (Touch): nach links -> Projektübersicht nach vorn, nach rechts -> zurück
+    var touchX = null;
+    stage.addEventListener('touchstart', function(e) { touchX = e.touches[0].clientX; }, { passive: true });
+    stage.addEventListener('touchend', function(e) {
+      if (touchX === null) return;
+      var dx = e.changedTouches[0].clientX - touchX;
+      touchX = null;
+      if (Math.abs(dx) < 40) return;
+      setSwapped(dx < 0);
+    }, { passive: true });
+  })();
+
+  /* ─── MOBILE NAV + SCROLL-ZUSTAND ─── */
+  (function() {
+    var siteNav = document.querySelector('.site-nav');
+    function onNavScroll() { siteNav.classList.toggle('scrolled', window.scrollY > 30); }
+    window.addEventListener('scroll', onNavScroll, { passive: true });
+    onNavScroll();
+
+    var burger = document.getElementById('navBurger');
+    var panel  = document.getElementById('navMobile');
+    if (!burger || !panel) return;
+    burger.addEventListener('click', function() {
+      var open = panel.classList.toggle('open');
+      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    panel.querySelectorAll('a').forEach(function(a) {
+      a.addEventListener('click', function() {
+        panel.classList.remove('open');
+        burger.setAttribute('aria-expanded', 'false');
+      });
+    });
   })();
 
   function toggleFaq(btn) {
