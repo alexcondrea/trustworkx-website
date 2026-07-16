@@ -14,7 +14,6 @@
       --teal: #2EC4B6;
       --teal2: #38d4c8;
       --teal-dark: #22a99d;
-      --teal-text: #0f7a70;  /* Türkis für Text auf hellen Flächen, WCAG AA (5.2:1 auf Weiß) */
       --text: #0B1F3B;
       --muted: #5f6b7a;
       --bg: #F5F7FA;
@@ -134,7 +133,7 @@
       color: var(--navy);
       background: #fff;
     }
-    .btn-light:hover { border-color: var(--teal); color: var(--teal-text); transform: translateY(-1px); }
+    .btn-light:hover { border-color: var(--teal); color: var(--teal); transform: translateY(-1px); }
     .btn-outline-teal {
       border: 1.5px solid var(--teal);
       color: var(--teal);
@@ -238,7 +237,7 @@
     section { padding: 96px 0; }
     .section-title { text-align: center; margin-bottom: 56px; }
     .eyebrow {
-      color: var(--teal-text);
+      color: var(--teal);
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: .1em;
@@ -251,7 +250,7 @@
       font-weight: 900;
       letter-spacing: -.5px;
     }
-    .section-sub { font-size: 18px; color: var(--teal-text); font-weight: 700; margin-top: 8px; }
+    .section-sub { font-size: 18px; color: var(--teal); font-weight: 700; margin-top: 8px; }
     .section-sub-muted { font-size: 17px; color: var(--muted); margin-top: 10px; max-width: 620px; margin-left: auto; margin-right: auto; }
 
     /* ─── CHALLENGES ─── */
@@ -293,7 +292,7 @@
       color: var(--navy);
       line-height: 1.5;
     }
-    .bridge span { color: var(--teal-text); }
+    .bridge span { color: var(--teal); }
 
     /* ─── SOLUTION BOX ─── */
     .solution {
@@ -377,7 +376,7 @@
     .dashboard-link {
       margin-left: auto;
       flex-shrink: 0;
-      color: var(--teal-text) !important;
+      color: var(--teal) !important;
       font-weight: 700;
       font-size: 15px !important;
       font-family: var(--mono);
@@ -900,7 +899,7 @@
     }
     .ztl-content { padding-top: 10px; }
     .ztl-num {
-      font-size: 11px; font-weight: 800; color: var(--teal-text);
+      font-size: 11px; font-weight: 800; color: var(--teal);
       letter-spacing: .06em; text-transform: uppercase; margin-bottom: 4px;
     }
     .ztl-content h3 { font-size: 16px; font-weight: 800; margin-bottom: 6px; color: var(--navy); }
@@ -947,7 +946,7 @@
     .toggle.yearly::after { transform: translateX(22px); }
     .save-badge {
       background: rgba(46,196,182,.15);
-      color: #0d7268; /* AA auf dem hellen Badge-Hintergrund */
+      color: var(--teal-dark);
       font-size: 12px;
       font-weight: 800;
       padding: 3px 10px;
@@ -1006,7 +1005,7 @@
     .price-amount { font-size: 28px; font-weight: 900; color: var(--navy); }
     .price-period { font-size: 14px; font-weight: 600; color: var(--muted); }
     .price-yearly { font-size: 13px; color: var(--muted); margin-bottom: 22px; margin-top: 2px; }
-    .price-yearly .save { color: var(--teal-text); font-weight: 700; }
+    .price-yearly .save { color: var(--teal); font-weight: 700; }
     ul.features { list-style: none; padding: 0; margin: 0 0 24px; flex: 1; }
     ul.features li {
       margin: 10px 0;
@@ -1112,8 +1111,8 @@
       gap: 16px;
       transition: color .15s;
     }
-    .faq-q:hover { color: var(--teal-text); }
-    .faq-q.open { color: var(--teal-text); }
+    .faq-q:hover { color: var(--teal); }
+    .faq-q.open { color: var(--teal); }
     .faq-arrow {
       font-size: 18px;
       color: var(--teal);
