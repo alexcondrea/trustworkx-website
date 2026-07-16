@@ -260,7 +260,11 @@
   // 2. GET /api/legal/booking-requirements  → Pflicht-Checkboxen (immer frisch laden)
   // 3. POST /api/registration/start         → Redirect auf die zurückgegebene Stripe-URL
   // Die Website hält keine Stripe-Keys, keine Konten, keine Passwörter.
-  var API_BASE = 'https://app.trustworkx.de';
+  // Gleiche Dateien auf Staging und Live: die Staging-Vorschau spricht mit
+  // der Staging-API, nur die Live-Domain mit der Produktiv-App.
+  var API_BASE = location.hostname === 'www.trustworkx.de'
+    ? 'https://app.trustworkx.de'
+    : 'https://staging.trustworkx.de';
 
   var params = new URLSearchParams(window.location.search);
   var planParam = (params.get('plan') || '').toUpperCase();
@@ -279,7 +283,11 @@
   var form = document.getElementById('checkout-form');
 
   function fmtEuro(cents) {
-    return Math.round(cents / 100).toLocaleString('de-DE') + ' €';
+    // Ganze Beträge ohne Nachkommastellen, krumme Beträge (z. B. 49,90 €) exakt.
+    var digits = cents % 100 === 0 ? 0 : 2;
+    return (cents / 100).toLocaleString('de-DE', {
+      minimumFractionDigits: digits, maximumFractionDigits: digits
+    }) + ' €';
   }
   function showError(message) {
     errorBox.textContent = message;
