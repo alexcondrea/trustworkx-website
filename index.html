@@ -471,12 +471,18 @@
       font-size: 12px;
       line-height: 1.4;
     }
+    .dm-screen {
+      transition: transform .5s cubic-bezier(0.22, 1, 0.36, 1), filter .5s ease,
+                  width .5s cubic-bezier(0.22, 1, 0.36, 1), right .5s cubic-bezier(0.22, 1, 0.36, 1),
+                  top .5s cubic-bezier(0.22, 1, 0.36, 1);
+    }
     .dm-screen-main {
       position: relative;
       z-index: 2;
       width: 78%;
       display: flex;
       transform: rotateY(7deg) rotateX(2deg) rotate(-0.8deg);
+      transform-origin: left center;
     }
     .dm-screen-projects {
       position: absolute;
@@ -487,6 +493,27 @@
       display: flex;
       transform: rotateY(-9deg) rotateX(1.5deg) rotate(1.2deg);
       filter: brightness(.9);
+      cursor: pointer;
+    }
+    .dm-screen-projects:focus-visible { outline: 2px solid var(--teal); outline-offset: 4px; }
+    /* Getauschter Zustand: Projektübersicht vorn, Dashboard tritt zurück */
+    .dm-stage.swapped .dm-screen-projects {
+      z-index: 3;
+      width: 76%;
+      top: 0;
+      right: 6%;
+      transform: rotateY(-6deg) rotateX(2deg) rotate(.6deg);
+      filter: none;
+      cursor: default;
+    }
+    .dm-stage.swapped .dm-screen-main {
+      z-index: 1;
+      transform: rotateY(9deg) rotateX(1.5deg) rotate(-1deg) translateX(-3%) scale(.82);
+      filter: brightness(.9);
+      cursor: pointer;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .dm-screen { transition: none; }
     }
     /* Sidebar of the mini app */
     .dm-side {
@@ -2010,8 +2037,8 @@
     <p class="dm-sub" id="dmSub">Projekte, Anfragen und Kooperationen zentral verwalten.</p>
 
     <div class="dm-stage">
-      <!-- Second view: small project overview, offset behind right -->
-      <div class="dm-screen dm-screen-projects" aria-hidden="true">
+      <!-- Second view: small project overview, offset behind right; click/swipe brings it to front -->
+      <div class="dm-screen dm-screen-projects" id="dmProjScreen" role="button" tabindex="0" aria-pressed="false" aria-label="Projektübersicht in den Vordergrund holen">
         <div class="dm-side dm-side-proj">
           <img src="https://assets.cdn.filesafe.space/zX4w9KMO5mq76LaNi9KH/media/6a3fbc5789d9cd8dc2cb8b9b.svg" alt="">
           <a><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Dashboard</a>
@@ -2372,6 +2399,11 @@
       matchTile.classList.remove('hl');
       status.classList.remove('show', 'done');
       statusText.textContent = '';
+      // Fenster-Stapel zurücksetzen (Hauptansicht wieder vorn)
+      var st = overlay.querySelector('.dm-stage');
+      var ps = document.getElementById('dmProjScreen');
+      if (st) st.classList.remove('swapped');
+      if (ps) ps.setAttribute('aria-pressed', 'false');
     }
 
     function showFinalState() {
@@ -2430,6 +2462,32 @@
     closeBtn.addEventListener('click', closeModal);
     // click on the dark overlay closes; clicks inside the modal do not
     overlay.addEventListener('click', function(e) { if (e.target === overlay) closeModal(); });
+
+    // Screen swap: click/tap or swipe pulls the project view to the front
+    var stage      = overlay.querySelector('.dm-stage');
+    var projScreen = document.getElementById('dmProjScreen');
+    var mainScreen = overlay.querySelector('.dm-screen-main');
+    function setSwapped(on) {
+      stage.classList.toggle('swapped', on);
+      projScreen.setAttribute('aria-pressed', on ? 'true' : 'false');
+    }
+    projScreen.addEventListener('click', function() { setSwapped(true); });
+    projScreen.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSwapped(!stage.classList.contains('swapped')); }
+    });
+    mainScreen.addEventListener('click', function() {
+      if (stage.classList.contains('swapped')) setSwapped(false);
+    });
+    // Swipe (Touch): nach links -> Projektübersicht nach vorn, nach rechts -> zurück
+    var touchX = null;
+    stage.addEventListener('touchstart', function(e) { touchX = e.touches[0].clientX; }, { passive: true });
+    stage.addEventListener('touchend', function(e) {
+      if (touchX === null) return;
+      var dx = e.changedTouches[0].clientX - touchX;
+      touchX = null;
+      if (Math.abs(dx) < 40) return;
+      setSwapped(dx < 0);
+    }, { passive: true });
   })();
 
   /* ─── MOBILE NAV ─── */
