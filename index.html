@@ -447,14 +447,28 @@
     .dm-title { font-size: 28px; font-weight: 900; letter-spacing: -.5px; text-align: center; }
     .dm-sub { color: #c8dce5; font-size: 15px; text-align: center; margin: 6px 0 28px; }
 
-    /* Staged product views */
-    .dm-stage { position: relative; padding-bottom: 12px; }
+    /* Staged product views — dark device frames on a softly lit stage */
+    .dm-stage { position: relative; padding: 6px 0 18px; perspective: 1600px; }
+    .dm-stage::before {
+      content: "";
+      position: absolute;
+      left: 8%;
+      right: 8%;
+      top: 30%;
+      bottom: 0;
+      background: radial-gradient(ellipse at 50% 80%, rgba(46,196,182,.14), transparent 65%);
+      filter: blur(18px);
+      pointer-events: none;
+    }
     .dm-screen {
       background: var(--bg);
       color: var(--text);
-      border: 1px solid rgba(255,255,255,.14);
-      border-radius: 16px;
-      box-shadow: 0 24px 60px rgba(2,8,18,.55);
+      border: 8px solid #0a1728;
+      border-radius: 18px;
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,.09),
+        0 34px 70px rgba(2,8,18,.65),
+        0 10px 24px rgba(2,8,18,.45);
       overflow: hidden;
       font-size: 12px;
       line-height: 1.4;
@@ -464,15 +478,17 @@
       z-index: 2;
       width: 78%;
       display: flex;
+      transform: rotateY(7deg) rotateX(2deg) rotate(-0.8deg);
     }
     .dm-screen-projects {
       position: absolute;
       z-index: 1;
       right: 0;
-      top: 44px;
-      width: 50%;
-      transform: rotate(1.5deg);
-      filter: brightness(.92);
+      top: 48px;
+      width: 52%;
+      display: flex;
+      transform: rotateY(-9deg) rotateX(1.5deg) rotate(1.2deg);
+      filter: brightness(.9);
     }
     /* Sidebar of the mini app */
     .dm-side {
@@ -486,23 +502,52 @@
     }
     .dm-side img { height: 20px; width: auto; margin: 2px 14px 14px; display: block; }
     .dm-side a {
-      display: block;
-      padding: 7px 14px;
-      font-size: 11px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 10px;
+      margin: 1px 8px;
+      border-radius: 7px;
+      font-size: 10.5px;
       font-weight: 600;
       color: #b9cbd6;
-      border-left: 2px solid transparent;
     }
+    .dm-side a svg { flex-shrink: 0; opacity: .75; }
     .dm-side a.on {
       color: #fff;
-      background: rgba(46,196,182,.14);
-      border-left-color: var(--teal);
+      background: linear-gradient(135deg, rgba(46,196,182,.35), rgba(46,196,182,.18));
+      box-shadow: inset 0 0 0 1px rgba(46,196,182,.35);
     }
+    .dm-side a.on svg { opacity: 1; color: var(--teal); }
+    .dm-side-proj { width: 118px; }
     .dm-main { flex: 1; padding: 14px 16px 16px; min-width: 0; }
     .dm-hello { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
     .dm-hello strong { font-size: 15px; color: var(--navy); display: block; }
     .dm-hello em { font-style: normal; color: var(--muted); font-size: 11px; }
-    .dm-bell { color: var(--muted); flex-shrink: 0; margin-top: 2px; }
+    .dm-user { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+    .dm-bell { color: var(--muted); position: relative; margin-top: 2px; }
+    .dm-bell i {
+      position: absolute;
+      top: -2px; right: -2px;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--teal);
+    }
+    .dm-avatar {
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--teal), #1d968b);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .dm-user .who { line-height: 1.25; }
+    .dm-user .who b { display: block; font-size: 10px; color: var(--navy); }
+    .dm-user .who small { font-size: 9px; color: var(--muted); }
     .dm-cards { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 8px; margin-top: 12px; }
     .dm-card {
       background: #fff;
@@ -578,7 +623,7 @@
     .dm-notify {
       position: absolute;
       z-index: 3;
-      top: 10px;
+      top: 0;
       right: 24.5%;
       margin-right: 10px;
       background: #fff;
@@ -600,16 +645,67 @@
     }
     .dm-notify.show { opacity: 1; transform: translateY(0); }
     .dm-notify svg { color: var(--teal); flex-shrink: 0; }
+    /* activities + tips row on the dashboard start page */
+    .dm-lower { display: grid; grid-template-columns: 1.5fr 1fr; gap: 8px; margin-top: 12px; align-items: start; }
+    .dm-acts { background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 9px 11px; }
+    .dm-acts h6, .dm-tips h6 { font-size: 10.5px; font-weight: 800; color: var(--navy); margin-bottom: 6px; }
+    .dm-act { display: flex; gap: 8px; align-items: flex-start; padding: 5px 0; border-bottom: 1px solid #edf2f6; }
+    .dm-act:last-child { border-bottom: none; padding-bottom: 0; }
+    .dm-act .ic {
+      width: 20px; height: 20px;
+      border-radius: 6px;
+      background: rgba(46,196,182,.12);
+      color: #1d968b;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .dm-act .tx { flex: 1; min-width: 0; }
+    .dm-act .tx b { display: block; font-size: 9.5px; color: var(--navy); }
+    .dm-act .tx small { font-size: 9px; color: var(--muted); font-style: italic; }
+    .dm-act .when { font-size: 8.5px; color: var(--muted); white-space: nowrap; margin-top: 2px; }
+    .dm-tips {
+      background: linear-gradient(135deg, rgba(46,196,182,.09), rgba(46,196,182,.04));
+      border: 1px solid rgba(46,196,182,.3);
+      border-radius: 10px;
+      padding: 9px 11px;
+    }
+    .dm-tips p { font-size: 9.5px; color: #33414f; line-height: 1.45; }
+    .dm-tips .go { display: inline-block; margin-top: 6px; font-size: 9.5px; font-weight: 700; color: #1d968b; }
     /* second view: projects */
-    .dm-proj { padding: 12px 14px; background: #fff; }
-    .dm-proj h4 { font-size: 13px; color: var(--navy); margin-bottom: 8px; }
-    .dm-proj table { width: 100%; border-collapse: collapse; font-size: 10.5px; }
-    .dm-proj th { text-align: left; color: var(--muted); font-weight: 600; padding: 4px 4px; border-bottom: 1px solid var(--line); }
-    .dm-proj td { padding: 5px 4px; border-bottom: 1px solid #edf2f6; color: var(--text); }
-    .dm-badge { font-size: 9px; font-weight: 700; padding: 2px 7px; border-radius: 20px; white-space: nowrap; }
+    .dm-proj { padding: 12px 14px; background: var(--bg); flex: 1; min-width: 0; }
+    .dm-proj h4 { font-size: 13px; color: var(--navy); margin-bottom: 7px; }
+    .dm-proj-bar { display: flex; align-items: center; gap: 6px; margin-bottom: 8px; }
+    .dm-tab { font-size: 9.5px; font-weight: 700; color: var(--muted); padding: 4px 8px; border-radius: 6px; white-space: nowrap; }
+    .dm-tab.on { color: #1d968b; background: rgba(46,196,182,.14); }
+    .dm-search {
+      margin-left: auto;
+      display: flex; align-items: center; gap: 4px;
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 6px;
+      padding: 3px 7px;
+      font-size: 9px; color: var(--muted);
+      white-space: nowrap;
+    }
+    .dm-newbtn {
+      background: var(--teal);
+      color: #fff;
+      font-size: 9px; font-weight: 700;
+      border-radius: 6px;
+      padding: 4px 7px;
+      white-space: nowrap;
+    }
+    .dm-proj table { width: 100%; border-collapse: collapse; font-size: 10px; background: #fff; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+    .dm-proj th { text-align: left; color: var(--muted); font-weight: 600; padding: 5px 7px; border-bottom: 1px solid var(--line); background: #fbfcfd; }
+    .dm-proj td { padding: 6px 7px; border-bottom: 1px solid #edf2f6; color: var(--text); }
+    .dm-proj tr:last-child td { border-bottom: none; }
+    .dm-badge { font-size: 8.5px; font-weight: 700; padding: 2px 7px; border-radius: 20px; white-space: nowrap; }
     .dm-badge.ok { background: rgba(46,196,182,.15); color: #1d968b; }
+    .dm-badge.warn { background: #fdf3e2; color: #b07c25; }
     .dm-badge.wait { background: #f2f5f8; color: var(--muted); border: 1px solid var(--line); }
-    .dm-proj .tiny { font-size: 10px; color: var(--muted); margin-top: 8px; }
+    .dm-proj .tiny { font-size: 10px; color: var(--muted); margin-top: 9px; font-weight: 600; }
+    .dm-proj-foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .dm-proj-foot .all { font-size: 9px; font-weight: 700; color: #1d968b; white-space: nowrap; margin-top: 9px; }
 
     /* Modal responsive */
     @media (max-width: 1023px) {
@@ -622,10 +718,12 @@
       .dm-title { font-size: 21px; }
       .dm-sub { margin-bottom: 18px; }
       .dm-screen-projects { display: none; }
-      .dm-screen-main { width: 100%; }
+      .dm-screen-main { width: 100%; transform: none; }
       .dm-side { display: none; }
       .dm-cards { grid-template-columns: 1fr 1fr; }
       .dm-tiles { grid-template-columns: 1fr 1fr; }
+      .dm-lower { grid-template-columns: 1fr; }
+      .dm-user .who { display: none; }
       .dm-notify { right: 8px; top: -12px; }
       .dm-close { top: 12px; right: 12px; }
     }
@@ -1778,16 +1876,34 @@
     <div class="dm-stage">
       <!-- Second view: small project overview, offset behind right -->
       <div class="dm-screen dm-screen-projects" aria-hidden="true">
+        <div class="dm-side dm-side-proj">
+          <img src="https://assets.cdn.filesafe.space/zX4w9KMO5mq76LaNi9KH/media/6a3fbc5789d9cd8dc2cb8b9b.svg" alt="">
+          <a><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Dashboard</a>
+          <a class="on"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>Projekte</a>
+          <a><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Bewerbungen</a>
+          <a><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Matching-Anfragen</a>
+          <a><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="1.5"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="9" y1="12" x2="15" y2="12"/></svg>Unternehmen</a>
+          <a><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Nachrichten</a>
+        </div>
         <div class="dm-proj">
           <h4>Projekte</h4>
+          <div class="dm-proj-bar">
+            <span class="dm-tab on">Meine Projekte</span>
+            <span class="dm-tab">Interessante Projekte</span>
+            <span class="dm-search"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>Projekt suchen</span>
+            <span class="dm-newbtn">+ Neues Projekt</span>
+          </div>
           <table>
-            <tr><th>Titel</th><th>Status</th><th>Bewerbungen</th></tr>
-            <tr><td>IT-Infrastruktur Migration</td><td><span class="dm-badge ok">Aktiv</span></td><td>5</td></tr>
-            <tr><td>Microsoft 365 Rollout</td><td><span class="dm-badge ok">Aktiv</span></td><td>3</td></tr>
-            <tr><td>IT-Infrastruktur Update</td><td><span class="dm-badge wait">In Prüfung</span></td><td>2</td></tr>
-            <tr><td>Cloud Backup Lösung</td><td><span class="dm-badge wait">Abgeschlossen</span></td><td>7</td></tr>
+            <tr><th>Titel</th><th>Status</th><th>Bewerbungen</th><th>Erstellt am</th></tr>
+            <tr><td>IT-Infrastruktur Migration</td><td><span class="dm-badge ok">Aktiv</span></td><td>5</td><td>12.05.2025</td></tr>
+            <tr><td>Microsoft 365 Rollout</td><td><span class="dm-badge ok">Aktiv</span></td><td>3</td><td>10.05.2025</td></tr>
+            <tr><td>IT-Infrastruktur Update</td><td><span class="dm-badge warn">In Prüfung</span></td><td>2</td><td>08.05.2025</td></tr>
+            <tr><td>Cloud Backup Lösung</td><td><span class="dm-badge wait">Abgeschlossen</span></td><td>7</td><td>30.04.2025</td></tr>
           </table>
-          <p class="tiny">Verbleibende Projekte (Jahr): 4 / 10</p>
+          <div class="dm-proj-foot">
+            <p class="tiny">Verbleibende Projekte (Jahr): 4 / 10</p>
+            <span class="all">Alle Projekte anzeigen</span>
+          </div>
           <div class="dm-bar"><i style="width:40%"></i></div>
         </div>
       </div>
@@ -1796,14 +1912,14 @@
       <div class="dm-screen dm-screen-main">
         <div class="dm-side" aria-hidden="true">
           <img src="https://assets.cdn.filesafe.space/zX4w9KMO5mq76LaNi9KH/media/6a3fbc5789d9cd8dc2cb8b9b.svg" alt="">
-          <a class="on">Dashboard</a>
-          <a>Projekte</a>
-          <a>Bewerbungen</a>
-          <a>Matching-Anfragen</a>
-          <a>Unternehmen</a>
-          <a>Nachrichten</a>
-          <a>Einstellungen</a>
-          <a>Hilfe &amp; Support</a>
+          <a class="on"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Dashboard</a>
+          <a><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>Projekte</a>
+          <a><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Bewerbungen</a>
+          <a><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Matching-Anfragen</a>
+          <a><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="1.5"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="9" y1="12" x2="15" y2="12"/></svg>Unternehmen</a>
+          <a><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Nachrichten</a>
+          <a><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Einstellungen</a>
+          <a><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Hilfe &amp; Support</a>
         </div>
         <div class="dm-main">
           <div class="dm-hello">
@@ -1811,7 +1927,11 @@
               <strong>Willkommen, Max Mustermann!</strong>
               <em>Schön, dass Sie da sind.</em>
             </div>
-            <svg class="dm-bell" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            <div class="dm-user">
+              <span class="dm-bell"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><i></i></span>
+              <span class="dm-avatar">MM</span>
+              <span class="who"><b>Max Mustermann</b><small>Systemhaus GmbH</small></span>
+            </div>
           </div>
           <div class="dm-cards">
             <div class="dm-card">
@@ -1860,6 +1980,31 @@
             <span class="dm-spin"></span>
             <span class="dm-check"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
             <span id="dmStatusText"></span>
+          </div>
+          <div class="dm-lower">
+            <div class="dm-acts">
+              <h6>Letzte Aktivitäten</h6>
+              <div class="dm-act">
+                <span class="ic"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></span>
+                <span class="tx"><b>Neue Matching-Anfrage erhalten</b><small>„IT-Infrastruktur Migration"</small></span>
+                <span class="when">vor 2 Stunden</span>
+              </div>
+              <div class="dm-act">
+                <span class="ic"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+                <span class="tx"><b>Ihre Bewertung wurde eingereicht</b><small>„IT-Infrastruktur Update"</small></span>
+                <span class="when">vor 15 Stunden</span>
+              </div>
+              <div class="dm-act">
+                <span class="ic"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></span>
+                <span class="tx"><b>Neues Projekt veröffentlicht</b><small>„Cloud Backup Lösung"</small></span>
+                <span class="when">vor 1 Tag</span>
+              </div>
+            </div>
+            <div class="dm-tips">
+              <h6>Tipps für Sie</h6>
+              <p>Vervollständigen Sie Ihr Profil, um mehr passende Anfragen zu erhalten.</p>
+              <span class="go">Zum Profil →</span>
+            </div>
           </div>
         </div>
       </div>
