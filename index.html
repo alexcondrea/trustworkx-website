@@ -1314,6 +1314,33 @@
       .site-nav .btn-primary { padding: 9px 12px; font-size: 12.5px; }
       .nav-burger { padding: 4px; }
     }
+    /* Beim Scrollen: kompakter + Liquid-Glass (durchscheinend, starker Blur) */
+    .site-nav .nav {
+      transition: background .35s ease, padding .35s ease, box-shadow .35s ease, border-color .35s ease;
+    }
+    .site-nav .logo-horizontal { transition: height .35s ease; }
+    .site-nav.scrolled .nav {
+      background: rgba(7,18,34,.5);
+      -webkit-backdrop-filter: blur(22px) saturate(160%);
+      backdrop-filter: blur(22px) saturate(160%);
+      border-color: rgba(255,255,255,.14);
+      padding: 5px 14px;
+      box-shadow: 0 10px 34px rgba(2,8,18,.3);
+    }
+    .site-nav.scrolled .logo-horizontal { height: 38px; }
+    .site-nav.scrolled .btn { padding: 9px 16px; font-size: 14px; }
+    @media (max-width: 600px) {
+      .site-nav.scrolled .logo-horizontal { height: 28px; }
+      .site-nav.scrolled .nav { padding: 4px 10px; }
+      .site-nav.scrolled .btn-primary { padding: 8px 10px; font-size: 12px; }
+    }
+    /* Ohne Backdrop-Blur-Unterstützung: deckend bleiben (Lesbarkeit) */
+    @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+      .site-nav.scrolled .nav { background: rgba(5,15,30,.92); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .site-nav .nav, .site-nav .logo-horizontal { transition: none; }
+    }
     /* Pill schwebt über dem Hero */
     .site-nav { margin-bottom: -94px; }
     @media (max-width: 600px) { .site-nav { margin-bottom: -70px; } }
@@ -2509,8 +2536,13 @@
     }, { passive: true });
   })();
 
-  /* ─── MOBILE NAV ─── */
+  /* ─── MOBILE NAV + SCROLL-ZUSTAND ─── */
   (function() {
+    var siteNav = document.querySelector('.site-nav');
+    function onNavScroll() { siteNav.classList.toggle('scrolled', window.scrollY > 30); }
+    window.addEventListener('scroll', onNavScroll, { passive: true });
+    onNavScroll();
+
     var burger = document.getElementById('navBurger');
     var panel  = document.getElementById('navMobile');
     if (!burger || !panel) return;
