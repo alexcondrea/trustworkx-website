@@ -2206,8 +2206,25 @@
     footer {
       background: #040d1c;
       color: #cdd8df;
-      padding: 48px 0 24px;
-      border-radius: 28px 28px 0 0;
+      padding: 140px 0 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* soft dissolve from the light canvas into the dark footer */
+    footer::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      height: 170px;
+      background: linear-gradient(180deg,
+          var(--bg) 0%,
+          rgba(245, 247, 250, .45) 35%,
+          rgba(245, 247, 250, .12) 65%,
+          rgba(245, 247, 250, 0) 100%);
+      pointer-events: none;
     }
 
     .footer-grid {
@@ -2703,7 +2720,7 @@
       }
 
       footer {
-        border-radius: 20px 20px 0 0;
+        padding-top: 110px;
       }
 
       .hero-actions {
