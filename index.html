@@ -130,7 +130,7 @@
         radial-gradient(circle at 20% 70%, rgba(46, 196, 182, .10), transparent 28%),
         linear-gradient(135deg, #050f1e 0%, #091a32 55%, #050f1e 100%);
       color: #fff;
-      padding: 122px 0 330px;
+      padding: 122px 0 56px;
       overflow: hidden;
       position: relative;
     }
@@ -441,17 +441,6 @@
     }
 
     /* ─── CHALLENGES ─── */
-    /* Sektion ragt in den dunklen Hero hinein (Überlappung statt Kante) */
-    .challenges {
-      position: relative;
-      margin-top: -270px;
-      padding: 0 0 96px;
-    }
-
-    .challenges h2 {
-      color: #fff;
-    }
-
     .challenge-grid {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
@@ -460,7 +449,6 @@
       border-radius: 14px;
       overflow: hidden;
       background: #fff;
-      box-shadow: 0 24px 60px rgba(4, 12, 22, .18);
     }
 
     .challenge {
@@ -1518,16 +1506,7 @@
 
     /* ─── HOW IT WORKS – ZEITSTRAHL ─── */
     .how-section {
-      background: var(--bg);
-    }
-
-    /* Weiße Karte um den kompletten Zeitstrahl */
-    .how-card {
       background: #fff;
-      border: 1.5px solid var(--line);
-      border-radius: 18px;
-      padding: 48px 40px;
-      box-shadow: 0 12px 32px rgba(8, 24, 43, .06);
     }
 
     /* Desktop: horizontal Zeitstrahl */
@@ -2211,25 +2190,7 @@
     footer {
       background: #040d1c;
       color: #cdd8df;
-      padding: 124px 0 24px;
-    }
-
-    /* „Noch Fragen?"-Karte ragt in den dunklen Footer hinein */
-    .faq-contact {
-      text-align: center;
-      margin-top: 48px;
-      margin-bottom: -64px;
-      padding: 32px;
-      background: linear-gradient(135deg, #eefaf8, #f8fdfc);
-      border: 1px solid rgba(46, 196, 182, .25);
-      border-radius: 14px;
-      position: relative;
-      z-index: 1;
-      box-shadow: 0 24px 60px rgba(4, 12, 22, .18);
-    }
-
-    .faq-section {
-      padding-bottom: 0;
+      padding: 48px 0 24px;
     }
 
     .footer-grid {
@@ -2431,7 +2392,7 @@
       }
 
       .hero {
-        padding: 122px 0 340px;
+        padding: 122px 0 56px;
       }
 
       .hero-sub {
@@ -2721,19 +2682,7 @@
       }
 
       .hero {
-        padding: 96px 0 390px;
-      }
-
-      .challenges {
-        margin-top: -330px;
-      }
-
-      .how-card {
-        padding: 28px 18px;
-      }
-
-      footer {
-        padding-top: 112px;
+        padding: 96px 0 48px;
       }
 
       .hero-actions {
@@ -2991,7 +2940,7 @@
 
 
   <!-- ═══════════════════════════════════════════ CHALLENGES ═══ -->
-  <section class="challenges">
+  <section>
     <div class="container">
       <div class="section-title">
         <div class="eyebrow">Die Herausforderung</div>
@@ -3154,7 +3103,6 @@
   <!-- ═══════════════════════════════════════ HOW IT WORKS ═══ -->
   <section class="how-section" id="how-it-works">
     <div class="container">
-      <div class="how-card">
       <div class="section-title">
         <div class="eyebrow">Der Trustwork X Faktor</div>
         <h2>In 6 Schritten zur erfolgreichen Zusammenarbeit</h2>
@@ -3390,7 +3338,6 @@
         </div>
       </div><!-- /zt-timeline -->
 
-      </div><!-- /how-card -->
     </div>
   </section>
 
@@ -3630,7 +3577,7 @@
 
 
   <!-- ══════════════════════════════════════════════ FAQ ═══ -->
-  <section class="faq-section" id="faq">
+  <section class="faq-section" id="faq" style="background:#fff;">
     <div class="container">
       <div class="section-title">
         <div class="eyebrow">Häufige Fragen</div>
@@ -3789,7 +3736,8 @@
           </button>
         </div>
       </div>
-      <div class="faq-contact">
+      <div
+        style="text-align:center;margin-top:48px;padding:32px;background:linear-gradient(135deg,rgba(46,196,182,.07),rgba(46,196,182,.03));border:1px solid rgba(46,196,182,.2);border-radius:14px;">
         <p style="font-size:17px;font-weight:700;color:var(--navy);margin-bottom:8px;">Noch Fragen?</p>
         <p style="color:var(--muted);font-size:15px;margin-bottom:20px;">Kontaktieren Sie uns direkt – wir antworten
           innerhalb von zwei Werktagen.</p>
