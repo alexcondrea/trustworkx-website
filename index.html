@@ -130,11 +130,25 @@
         radial-gradient(circle at 20% 70%, rgba(46, 196, 182, .10), transparent 28%),
         linear-gradient(135deg, #050f1e 0%, #091a32 55%, #050f1e 100%);
       color: #fff;
-      padding: 122px 0 56px;
+      padding: 122px 0 140px;
       overflow: hidden;
       position: relative;
-      border-radius: 0 0 36px 36px;
-      box-shadow: 0 28px 56px -28px rgba(5, 15, 30, .35);
+    }
+
+    /* soft dissolve into the light canvas below */
+    .hero::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 170px;
+      background: linear-gradient(180deg,
+          rgba(245, 247, 250, 0) 0%,
+          rgba(245, 247, 250, .12) 35%,
+          rgba(245, 247, 250, .45) 65%,
+          var(--bg) 100%);
+      pointer-events: none;
     }
 
     /* subtle star-dots background */
@@ -2685,8 +2699,7 @@
       }
 
       .hero {
-        padding: 96px 0 48px;
-        border-radius: 0 0 22px 22px;
+        padding: 96px 0 110px;
       }
 
       footer {
