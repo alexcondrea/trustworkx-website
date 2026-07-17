@@ -130,25 +130,9 @@
         radial-gradient(circle at 20% 70%, rgba(46, 196, 182, .10), transparent 28%),
         linear-gradient(135deg, #050f1e 0%, #091a32 55%, #050f1e 100%);
       color: #fff;
-      padding: 122px 0 140px;
+      padding: 122px 0 330px;
       overflow: hidden;
       position: relative;
-    }
-
-    /* soft dissolve into the light canvas below */
-    .hero::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      height: 170px;
-      background: linear-gradient(180deg,
-          rgba(245, 247, 250, 0) 0%,
-          rgba(245, 247, 250, .12) 35%,
-          rgba(245, 247, 250, .45) 65%,
-          var(--bg) 100%);
-      pointer-events: none;
     }
 
     /* subtle star-dots background */
@@ -457,6 +441,17 @@
     }
 
     /* ─── CHALLENGES ─── */
+    /* Sektion ragt in den dunklen Hero hinein (Überlappung statt Kante) */
+    .challenges {
+      position: relative;
+      margin-top: -270px;
+      padding: 0 0 96px;
+    }
+
+    .challenges h2 {
+      color: #fff;
+    }
+
     .challenge-grid {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
@@ -465,6 +460,7 @@
       border-radius: 14px;
       overflow: hidden;
       background: #fff;
+      box-shadow: 0 24px 60px rgba(4, 12, 22, .18);
     }
 
     .challenge {
@@ -2215,25 +2211,25 @@
     footer {
       background: #040d1c;
       color: #cdd8df;
-      padding: 140px 0 24px;
-      position: relative;
-      overflow: hidden;
+      padding: 124px 0 24px;
     }
 
-    /* soft dissolve from the light canvas into the dark footer */
-    footer::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 0;
-      height: 170px;
-      background: linear-gradient(180deg,
-          var(--bg) 0%,
-          rgba(245, 247, 250, .45) 35%,
-          rgba(245, 247, 250, .12) 65%,
-          rgba(245, 247, 250, 0) 100%);
-      pointer-events: none;
+    /* „Noch Fragen?"-Karte ragt in den dunklen Footer hinein */
+    .faq-contact {
+      text-align: center;
+      margin-top: 48px;
+      margin-bottom: -64px;
+      padding: 32px;
+      background: linear-gradient(135deg, #eefaf8, #f8fdfc);
+      border: 1px solid rgba(46, 196, 182, .25);
+      border-radius: 14px;
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 24px 60px rgba(4, 12, 22, .18);
+    }
+
+    .faq-section {
+      padding-bottom: 0;
     }
 
     .footer-grid {
@@ -2435,7 +2431,7 @@
       }
 
       .hero {
-        padding: 122px 0 56px;
+        padding: 122px 0 340px;
       }
 
       .hero-sub {
@@ -2725,7 +2721,11 @@
       }
 
       .hero {
-        padding: 96px 0 110px;
+        padding: 96px 0 390px;
+      }
+
+      .challenges {
+        margin-top: -330px;
       }
 
       .how-card {
@@ -2733,7 +2733,7 @@
       }
 
       footer {
-        padding-top: 110px;
+        padding-top: 112px;
       }
 
       .hero-actions {
@@ -2991,7 +2991,7 @@
 
 
   <!-- ═══════════════════════════════════════════ CHALLENGES ═══ -->
-  <section>
+  <section class="challenges">
     <div class="container">
       <div class="section-title">
         <div class="eyebrow">Die Herausforderung</div>
@@ -3789,8 +3789,7 @@
           </button>
         </div>
       </div>
-      <div
-        style="text-align:center;margin-top:48px;padding:32px;background:linear-gradient(135deg,rgba(46,196,182,.07),rgba(46,196,182,.03));border:1px solid rgba(46,196,182,.2);border-radius:14px;">
+      <div class="faq-contact">
         <p style="font-size:17px;font-weight:700;color:var(--navy);margin-bottom:8px;">Noch Fragen?</p>
         <p style="color:var(--muted);font-size:15px;margin-bottom:20px;">Kontaktieren Sie uns direkt – wir antworten
           innerhalb von zwei Werktagen.</p>
