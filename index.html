@@ -4393,6 +4393,20 @@
       }, { passive: true });
     })();
 
+    /* ─── URL-Anker nach dem Sprung entfernen ───
+       Position bleibt erhalten, aber Reload/erneuter Aufruf der URL
+       startet wieder oben statt mitten auf der Seite. */
+    (function () {
+      function cleanHash() {
+        if (!location.hash) return;
+        setTimeout(function () {
+          history.replaceState(null, '', location.pathname + location.search);
+        }, 600);
+      }
+      window.addEventListener('hashchange', cleanHash);
+      cleanHash();
+    })();
+
     /* ─── MOBILE NAV + SCROLL-ZUSTAND ─── */
     (function () {
       var siteNav = document.querySelector('.site-nav');
