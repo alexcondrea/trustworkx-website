@@ -4451,6 +4451,14 @@
       cleanHash();
     })();
 
+    /* ─── Auf Staging zeigen Plattform-Links auf die Staging-Plattform ─── */
+    (function () {
+      if (location.hostname === 'www.trustworkx.de') return;
+      document.querySelectorAll('a[href^="https://app.trustworkx.de"]').forEach(function (a) {
+        a.href = a.href.replace('https://app.trustworkx.de', 'https://staging.trustworkx.de');
+      });
+    })();
+
     /* ─── MOBILE NAV + SCROLL-ZUSTAND ─── */
     (function () {
       var siteNav = document.querySelector('.site-nav');

@@ -330,6 +330,14 @@
       burger.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
   })();
+
+  /* Auf Staging zeigen Plattform-Links auf die Staging-Plattform */
+  (function() {
+    if (location.hostname === 'www.trustworkx.de') return;
+    document.querySelectorAll('a[href^="https://app.trustworkx.de"]').forEach(function(a) {
+      a.href = a.href.replace('https://app.trustworkx.de', 'https://staging.trustworkx.de');
+    });
+  })();
 </script>
 </body>
 </html>
