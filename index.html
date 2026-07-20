@@ -1942,6 +1942,94 @@
       }
     }
 
+    /* ─── Zweiter Zeitstrahl: X-Trenner, Panel, USP-Leiste ─── */
+    .zt-divider {
+      display: flex;
+      justify-content: center;
+      margin: 48px 0;
+      color: #c6d2dc;
+    }
+
+    .zt-panel {
+      background: linear-gradient(135deg, rgba(46, 196, 182, .06), rgba(46, 196, 182, .02));
+      border: 1px solid rgba(46, 196, 182, .2);
+      border-radius: 18px;
+      padding: 48px 40px 40px;
+    }
+
+    .zt-usp {
+      margin-top: 48px;
+      background: linear-gradient(135deg, #060f20, #091a2e);
+      border-radius: 18px;
+      padding: 26px 32px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      box-shadow: 0 20px 50px rgba(4, 12, 22, .22);
+    }
+
+    .zt-usp-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      color: #fff;
+      padding-left: 24px;
+      border-left: 1px solid rgba(255, 255, 255, .12);
+    }
+
+    .zt-usp-item:first-child {
+      border-left: none;
+      padding-left: 0;
+    }
+
+    .zt-usp-item svg {
+      color: var(--teal);
+      flex-shrink: 0;
+    }
+
+    .zt-usp-item strong {
+      display: block;
+      font-size: 15px;
+      margin-bottom: 2px;
+    }
+
+    .zt-usp-item span {
+      font-size: 13px;
+      color: #b9c6cf;
+      line-height: 1.45;
+    }
+
+    @media (max-width: 860px) {
+      .zt-panel {
+        padding: 32px 24px;
+      }
+
+      .zt-usp {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .zt-usp-item {
+        border-left: none;
+        padding-left: 0;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .zt-divider {
+        margin: 32px 0;
+      }
+
+      .zt-panel {
+        padding: 28px 18px;
+      }
+
+      .zt-usp {
+        grid-template-columns: 1fr;
+        padding: 22px 20px;
+        gap: 18px;
+      }
+    }
+
     /* ─── PRICING ─── */
     .pricing-section {
       background: var(--bg);
@@ -3372,6 +3460,290 @@
           </div>
         </div>
       </div><!-- /zt-timeline -->
+
+      <!-- ── X-Trenner ── -->
+      <div class="zt-divider" aria-hidden="true">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+          stroke-linecap="round">
+          <line x1="5" y1="5" x2="19" y2="19" />
+          <line x1="19" y1="5" x2="5" y2="19" />
+        </svg>
+      </div>
+
+      <!-- ── Zweiter Zeitstrahl: freie Kapazitäten ── -->
+      <div class="zt-panel">
+        <div class="section-title">
+          <div class="eyebrow">Der Trustwork X Faktor</div>
+          <h2>In 6 Schritten freie Kapazitäten sinnvoll einsetzen</h2>
+          <p class="section-sub-muted">Von ungenutzter Auslastung zu neuen Projektchancen – schnell, diskret und
+            planbar.</p>
+        </div>
+
+        <!-- Desktop + Tablet: Zeitstrahl -->
+        <div class="zt-outer">
+          <div class="zt-track"><i class="zt-pulse"></i></div>
+          <div class="zt-steps">
+
+            <!-- Step 1 -->
+            <div class="zt-step">
+              <div class="zt-circle">
+                <div class="zt-badge">1</div>
+                <div class="zt-icon">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="9" cy="7" r="3.5" />
+                    <path d="M3 21v-1a6 6 0 0 1 9-5.2" />
+                    <polyline points="15 18 17 20 21 15.5" />
+                  </svg>
+                </div>
+                <div class="zt-circle-label">Ressourcen<br>erfassen</div>
+              </div>
+              <div class="zt-title">Ressourcen erfassen</div>
+              <p class="zt-desc">Freie Mitarbeitende, Kompetenzen und Verfügbarkeiten im Dashboard hinterlegen.</p>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="zt-step">
+              <div class="zt-circle">
+                <div class="zt-badge">2</div>
+                <div class="zt-icon">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="10.5" cy="10.5" r="6.5" />
+                    <line x1="15.5" y1="15.5" x2="21" y2="21" />
+                    <line x1="8" y1="10.5" x2="13" y2="10.5" />
+                    <line x1="10.5" y1="8" x2="10.5" y2="13" />
+                  </svg>
+                </div>
+                <div class="zt-circle-label">Profil<br>analysiert</div>
+              </div>
+              <div class="zt-title">Profil analysiert</div>
+              <p class="zt-desc">TrustworkX analysiert Skills, Technologien, Zertifizierungen, Regionen und
+                Einsatzmöglichkeiten.</p>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="zt-step">
+              <div class="zt-circle">
+                <div class="zt-badge">3</div>
+                <div class="zt-icon">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="7" />
+                    <circle cx="12" cy="12" r="2.8" />
+                    <line x1="12" y1="2.5" x2="12" y2="6" />
+                    <line x1="12" y1="18" x2="12" y2="21.5" />
+                    <line x1="2.5" y1="12" x2="6" y2="12" />
+                    <line x1="18" y1="12" x2="21.5" y2="12" />
+                  </svg>
+                </div>
+                <div class="zt-circle-label">Projekte<br>identifiziert</div>
+              </div>
+              <div class="zt-title">Passende Projekte identifiziert</div>
+              <p class="zt-desc">Geeignete Projektanfragen werden mit Ihrem Unternehmensprofil abgeglichen.</p>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="zt-step">
+              <div class="zt-circle">
+                <div class="zt-badge">4</div>
+                <div class="zt-icon">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="5" width="18" height="14" rx="2" />
+                    <polyline points="3 7 12 13.5 21 7" />
+                  </svg>
+                </div>
+                <div class="zt-circle-label">Vorschläge<br>erhalten</div>
+              </div>
+              <div class="zt-title">Projektvorschläge erhalten</div>
+              <p class="zt-desc">Sie erhalten anonymisierte Projektvorschläge und entscheiden selbst, welche
+                interessant sind.</p>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="zt-step">
+              <div class="zt-circle">
+                <div class="zt-badge">5</div>
+                <div class="zt-icon">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                    <line x1="9" y1="10" x2="15" y2="10" />
+                    <line x1="9" y1="13" x2="13" y2="13" />
+                  </svg>
+                </div>
+                <div class="zt-circle-label">Gespräche<br>führen</div>
+              </div>
+              <div class="zt-title">Gespräche führen</div>
+              <p class="zt-desc">Direkter Austausch mit dem anfragenden Unternehmen. Preise und Bedingungen klären Sie
+                selbst.</p>
+            </div>
+
+            <!-- Step 6 -->
+            <div class="zt-step">
+              <div class="zt-circle">
+                <div class="zt-badge">6</div>
+                <div class="zt-icon">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="22" x2="5" y2="3" />
+                    <path d="M5 4h13l-3 4.5L18 13H5" />
+                  </svg>
+                </div>
+                <div class="zt-circle-label">Start</div>
+              </div>
+              <div class="zt-title">Zusammenarbeit starten</div>
+              <p class="zt-desc">Ihre freien Ressourcen kommen wieder produktiv zum Einsatz und Ihre Auslastung
+                steigt.</p>
+            </div>
+
+          </div><!-- /zt-steps -->
+        </div><!-- /zt-outer -->
+
+        <!-- Mobile: Vertical timeline -->
+        <div class="zt-timeline">
+          <div class="ztl-step">
+            <div class="ztl-left">
+              <div class="ztl-dot"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="9" cy="7" r="3.5" />
+                  <path d="M3 21v-1a6 6 0 0 1 9-5.2" />
+                  <polyline points="15 18 17 20 21 15.5" />
+                </svg></div>
+              <div class="ztl-line"></div>
+            </div>
+            <div class="ztl-content">
+              <div class="ztl-num">Schritt 1</div>
+              <h3>Ressourcen erfassen</h3>
+              <p>Freie Mitarbeitende, Kompetenzen und Verfügbarkeiten im Dashboard hinterlegen.</p>
+            </div>
+          </div>
+          <div class="ztl-step">
+            <div class="ztl-left">
+              <div class="ztl-dot"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="10.5" cy="10.5" r="6.5" />
+                  <line x1="15.5" y1="15.5" x2="21" y2="21" />
+                  <line x1="8" y1="10.5" x2="13" y2="10.5" />
+                  <line x1="10.5" y1="8" x2="10.5" y2="13" />
+                </svg></div>
+              <div class="ztl-line"></div>
+            </div>
+            <div class="ztl-content">
+              <div class="ztl-num">Schritt 2</div>
+              <h3>Profil analysiert</h3>
+              <p>TrustworkX analysiert Skills, Technologien, Zertifizierungen, Regionen und Einsatzmöglichkeiten.</p>
+            </div>
+          </div>
+          <div class="ztl-step">
+            <div class="ztl-left">
+              <div class="ztl-dot"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="7" />
+                  <circle cx="12" cy="12" r="2.8" />
+                  <line x1="12" y1="2.5" x2="12" y2="6" />
+                  <line x1="12" y1="18" x2="12" y2="21.5" />
+                  <line x1="2.5" y1="12" x2="6" y2="12" />
+                  <line x1="18" y1="12" x2="21.5" y2="12" />
+                </svg></div>
+              <div class="ztl-line"></div>
+            </div>
+            <div class="ztl-content">
+              <div class="ztl-num">Schritt 3</div>
+              <h3>Passende Projekte identifiziert</h3>
+              <p>Geeignete Projektanfragen werden mit Ihrem Unternehmensprofil abgeglichen.</p>
+            </div>
+          </div>
+          <div class="ztl-step">
+            <div class="ztl-left">
+              <div class="ztl-dot"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="5" width="18" height="14" rx="2" />
+                  <polyline points="3 7 12 13.5 21 7" />
+                </svg></div>
+              <div class="ztl-line"></div>
+            </div>
+            <div class="ztl-content">
+              <div class="ztl-num">Schritt 4</div>
+              <h3>Projektvorschläge erhalten</h3>
+              <p>Sie erhalten anonymisierte Projektvorschläge und entscheiden selbst, welche interessant sind.</p>
+            </div>
+          </div>
+          <div class="ztl-step">
+            <div class="ztl-left">
+              <div class="ztl-dot"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                  <line x1="9" y1="10" x2="15" y2="10" />
+                  <line x1="9" y1="13" x2="13" y2="13" />
+                </svg></div>
+              <div class="ztl-line"></div>
+            </div>
+            <div class="ztl-content">
+              <div class="ztl-num">Schritt 5</div>
+              <h3>Gespräche führen</h3>
+              <p>Direkter Austausch mit dem anfragenden Unternehmen. Preise und Bedingungen klären Sie selbst.</p>
+            </div>
+          </div>
+          <div class="ztl-step">
+            <div class="ztl-left">
+              <div class="ztl-dot"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="22" x2="5" y2="3" />
+                  <path d="M5 4h13l-3 4.5L18 13H5" />
+                </svg></div>
+            </div>
+            <div class="ztl-content">
+              <div class="ztl-num">Schritt 6</div>
+              <h3>Zusammenarbeit starten</h3>
+              <p>Ihre freien Ressourcen kommen wieder produktiv zum Einsatz und Ihre Auslastung steigt.</p>
+            </div>
+          </div>
+        </div><!-- /zt-timeline -->
+      </div><!-- /zt-panel -->
+
+      <!-- ── USP-Leiste ── -->
+      <div class="zt-usp">
+        <div class="zt-usp-item">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2l8 3.5v5c0 5-3.5 9.5-8 11-4.5-1.5-8-6-8-11v-5L12 2z" />
+            <polyline points="8.5 12 11 14.5 15.5 9.5" />
+          </svg>
+          <div><strong>Vertrauenswürdig</strong><span>Geprüfte Unternehmen und diskrete Prozesse.</span></div>
+        </div>
+        <div class="zt-usp-item">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+            stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="10" width="16" height="11" rx="2" />
+            <path d="M8 10V7a4 4 0 0 1 8 0v3" />
+            <line x1="12" y1="14.5" x2="12" y2="17" />
+          </svg>
+          <div><strong>Geschützt</strong><span>Ihre Daten und Projekte bleiben sicher.</span></div>
+        </div>
+        <div class="zt-usp-item">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="9" r="6" />
+            <circle cx="12" cy="9" r="2.6" />
+            <polyline points="8.5 14 7 22 12 19.5 17 22 15.5 14" />
+          </svg>
+          <div><strong>Qualitätsgesichert</strong><span>Nur passende Partner durch klar definierte
+              Kriterien.</span></div>
+        </div>
+        <div class="zt-usp-item">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="4" y1="21" x2="20" y2="21" />
+            <rect x="5" y="13" width="3" height="8" />
+            <rect x="10.5" y="9" width="3" height="12" />
+            <rect x="16" y="5" width="3" height="16" />
+            <polyline points="5 6.5 11 4 14.5 6 20 2.5" />
+          </svg>
+          <div><strong>Wirtschaftlich</strong><span>Weniger Leerlauf, mehr Umsatz.</span></div>
+        </div>
+      </div>
 
     </div>
   </section>
