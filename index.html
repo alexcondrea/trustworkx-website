@@ -4167,10 +4167,10 @@
           <button class="btn btn-light" id="faqMoreBtn" onclick="showMoreFaq()"
             style="display:inline-flex;gap:8px;align-items:center;">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
-              stroke-linecap="round" stroke-linejoin="round">
+              stroke-linecap="round" stroke-linejoin="round" style="transition:transform .2s;">
               <polyline points="6 9 12 15 18 9" />
             </svg>
-            Weitere Fragen anzeigen
+            <span id="faqMoreLabel">Weitere Fragen anzeigen</span>
           </button>
         </div>
       </div>
@@ -4893,8 +4893,13 @@
       }
     }
     function showMoreFaq() {
-      document.getElementById('faqExtra').style.display = 'block';
-      document.getElementById('faqMoreBtn').style.display = 'none';
+      var extra = document.getElementById('faqExtra');
+      var btn = document.getElementById('faqMoreBtn');
+      var label = document.getElementById('faqMoreLabel');
+      var isOpen = extra.style.display === 'block';
+      extra.style.display = isOpen ? 'none' : 'block';
+      label.textContent = isOpen ? 'Weitere Fragen anzeigen' : 'Weniger anzeigen';
+      btn.querySelector('svg').style.transform = isOpen ? '' : 'rotate(180deg)';
     }
   </script>
 
