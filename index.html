@@ -1947,7 +1947,26 @@
       display: flex;
       justify-content: center;
       margin: 48px 0;
-      color: #c6d2dc;
+    }
+
+    /* Logo-X auf dunkler Kreisscheibe – wie der zentrale Hero-Knoten */
+    .zt-divider-disc {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #060f20, #091a2e);
+      border: 1px solid rgba(46, 196, 182, .35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 26px rgba(4, 12, 22, .18);
+    }
+
+    .zt-divider-disc img {
+      width: 34px;
+      height: 26px;
+      object-fit: contain;
+      display: block;
     }
 
     .zt-panel {
@@ -3461,13 +3480,12 @@
         </div>
       </div><!-- /zt-timeline -->
 
-      <!-- ── X-Trenner ── -->
+      <!-- ── X-Trenner: Logo-X auf dunkler Scheibe ── -->
       <div class="zt-divider" aria-hidden="true">
-        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
-          stroke-linecap="round">
-          <line x1="5" y1="5" x2="19" y2="19" />
-          <line x1="19" y1="5" x2="5" y2="19" />
-        </svg>
+        <div class="zt-divider-disc">
+          <img src="https://assets.cdn.filesafe.space/zX4w9KMO5mq76LaNi9KH/media/6a3fbc57c408020f97c464ab.svg"
+            alt="" />
+        </div>
       </div>
 
       <!-- ── Zweiter Zeitstrahl: freie Kapazitäten ── -->
