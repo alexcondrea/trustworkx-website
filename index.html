@@ -1969,67 +1969,39 @@
       display: block;
     }
 
+    /* Dunkle Insel für den Kapazitäten-Zeitstrahl – Gegenstück zum hellen Projekt-Zeitstrahl */
     .zt-panel {
-      background: linear-gradient(135deg, rgba(46, 196, 182, .06), rgba(46, 196, 182, .02));
-      border: 1px solid rgba(46, 196, 182, .2);
-      border-radius: 18px;
-      padding: 48px 40px 40px;
-    }
-
-    .zt-usp {
-      margin-top: 48px;
       background: linear-gradient(135deg, #060f20, #091a2e);
       border-radius: 18px;
-      padding: 26px 32px;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 24px;
+      padding: 48px 40px 40px;
       box-shadow: 0 20px 50px rgba(4, 12, 22, .22);
     }
 
-    .zt-usp-item {
-      display: flex;
-      align-items: center;
-      gap: 14px;
+    .zt-panel .section-title h2 {
       color: #fff;
-      padding-left: 24px;
-      border-left: 1px solid rgba(255, 255, 255, .12);
     }
 
-    .zt-usp-item:first-child {
-      border-left: none;
-      padding-left: 0;
+    .zt-panel .section-sub-muted {
+      color: #a9b6c1;
     }
 
-    .zt-usp-item svg {
-      color: var(--teal);
-      flex-shrink: 0;
+    .zt-panel .zt-title,
+    .zt-panel .ztl-content h3 {
+      color: #fff;
     }
 
-    .zt-usp-item strong {
-      display: block;
-      font-size: 15px;
-      margin-bottom: 2px;
-    }
-
-    .zt-usp-item span {
-      font-size: 13px;
+    .zt-panel .zt-desc,
+    .zt-panel .ztl-content p {
       color: #b9c6cf;
-      line-height: 1.45;
+    }
+
+    .zt-panel .zt-circle {
+      box-shadow: 0 6px 22px rgba(0, 0, 0, .35);
     }
 
     @media (max-width: 860px) {
       .zt-panel {
         padding: 32px 24px;
-      }
-
-      .zt-usp {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .zt-usp-item {
-        border-left: none;
-        padding-left: 0;
       }
     }
 
@@ -2040,12 +2012,6 @@
 
       .zt-panel {
         padding: 28px 18px;
-      }
-
-      .zt-usp {
-        grid-template-columns: 1fr;
-        padding: 22px 20px;
-        gap: 18px;
       }
     }
 
@@ -3720,48 +3686,6 @@
           </div>
         </div><!-- /zt-timeline -->
       </div><!-- /zt-panel -->
-
-      <!-- ── USP-Leiste ── -->
-      <div class="zt-usp">
-        <div class="zt-usp-item">
-          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
-            stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2l8 3.5v5c0 5-3.5 9.5-8 11-4.5-1.5-8-6-8-11v-5L12 2z" />
-            <polyline points="8.5 12 11 14.5 15.5 9.5" />
-          </svg>
-          <div><strong>Vertrauenswürdig</strong><span>Geprüfte Unternehmen und diskrete Prozesse.</span></div>
-        </div>
-        <div class="zt-usp-item">
-          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
-            stroke-linecap="round" stroke-linejoin="round">
-            <rect x="4" y="10" width="16" height="11" rx="2" />
-            <path d="M8 10V7a4 4 0 0 1 8 0v3" />
-            <line x1="12" y1="14.5" x2="12" y2="17" />
-          </svg>
-          <div><strong>Geschützt</strong><span>Ihre Daten und Projekte bleiben sicher.</span></div>
-        </div>
-        <div class="zt-usp-item">
-          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
-            stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="9" r="6" />
-            <circle cx="12" cy="9" r="2.6" />
-            <polyline points="8.5 14 7 22 12 19.5 17 22 15.5 14" />
-          </svg>
-          <div><strong>Qualitätsgesichert</strong><span>Nur passende Partner durch klar definierte
-              Kriterien.</span></div>
-        </div>
-        <div class="zt-usp-item">
-          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
-            stroke-linecap="round" stroke-linejoin="round">
-            <line x1="4" y1="21" x2="20" y2="21" />
-            <rect x="5" y="13" width="3" height="8" />
-            <rect x="10.5" y="9" width="3" height="12" />
-            <rect x="16" y="5" width="3" height="16" />
-            <polyline points="5 6.5 11 4 14.5 6 20 2.5" />
-          </svg>
-          <div><strong>Wirtschaftlich</strong><span>Weniger Leerlauf, mehr Umsatz.</span></div>
-        </div>
-      </div>
 
     </div>
   </section>
