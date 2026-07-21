@@ -1971,8 +1971,25 @@
       color: #b9c6cf;
     }
 
+    /* Kreise im dunklen Panel: türkise Fläche, weiße Icons, dunkle Labels */
     .zt-panel .zt-circle {
+      background: linear-gradient(135deg, #2EC4B6, #22a99d);
+      border-color: rgba(255, 255, 255, .35);
       box-shadow: 0 6px 22px rgba(0, 0, 0, .35);
+    }
+
+    .zt-panel .zt-icon {
+      color: #fff;
+    }
+
+    .zt-panel .zt-circle-label {
+      color: #06231f;
+    }
+
+    .zt-panel .zt-badge {
+      background: #fff;
+      color: var(--navy);
+      border-color: rgba(6, 15, 32, .15);
     }
 
     @media (max-width: 860px) {
