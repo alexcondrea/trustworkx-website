@@ -1943,20 +1943,12 @@
     }
 
     /* ─── Zweiter Zeitstrahl: X-Trenner, Panel, USP-Leiste ─── */
-    .zt-divider {
-      display: flex;
-      justify-content: center;
-      margin: 48px 0;
-    }
-
-    .zt-divider svg {
-      display: block;
-    }
 
     /* Dunkle Insel für den Kapazitäten-Zeitstrahl – Gegenstück zum hellen Projekt-Zeitstrahl */
     .zt-panel {
       background: linear-gradient(135deg, #060f20, #091a2e);
       border-radius: 18px;
+      margin-top: 56px;
       padding: 48px 40px 40px;
       box-shadow: 0 20px 50px rgba(4, 12, 22, .22);
     }
@@ -1990,11 +1982,8 @@
     }
 
     @media (max-width: 600px) {
-      .zt-divider {
-        margin: 32px 0;
-      }
-
       .zt-panel {
+        margin-top: 40px;
         padding: 28px 18px;
       }
     }
@@ -3429,30 +3418,6 @@
           </div>
         </div>
       </div><!-- /zt-timeline -->
-
-      <!-- ── X-Trenner: Logo-X (Netzwerk-X), Navy-Variante für hellen Grund ── -->
-      <div class="zt-divider" aria-hidden="true">
-        <svg width="60" height="49" viewBox="0 0 100 100" fill="none">
-          <!-- linke Arme (Navy) -->
-          <line x1="15" y1="15" x2="49" y2="50" stroke="#0B1F3B" stroke-width="3.6" stroke-linecap="round" />
-          <line x1="15" y1="15" x2="36" y2="50" stroke="#0B1F3B" stroke-width="3.6" stroke-linecap="round" />
-          <line x1="15" y1="86" x2="49" y2="50" stroke="#0B1F3B" stroke-width="3.6" stroke-linecap="round" />
-          <line x1="15" y1="86" x2="36" y2="50" stroke="#0B1F3B" stroke-width="3.6" stroke-linecap="round" />
-          <!-- rechte Arme (Türkis) -->
-          <line x1="84" y1="14" x2="49" y2="50" stroke="#2EC4B6" stroke-width="3.6" stroke-linecap="round" />
-          <line x1="84" y1="14" x2="64" y2="50" stroke="#2EC4B6" stroke-width="3.6" stroke-linecap="round" />
-          <line x1="84" y1="86" x2="49" y2="50" stroke="#2EC4B6" stroke-width="3.6" stroke-linecap="round" />
-          <line x1="84" y1="86" x2="64" y2="50" stroke="#2EC4B6" stroke-width="3.6" stroke-linecap="round" />
-          <!-- Knoten -->
-          <circle cx="15" cy="15" r="7" fill="#0B1F3B" />
-          <circle cx="15" cy="86" r="7" fill="#0B1F3B" />
-          <circle cx="36" cy="50" r="5" fill="#0B1F3B" />
-          <circle cx="84" cy="14" r="7" fill="#2EC4B6" />
-          <circle cx="84" cy="86" r="7" fill="#2EC4B6" />
-          <circle cx="64" cy="50" r="5" fill="#2EC4B6" />
-          <circle cx="49" cy="50" r="10" fill="#0B1F3B" />
-        </svg>
-      </div>
 
       <!-- ── Zweiter Zeitstrahl: freie Kapazitäten ── -->
       <div class="zt-panel">
