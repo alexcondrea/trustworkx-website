@@ -1,0 +1,61 @@
+/* ═══ TWX Popover — wiederverwendbare Erklärungs-Karte (Hover/Tap) ═══
+   Verwendung: data-popover="INHALT_ID" auf einem beliebigen Element,
+   der Karteninhalt kommt aus dem versteckten Element mit dieser ID.
+   Logik: js/twx-popover.js */
+
+.twx-popover {
+  position: fixed;
+  z-index: 900;
+  width: min(320px, calc(100vw - 32px));
+  background: #fff;
+  border: 1px solid #dfe8ef;
+  border-radius: 12px;
+  box-shadow: 0 18px 44px rgba(8, 24, 43, .16);
+  padding: 16px 18px;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity .18s ease, transform .18s ease;
+  pointer-events: none;
+}
+
+.twx-popover.open {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.twx-popover h5 {
+  margin: 0 0 6px;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: .01em;
+  color: #0B1F3B;
+}
+
+.twx-popover p {
+  margin: 0 0 8px;
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: #5f6b7a;
+}
+
+.twx-popover p:last-child {
+  margin-bottom: 0;
+}
+
+/* Dezente Hover-Affordanz auf dem auslösenden Element –
+   nur Hintergrund, keine Größenänderung, kein Layoutsprung. */
+[data-popover] {
+  cursor: help;
+  border-radius: 6px;
+  transition: background .15s;
+}
+
+[data-popover]:hover {
+  background: rgba(46, 196, 182, .07);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .twx-popover {
+    transition: none;
+  }
+}
