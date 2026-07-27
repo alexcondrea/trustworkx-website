@@ -2012,6 +2012,77 @@
       box-shadow: 0 18px 44px rgba(8, 24, 43, .14);
       overflow: hidden;
       background: #0a1626;
+      cursor: zoom-in;
+      transition: box-shadow .2s, transform .2s;
+    }
+
+    .res-shot:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 22px 52px rgba(8, 24, 43, .2);
+    }
+
+    /* ─── Bild-Lightbox (Klick zum Vergrößern) ─── */
+    .img-lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(4, 10, 20, .82);
+      -webkit-backdrop-filter: blur(6px);
+      backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .2s ease;
+      cursor: zoom-out;
+    }
+
+    .img-lightbox.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .img-lightbox img {
+      max-width: min(1400px, 100%);
+      max-height: 100%;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, .14);
+      box-shadow: 0 30px 90px rgba(0, 0, 0, .5);
+      transform: scale(.97);
+      transition: transform .2s ease;
+    }
+
+    .img-lightbox.open img {
+      transform: scale(1);
+    }
+
+    .img-lightbox-close {
+      position: absolute;
+      top: 18px;
+      right: 22px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, .25);
+      background: rgba(255, 255, 255, .08);
+      color: #fff;
+      font-size: 22px;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      .img-lightbox,
+      .img-lightbox img,
+      .res-shot {
+        transition: none;
+      }
     }
 
     .res-shot img {
@@ -4695,6 +4766,36 @@
         Matching-Prozess aufgenommen.</p>
     </div>
   </div>
+  <!-- ── Bild-Lightbox ── -->
+  <div class="img-lightbox" id="imgLightbox" role="dialog" aria-modal="true" aria-label="Bildvergrößerung">
+    <img src="" alt="">
+    <button type="button" class="img-lightbox-close" aria-label="Schließen">×</button>
+  </div>
+  <script>
+    /* ─── Bild-Lightbox: Screenshot per Klick vergrößern ─── */
+    (function () {
+      var lb = document.getElementById('imgLightbox');
+      var lbImg = lb.querySelector('img');
+      document.querySelectorAll('.res-shot').forEach(function (shot) {
+        shot.addEventListener('click', function () {
+          var img = shot.querySelector('img');
+          if (!img || !img.src) return;
+          lbImg.src = img.src;
+          lbImg.alt = img.alt;
+          lb.classList.add('open');
+          document.body.style.overflow = 'hidden';
+        });
+      });
+      function closeLb() {
+        lb.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+      lb.addEventListener('click', closeLb);
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closeLb();
+      });
+    })();
+  </script>
   <script src="/js/twx-popover.js" defer></script>
 </body>
 
