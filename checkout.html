@@ -200,6 +200,17 @@
       flex-shrink: 0;
     }
 
+    label.consent a {
+      color: #1d968b;
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    label.consent a:hover {
+      color: var(--teal);
+    }
+
     .error {
       background: #fdeeee;
       border: 1px solid #f0bcbc;
@@ -470,6 +481,45 @@
         });
     }
 
+    /* Rechtsbegriffe im Checkbox-Text mit den Website-Rechtstexten verlinken.
+       Der API-Text wird weiterhin NICHT als HTML interpretiert – er wird nur
+       an den bekannten Begriffen zerlegt und als Text-/Linkknoten aufgebaut. */
+    var LEGAL_LINKS = [
+      { pattern: /Datenschutzerklärung/, href: '/datenschutz.html' },
+      { pattern: /Mitgliedschaftsvertrag/, href: '/agb.html#teil-a' },
+      { pattern: /Netzwerkbedingungen/, href: '/agb.html#teil-b' },
+      { pattern: /AGBs?(?:['’]s)?/, href: '/agb.html' }
+    ];
+
+    function buildConsentText(container, rawText) {
+      var rest = String(rawText);
+      while (rest.length) {
+        var best = null;
+        LEGAL_LINKS.forEach(function (l) {
+          var m = rest.match(l.pattern);
+          if (m && (best === null || m.index < best.index)) {
+            best = { index: m.index, text: m[0], href: l.href };
+          }
+        });
+        if (!best) {
+          container.appendChild(document.createTextNode(rest));
+          break;
+        }
+        if (best.index > 0) {
+          container.appendChild(document.createTextNode(rest.slice(0, best.index)));
+        }
+        var a = document.createElement('a');
+        a.href = best.href;
+        a.target = '_blank';
+        a.rel = 'noopener';
+        a.textContent = best.text;
+        /* Klick auf den Link darf die Checkbox nicht umschalten */
+        a.addEventListener('click', function (e) { e.stopPropagation(); });
+        container.appendChild(a);
+        rest = rest.slice(best.index + best.text.length);
+      }
+    }
+
     function loadRequirements() {
       return fetch(API_BASE + '/api/legal/booking-requirements')
         .then(function (res) { if (!res.ok) throw new Error('HTTP ' + res.status); return res.json(); })
@@ -483,7 +533,7 @@
             cb.value = req.id;
             cb.addEventListener('change', updateButton);
             var text = document.createElement('span');
-            text.textContent = req.checkboxText; /* verbatim laut Vertrag */
+            buildConsentText(text, req.checkboxText); /* Wortlaut bleibt verbatim, Begriffe werden verlinkt */
             label.appendChild(cb);
             label.appendChild(text);
             consentsBox.appendChild(label);
