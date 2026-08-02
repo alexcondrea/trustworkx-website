@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, follow" />
+  <meta name="description" content="Datenschutzerklärung der TrustworkX UG (haftungsbeschränkt)." />
+  <title>Datenschutzerklärung | trustworkX</title>
+  <link rel="canonical" href="https://www.trustworkx.de/datenschutz.html">
+  <link rel="icon" type="image/svg+xml" href="https://assets.cdn.filesafe.space/zX4w9KMO5mq76LaNi9KH/media/6a3fbc57c408020f97c464ab.svg">
+  <link rel="stylesheet" href="/fonts/fonts.css">
+  <style>
+    :root {
+      --navy: #0B1F3B;
+      --teal: #2EC4B6;
+      --text: #0B1F3B;
+      --muted: #5f6b7a;
+      --bg: #F5F7FA;
+      --line: #dfe8ef;
+      --sans: 'Inter', Arial, Helvetica, sans-serif;
+      --mono: 'Geist Mono', ui-monospace, 'SF Mono', 'Courier New', monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--sans);
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.5;
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+    }
+    a { text-decoration: none; color: inherit; }
+    .container { width: min(1180px, 92%); margin: 0 auto; }
+
+    /* ─── HEADER (dark, like main page hero) ─── */
+    .page-header {
+      background:
+        radial-gradient(circle at 78% 38%, rgba(46,196,182,.26), transparent 32%),
+        linear-gradient(135deg, #050f1e 0%, #091a32 55%, #050f1e 100%);
+      color: #fff;
+      padding: 24px 0 32px;
+    }
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .brand { display: flex; align-items: center; font-family: var(--mono); letter-spacing: -1px; }
+    .logo-horizontal { height: 88px; width: auto; display: block; }
+    .nav-actions { display: flex; gap: 10px; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 22px;
+      border-radius: 8px;
+      font-family: var(--mono);
+      font-weight: 600;
+      font-size: 15px;
+      letter-spacing: -.2px;
+      border: 1.5px solid rgba(255,255,255,.3);
+      transition: all .2s ease;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--teal), #22a99d);
+      border: none;
+      color: #fff;
+      box-shadow: 0 4px 18px rgba(46,196,182,.35);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(46,196,182,.45); }
+    .btn-secondary { background: transparent; color: #fff; }
+    .btn-secondary:hover { background: rgba(255,255,255,.08); transform: translateY(-1px); }
+
+    /* ─── LEGAL CONTENT ─── */
+    .legal-page { flex: 1; padding: 64px 0 96px; }
+    .legal-page .inner { max-width: 800px; }
+    .legal-page h1 {
+      font-size: 40px;
+      font-weight: 900;
+      letter-spacing: -1px;
+      margin-bottom: 8px;
+    }
+    .legal-intro { color: var(--muted); margin-bottom: 40px; }
+    .legal-page h2 {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -.3px;
+      margin: 40px 0 12px;
+    }
+    .legal-page h3 {
+      font-size: 16px;
+      font-weight: 800;
+      margin: 22px 0 8px;
+    }
+    .legal-page p { margin: 0 0 14px; color: #33414f; }
+    .legal-page ul { margin: 0 0 14px 20px; color: #33414f; }
+    .legal-page li { margin-bottom: 6px; }
+    .legal-page a { color: var(--teal); font-weight: 600; }
+    .legal-page a:hover { text-decoration: underline; }
+    .legal-note {
+      background: linear-gradient(135deg, rgba(46,196,182,.08), rgba(46,196,182,.03));
+      border: 1px solid rgba(46,196,182,.3);
+      border-radius: 12px;
+      padding: 16px 18px;
+      margin: 0 0 14px;
+      color: #33414f;
+    }
+    .legal-stand { margin-top: 40px; color: var(--muted); font-size: 14px; font-style: italic; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: #040d1c;
+      color: #cdd8df;
+      padding: 32px 0 24px;
+    }
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+    footer a { font-size: 13.5px; color: #8fa4b0; transition: color .15s; }
+    footer a:hover { color: var(--teal); }
+    .logo-horizontal-footer { height: 30px; width: auto; display: block; }
+    .footer-divider { border: none; border-top: 1px solid rgba(255,255,255,.07); margin-bottom: 20px; }
+    .copyright { text-align: center; color: #7b90a0; font-size: 13px; font-family: var(--mono); letter-spacing: .02em; }
+
+    @media (max-width: 600px) {
+      .logo-horizontal { height: 64px; }
+      .nav-actions .btn-secondary { display: none; }
+      .nav-actions .btn-primary { padding: 10px 14px; font-size: 13px; }
+      .legal-page { padding: 48px 0 64px; }
+      .legal-page h1 { font-size: 32px; }
+    }
+
+    /* ─── STICKY SITE NAV (schwebende Pill) ─── */
+    .site-nav {
+      position: sticky;
+      top: 0;
+      z-index: 500;
+      padding: 12px 0;
+      pointer-events: none;
+    }
+    .site-nav .nav {
+      pointer-events: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      margin: 0 auto;
+      padding: 8px 18px;
+      background: rgba(5,15,30,.88);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 18px;
+      box-shadow: 0 12px 40px rgba(2,8,18,.4);
+    }
+    .site-nav .logo-horizontal { height: 52px; }
+    .nav-links { display: flex; gap: 26px; }
+    .nav-links a {
+      color: #d8e8ef;
+      font-size: 15px;
+      font-weight: 600;
+      transition: color .15s;
+      white-space: nowrap;
+    }
+    .nav-links a:hover, .nav-links a.on { color: var(--teal); }
+    .nav-burger {
+      display: none;
+      background: none;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      padding: 6px;
+    }
+    .nav-mobile {
+      pointer-events: auto;
+      display: none;
+      flex-direction: column;
+      gap: 2px;
+      width: min(1180px, 92%);
+      margin: 8px auto 0;
+      padding: 8px 12px 12px;
+      background: rgba(5,15,30,.94);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 16px;
+      box-shadow: 0 12px 40px rgba(2,8,18,.4);
+    }
+    .nav-mobile.open { display: flex; }
+    .nav-mobile a {
+      color: #d8e8ef;
+      font-size: 16px;
+      font-weight: 600;
+      padding: 10px 8px;
+      border-radius: 8px;
+    }
+    .nav-mobile a:hover { background: rgba(255,255,255,.06); color: var(--teal); }
+    @media (max-width: 1024px) {
+      .nav-links { display: none; }
+      .nav-burger { display: inline-flex; }
+    }
+    @media (max-width: 600px) {
+      .site-nav { padding: 10px 0; }
+      .site-nav .nav { gap: 8px; padding: 7px 12px; border-radius: 15px; }
+      .site-nav .logo-horizontal { height: 34px; max-width: 40vw; object-fit: contain; }
+      .site-nav .nav-actions { gap: 6px; }
+      .site-nav .btn-primary { padding: 9px 12px; font-size: 12.5px; }
+      .nav-burger { padding: 4px; }
+    }
+    /* Beim Scrollen: kompakter + Liquid-Glass (durchscheinend, starker Blur) */
+    .site-nav .nav {
+      transition: background .35s ease, padding .35s ease, box-shadow .35s ease, border-color .35s ease;
+    }
+    .site-nav .logo-horizontal { transition: height .35s ease; }
+    .site-nav.scrolled .nav {
+      background: rgba(7,18,34,.5);
+      -webkit-backdrop-filter: blur(22px) saturate(160%);
+      backdrop-filter: blur(22px) saturate(160%);
+      border-color: rgba(255,255,255,.14);
+      padding: 5px 14px;
+      box-shadow: 0 10px 34px rgba(2,8,18,.3);
+    }
+    .site-nav.scrolled .logo-horizontal { height: 38px; }
+    .site-nav.scrolled .btn { padding: 9px 16px; font-size: 14px; }
+    @media (max-width: 600px) {
+      .site-nav.scrolled .logo-horizontal { height: 28px; }
+      .site-nav.scrolled .nav { padding: 4px 10px; }
+      .site-nav.scrolled .btn-primary { padding: 8px 10px; font-size: 12px; }
+    }
+    /* Ohne Backdrop-Blur-Unterstützung: deckend bleiben (Lesbarkeit) */
+    @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+      .site-nav.scrolled .nav { background: rgba(5,15,30,.92); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .site-nav .nav, .site-nav .logo-horizontal { transition: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════ SITE NAV ═══ -->
+<div class="site-nav">
+  <div class="container nav">
+    <a href="/" class="brand" aria-label="trustworkX – zur Startseite">
+      <img class="logo-horizontal" src="https://assets.cdn.filesafe.space/zX4w9KMO5mq76LaNi9KH/media/6a3fbc5789d9cd8dc2cb8b9b.svg" alt="trustworkX Logo" />
+    </a>
+    <nav class="nav-links" aria-label="Hauptnavigation">
+      <a href="/#how-it-works">Wie es funktioniert</a>
+      <a href="/#pricing">Preise</a>
+      <a href="/#faq">FAQ</a>
+      <a href="/ueber-uns.html">Über uns</a>
+    </nav>
+    <div class="nav-actions">
+      <a class="btn btn-secondary" href="https://app.trustworkx.de/login">Login</a>
+      <a class="btn btn-primary" href="/#pricing">Jetzt Mitglied werden</a>
+      <button type="button" class="nav-burger" id="navBurger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="navMobile">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+  <nav class="nav-mobile" id="navMobile" aria-label="Mobile Navigation">
+    <a href="/#how-it-works">Wie es funktioniert</a>
+    <a href="/#pricing">Preise</a>
+    <a href="/#faq">FAQ</a>
+    <a href="/ueber-uns.html">Über uns</a>
+    <a href="https://app.trustworkx.de/login">Login</a>
+  </nav>
+</div>
+
+<main class="legal-page">
+  <div class="container">
+    <div class="inner">
+      <h1>Datenschutzerklärung</h1>
+      <p class="legal-intro">Informationen zur Verarbeitung personenbezogener Daten gemäß Art. 13, 14 DSGVO</p>
+
+      <h2>1. Verantwortlicher</h2>
+      <p>Verantwortlicher im Sinne der Datenschutz-Grundverordnung (DSGVO) ist:</p>
+      <p><strong>TrustworkX UG (haftungsbeschränkt)</strong><br>
+      Ludwigstraße 22<br>
+      82110 Germering<br>
+      Deutschland</p>
+      <p>Vertreten durch den Geschäftsführer: Thomas Becker<br>
+      E-Mail für Datenschutzanfragen: <a href="mailto:datenschutz@trustworkx.de">datenschutz@trustworkx.de</a><br>
+      Telefon: <a href="tel:+498924581717">089 24581717</a><br>
+      Website: <a href="https://trustworkx.de">https://trustworkx.de</a></p>
+      <p>Handelsregister: Handelsregister B des Amtsgerichts München, Registernummer HRB 314813.</p>
+
+      <h2>2. Datenschutzbeauftragter</h2>
+      <p>Ein Datenschutzbeauftragter ist derzeit nicht benannt. Datenschutzanfragen können an die oben genannte Kontaktadresse gerichtet werden.</p>
+
+      <h2>3. Geltungsbereich</h2>
+      <p>Diese Datenschutzerklärung beschreibt, wie TrustworkX personenbezogene Daten verarbeitet, wenn Personen die öffentliche Website besuchen, Kontakt aufnehmen, ein Unternehmen registrieren, eine Mitgliedschaft verwalten, Unternehmensprofile pflegen, Projektanfragen erstellen, an Matching-Prozessen teilnehmen, Matching-Ergebnisse einsehen oder Funktionen des User-Portals nutzen.</p>
+      <p>TrustworkX ist ein kuratiertes B2B-Netzwerk für IT-Systemhäuser, IT-Dienstleister und Technologiepartner. Die Plattform richtet sich nicht an Verbraucher, sondern an Unternehmen. Dennoch verarbeitet TrustworkX personenbezogene Daten, wenn natürliche Personen als Ansprechpartner, Nutzer, Administratoren, Rechnungs- und Vertragskontakte oder Supportkontakte auftreten. Geschäftliche Kontaktdaten natürlicher Personen bleiben personenbezogene Daten, sobald eine Person identifizierbar ist.</p>
+
+      <h2>4. Unser Datenschutzverständnis</h2>
+      <p>TrustworkX versteht Datenschutz als Bestandteil des Vertrauensmodells. Die Plattform soll Kooperationen ermöglichen, ohne unnötige Daten offenzulegen:</p>
+      <ul>
+        <li><strong>Datenminimierung:</strong> Es werden nur Daten verarbeitet, die für Betrieb, Mitgliedschaft, Matching, Abrechnung und Sicherheit erforderlich sind.</li>
+        <li><strong>Kontrollierte Sichtbarkeit:</strong> Projekt- und Unternehmensdaten werden nicht öffentlich als Projektbörse angezeigt.</li>
+        <li><strong>Anonymisierung im Matching:</strong> Partner erhalten vor Bestätigung nur die erforderlichen anonymen Anfrageinformationen.</li>
+        <li><strong>Keine Personalbewertung:</strong> TrustworkX bewertet keine einzelnen Mitarbeiter, keine Lebensläufe und keine persönliche Leistungsfähigkeit.</li>
+        <li><strong>Nachvollziehbarkeit:</strong> Wesentliche Statusänderungen und sicherheitsrelevante Ereignisse werden protokolliert.</li>
+        <li><strong>Vertraulichkeit:</strong> Kundenschutz und Netzwerkregeln werden auch datenschutzseitig berücksichtigt.</li>
+      </ul>
+
+      <h2>5. Kategorien verarbeiteter Daten und betroffener Personen</h2>
+      <p>Je nach Nutzung verarbeiten wir insbesondere folgende Datenkategorien: Stammdaten (z.&nbsp;B. Name, Rolle, Position, Unternehmen), geschäftliche Kontaktdaten (z.&nbsp;B. E-Mail-Adresse, Telefonnummer), Accountdaten (z.&nbsp;B. Login-Kennung, Passwort-Hash, Rollen und Berechtigungen), Unternehmensprofildaten mit Personenbezug (z.&nbsp;B. Ansprechpartner), projektbezogene Daten (z.&nbsp;B. Anfrageinhalt, Skillbedarf, Zeitraum, Ansprechpartner), Matchingdaten (z.&nbsp;B. Status, Antworten, Zeitpunkte), Vertrags- und Abrechnungsdaten (z.&nbsp;B. Paket, Laufzeit, Rechnungsadresse, Zahlungsstatus), Kommunikationsdaten (z.&nbsp;B. Kontaktanfragen, Support-Nachrichten), technische Daten (z.&nbsp;B. IP-Adresse, Browser, Gerät, Logdaten) sowie Auditdaten (z.&nbsp;B. protokollierte Aktionen und Statuswechsel).</p>
+      <p>Betroffene Personen sind Website-Besucher, Interessenten, Nutzer und Administratoren von Mitgliedsunternehmen, in Profilen benannte Ansprechpartner, Projekt-, Zahlungs- und Rechnungskontakte sowie Supportkontakte.</p>
+      <p>Besondere Kategorien personenbezogener Daten (Art. 9 DSGVO), Lebensläufe, Personalakten, Gesundheitsdaten, private Kontaktdaten und sensible Endkundendokumente sind nicht Gegenstand der Plattform und sollen nicht eingetragen werden.</p>
+
+      <h2>6. Zwecke und Rechtsgrundlagen</h2>
+      <p>Die Verarbeitung erfolgt je nach Vorgang auf Grundlage von Art. 6 Abs. 1 DSGVO:</p>
+      <ul>
+        <li><strong>Bereitstellung der Website</strong> (technische Daten, Logfiles) – Art. 6 Abs. 1 lit. f DSGVO</li>
+        <li><strong>Kontaktaufnahme und Vertragsanbahnung</strong> (Kontaktdaten, Anfrageinhalt) – Art. 6 Abs. 1 lit. b oder lit. f DSGVO</li>
+        <li><strong>Registrierung und Accountverwaltung</strong> (Accountdaten, Rollen) – Art. 6 Abs. 1 lit. b DSGVO</li>
+        <li><strong>Mitgliedschaft und Plattformnutzung</strong> (Unternehmensdaten, Projekte, Status) – Art. 6 Abs. 1 lit. b DSGVO</li>
+        <li><strong>Projektanfragen und Matching</strong> (Profil, Anfrage, Matchingstatus) – Art. 6 Abs. 1 lit. b und lit. f DSGVO</li>
+        <li><strong>Abrechnung und Zahlung</strong> (Rechnung, Zahlungsstatus, Steuerdaten) – Art. 6 Abs. 1 lit. b und lit. c DSGVO</li>
+        <li><strong>Sicherheit und Missbrauchsprävention</strong> (Logdaten, Auditdaten) – Art. 6 Abs. 1 lit. f DSGVO</li>
+        <li><strong>Newsletter und Marketing</strong> (E-Mail, Einwilligung) – Art. 6 Abs. 1 lit. a DSGVO</li>
+        <li><strong>Erfüllung gesetzlicher Pflichten</strong> (Buchhaltung, Steuerunterlagen) – Art. 6 Abs. 1 lit. c DSGVO</li>
+      </ul>
+
+      <h2>7. Website-Besuch und Server-Logfiles</h2>
+      <p>Beim Besuch der Website werden technische Daten verarbeitet, die erforderlich sind, um die Website auszuliefern, Sicherheit zu gewährleisten, Fehler zu analysieren und Angriffe abzuwehren. Dazu können IP-Adresse, Datum und Uhrzeit, aufgerufene URL, Referrer, Browsertyp, Betriebssystem, HTTP-Statuscode und übertragene Datenmenge gehören. Rechtsgrundlage ist unser berechtigtes Interesse an einer sicheren, stabilen und funktionsfähigen Website (Art. 6 Abs. 1 lit. f DSGVO). Logfiles werden nur so lange gespeichert, wie es für diese Zwecke erforderlich ist.</p>
+      <p>Die Website wird bei einem Hosting-Anbieter in Deutschland (Hetzner) betrieben; die Verarbeitung der Logdaten erfolgt innerhalb der Europäischen Union.</p>
+
+      <h2>8. Cookies und ähnliche Technologien</h2>
+      <p>Auf der öffentlichen Website setzen wir keine Cookies zu Analyse- oder Marketingzwecken ein und verwenden keine Tracking- oder Werbedienste. Im Login-, Registrierungs- und Buchungsbereich der Plattform können technisch notwendige Cookies bzw. Session-Technologien zum Einsatz kommen (z.&nbsp;B. für Anmeldung, Sitzungsverwaltung, Sicherheit und Buchungsprozess). Diese sind für den Betrieb erforderlich und bedürfen keiner Einwilligung. Sollten künftig einwilligungspflichtige Technologien eingesetzt werden, informieren wir vorab und holen eine Einwilligung ein.</p>
+
+      <h2>9. Schriftarten und externe Inhalte</h2>
+      <p>Die auf der Website verwendeten Schriftarten sind lokal auf unserem Server gespeichert und werden ohne Verbindung zu externen Font-Diensten ausgeliefert; es werden dabei keine Daten an Dritte übermittelt.</p>
+      <p>Logo- und Icon-Dateien werden derzeit von einem externen Content-Delivery-Netzwerk geladen. Beim Aufruf der Website wird dabei Ihre IP-Adresse an die Server dieses Anbieters übermittelt; eine Übermittlung in Drittländer kann dabei nicht ausgeschlossen werden. Die Einbindung erfolgt im Interesse einer einheitlichen und ansprechenden Darstellung (Art. 6 Abs. 1 lit. f DSGVO).</p>
+
+      <h2>10. Kontaktaufnahme</h2>
+      <p>Bei Kontaktaufnahme über Website, E-Mail, Telefon, LinkedIn oder andere Kanäle verarbeiten wir die Angaben zur Bearbeitung der Anfrage. Dazu gehören Name, Unternehmen, geschäftliche Kontaktdaten, Inhalt der Anfrage und Kommunikationsverlauf. Rechtsgrundlage ist je nach Anlass die Vertragsanbahnung (Art. 6 Abs. 1 lit. b DSGVO) oder unser berechtigtes Interesse an der Bearbeitung geschäftlicher Anfragen (Art. 6 Abs. 1 lit. f DSGVO). Kontaktanfragen werden gelöscht, sobald sie für den Zweck nicht mehr erforderlich sind, sofern keine Aufbewahrungspflichten oder berechtigte Interessen eine längere Speicherung rechtfertigen.</p>
+
+      <h2>11. Registrierung und Mitgliedskonto</h2>
+      <p>Für die Nutzung der Plattform ist eine Registrierung erforderlich. Dabei werden Unternehmensdaten und Angaben zu berechtigten Nutzern verarbeitet: bei der Account-Anlage Name, Unternehmen, E-Mail-Adresse, Passwort-Hash und Rolle; beim Login E-Mail-Adresse, Session-Daten und Login-Zeitpunkte; zur Rollenverwaltung Rollen, Rechte und Unternehmenszuordnung; zum Missbrauchsschutz Login-Versuche, IP-Adresse und Zeitpunkte; bei Einladungen weiterer Nutzer Name, E-Mail-Adresse, Rolle und Einladungsstatus. Rechtsgrundlage ist die Durchführung der Mitgliedschaft (Art. 6 Abs. 1 lit. b DSGVO) sowie unser berechtigtes Interesse an Sicherheit und Zugriffskontrolle (Art. 6 Abs. 1 lit. f DSGVO).</p>
+
+      <h2>12. Unternehmensprofile</h2>
+      <p>Mitglieder können Unternehmensprofile anlegen und pflegen. Diese enthalten vorwiegend Unternehmensinformationen, können aber personenbezogene Daten enthalten, wenn Ansprechpartner oder Kontaktrollen eingetragen werden. Unternehmensprofile dienen der Einordnung von Kompetenzen, Technologien, Leistungen, Regionen, Zertifizierungen und Kooperationsfähigkeit. Kontaktinformationen sollen geschäftlich und rollenbezogen sein; private oder sensible Daten sollen nicht eingetragen werden. Mitglieder sind dafür verantwortlich, dass sie personenbezogene Daten ihrer Ansprechpartner rechtmäßig eintragen. Die Sichtbarkeit von Profilinformationen richtet sich nach Plattformlogik, Rolle und Matchingstatus; eine öffentliche Darstellung vollständiger Kontaktprofile ist nicht vorgesehen.</p>
+
+      <h2>13. Mitgliedschaft, Pakete und Vertragsverwaltung</h2>
+      <p>Wir verarbeiten Vertragsdaten zur Verwaltung von Mitgliedschaften, Paketen, Laufzeiten, Kündigungen, Upgrades, Downgrades, Rechnungen, Nutzungsgrenzen und Zahlungsstatus. Die Verarbeitung ist zur Durchführung der Mitgliedschaft erforderlich (Art. 6 Abs. 1 lit. b DSGVO); für Rechnungs- und Steuerdaten bestehen gesetzliche Aufbewahrungspflichten (Art. 6 Abs. 1 lit. c DSGVO).</p>
+
+      <h2>14. Projektanfragen</h2>
+      <p>Projektanfragen sind der zentrale Ausgangspunkt für die Anbahnung von Kooperationen. Mitglieder können Anforderungen, Technologien, Skillbereiche, Zeitraum, Ort, Arbeitsmodus und eine Kontaktperson angeben. Projektanfragen sollen keine Endkundendaten, keine Lebensläufe, keine personenbezogenen Leistungsdaten, keine privaten Daten und keine sensiblen Dokumente enthalten.</p>
+      <p>Titel und Beschreibung dienen der Einordnung des Kooperationsbedarfs und werden im Matching nur nach Plattformlogik und anonymisiert weitergegeben. Skills, Technologien, Zeitraum, Ort und Remote-Anteil werden ausgewählten Kandidaten nur im erforderlichen Umfang übermittelt. Der Ansprechpartner des anfragenden Mitglieds wird erst nach bestätigtem Matching sichtbar.</p>
+
+      <h2>15. Fit Engine und Matching Engine</h2>
+      <p>Die Fit Engine und die Matching Engine dienen der strukturierten B2B-Einordnung. Sie vergleichen Unternehmensprofile und Projektanforderungen, um geeignete Kooperationspartner vorzuschlagen oder zu bestätigen. Der Prozess bewertet keine natürliche Person, keine individuellen Mitarbeiter, keine Lebensläufe und keine persönliche Leistungsfähigkeit:</p>
+      <ul>
+        <li>Matching bezieht sich auf Unternehmen, Kompetenzen und Projektanforderungen, nicht auf einzelne Personen.</li>
+        <li>Ein Match führt nicht automatisch zu Vertrag, Lieferpflicht oder Rechtswirkung gegenüber einer Person.</li>
+        <li>Vor Partnerbestätigung werden nur erforderliche anonyme Anfrageinformationen übermittelt.</li>
+        <li>Statusänderungen, Antworten und administrative Eingriffe werden protokolliert.</li>
+        <li>Endkundendaten, Preise und Lebensläufe sind nicht Bestandteil des Matchings.</li>
+      </ul>
+      <p>Rechtsgrundlage ist die Durchführung der Mitgliedschaft (Art. 6 Abs. 1 lit. b DSGVO) sowie das berechtigte Interesse an sicherer, vertrauensbasierter und nachvollziehbarer Kooperationsanbahnung (Art. 6 Abs. 1 lit. f DSGVO).</p>
+
+      <h2>16. Partnerbestätigung und Match-Präsentation</h2>
+      <p>Ausgewählte Partner erhalten eine anonyme Anfrage zur Bestätigung, ob sie die Anfrage grundsätzlich unterstützen können. Eine Ja-Antwort begründet keine Lieferpflicht, keinen Projektvertrag und keine Preiszusage; sie dient ausschließlich der validierten Kontaktanbahnung. Das anfragende Unternehmen sieht nur bestätigte Partner; Partner sehen vor Bestätigung keine unnötigen Kontaktdaten des anfragenden Unternehmens. Nach der Match-Präsentation werden Kontaktdaten im Plattformkontext sichtbar, soweit dies für die Zusammenarbeit erforderlich ist. Die weitere Kommunikation und Vertragsgestaltung erfolgt außerhalb von TrustworkX.</p>
+
+      <h2>17. User-Portal, Administration und Audit-Logs</h2>
+      <p>Im User-Portal können Mitglieder Accountdaten, Unternehmensprofile, Projektanfragen, eingehende Kooperationsanfragen, Matching-Ergebnisse, Mitgliedschaft, Rechnungen und Benachrichtigungen verwalten. Die Datenverarbeitung erfolgt zur Durchführung der Mitgliedschaft und Bereitstellung der Plattformfunktionen (Art. 6 Abs. 1 lit. b DSGVO).</p>
+      <p>Zur Qualitätssicherung, Freigabe, Kuratierung, Matching-Steuerung, Supportbearbeitung und Missbrauchsprävention verarbeitet TrustworkX administrative Daten. Admin-Zugriffe sind rollenbasiert beschränkt; wesentliche System-, Nutzer- und Admin-Aktionen werden in Audit-Logs protokolliert. Audit-Logs unterliegen Zweckbindung, Zugriffsbeschränkung und definierten Speicherfristen (Art. 6 Abs. 1 lit. f DSGVO).</p>
+
+      <h2>18. Zahlungsabwicklung und Buchhaltung</h2>
+      <p>Wir verarbeiten Abrechnungs- und Zahlungsdaten zur Verwaltung von Mitgliedschaften und zur Erfüllung gesetzlicher Pflichten (Rechnungsanschrift, Paket, Steuerdaten, Rechnungsnummer, Zahlungsstatus). Für die Zahlungsabwicklung setzen wir den Zahlungsdienstleister <strong>Stripe</strong> (Stripe Payments Europe, Ltd., 1 Grand Canal Street Lower, Grand Canal Dock, Dublin, Irland) ein. Zahlungsdaten wie Karteninformationen werden direkt durch Stripe verarbeitet; TrustworkX erhält im Wesentlichen Transaktionsreferenzen und den Zahlungsstatus. Bei der Verarbeitung durch Stripe kann eine Übermittlung in die USA stattfinden; diese erfolgt auf Grundlage geeigneter Garantien (u.&nbsp;a. Standardvertragsklauseln). Weitere Informationen: <a href="https://stripe.com/de/privacy" target="_blank" rel="noopener">https://stripe.com/de/privacy</a>.</p>
+      <p>Rechnungs- und Buchhaltungsunterlagen werden nach den handels- und steuerrechtlichen Aufbewahrungspflichten gespeichert und können an unsere Steuerberatung übermittelt werden (Art. 6 Abs. 1 lit. b und lit. c DSGVO).</p>
+
+      <h2>19. E-Mail-Benachrichtigungen und transaktionale Kommunikation</h2>
+      <p>Wir versenden transaktionale E-Mails, etwa zur Registrierung, Passwortwiederherstellung, Mitgliedschaft, zum Projektstatus, zur Partnerbestätigung, zum Matching-Ergebnis, zu Rechnungen, zur Sicherheit oder zur Vertragsverwaltung. Diese Kommunikation ist für den Betrieb der Plattform erforderlich (Art. 6 Abs. 1 lit. b DSGVO). Für den Versand kann ein externer E-Mail-Dienstleister als Auftragsverarbeiter eingesetzt werden.</p>
+
+      <h2>20. Newsletter und Marketingkommunikation</h2>
+      <p>Newsletter und Marketing-E-Mails versenden wir nur mit Ihrer Einwilligung (Art. 6 Abs. 1 lit. a DSGVO) im Double-Opt-in-Verfahren. Zeitpunkt, Quelle und Inhalt der Einwilligung werden protokolliert. Jede Marketing-E-Mail enthält eine einfache Abmeldemöglichkeit; die Einwilligung kann jederzeit mit Wirkung für die Zukunft widerrufen werden. Transaktionale Pflichtkommunikation wird nicht mit Werbung vermischt.</p>
+
+      <h2>21. Support, Konfliktfälle und Missbrauchsprävention</h2>
+      <p>Zur Bearbeitung von Supportfällen, Missbrauchsmeldungen, Kundenschutzfragen und Konflikten können wir Accountdaten, Kommunikationsdaten, Projektstatus, Matchinghistorien und Audit-Logs verarbeiten. Rechtsgrundlage sind die Vertragserfüllung (Art. 6 Abs. 1 lit. b DSGVO) und unser berechtigtes Interesse an einem sicheren Plattformbetrieb und der Durchsetzung der Netzwerkregeln (Art. 6 Abs. 1 lit. f DSGVO). Support- und Konfliktdaten werden vertraulich behandelt.</p>
+
+      <h2>22. Empfänger und Weitergaben</h2>
+      <p>Personenbezogene Daten werden nur weitergegeben, wenn dies zur Plattformnutzung, Vertragserfüllung, Kooperationsanbahnung, Zahlung, Sicherheit, Erfüllung gesetzlicher Pflichten oder Wahrung berechtigter Interessen erforderlich ist. Empfänger können sein:</p>
+      <ul>
+        <li><strong>Andere Mitgliedsunternehmen</strong> – im Rahmen der Kooperationsanbahnung nach den Plattformregeln (bestätigte Partner, anfragende Unternehmen).</li>
+        <li><strong>Hosting- und IT-Dienstleister</strong> – für den technischen Betrieb (Hosting, Datenbank, Monitoring, Backup).</li>
+        <li><strong>E-Mail-Dienstleister</strong> – für transaktionale E-Mails und, falls eingesetzt, Newsletter.</li>
+        <li><strong>Zahlungsdienstleister</strong> – Stripe, für die Zahlungsabwicklung.</li>
+        <li><strong>Berater und Dienstleister</strong> – Steuerberatung, Rechtsberatung, Buchhaltung.</li>
+        <li><strong>Behörden und Gerichte</strong> – soweit gesetzliche Pflichten oder Rechtsdurchsetzung dies erfordern.</li>
+      </ul>
+
+      <h2>23. Auftragsverarbeiter</h2>
+      <p>Soweit wir Dienstleister einsetzen, die personenbezogene Daten in unserem Auftrag verarbeiten (z.&nbsp;B. Hosting, E-Mail-Versand), schließen wir mit ihnen Verträge zur Auftragsverarbeitung nach Art. 28 DSGVO. Soweit Dienstleister als eigenständig Verantwortliche handeln (z.&nbsp;B. Zahlungsdienstleister in bestimmten Konstellationen), weisen wir hierauf transparent hin.</p>
+
+      <h2>24. Drittlandübermittlungen</h2>
+      <p>Eine Übermittlung personenbezogener Daten in Länder außerhalb der Europäischen Union oder des Europäischen Wirtschaftsraums erfolgt nur, wenn hierfür eine geeignete Rechtsgrundlage besteht, etwa ein Angemessenheitsbeschluss der EU-Kommission, Standardvertragsklauseln mit zusätzlichen Schutzmaßnahmen oder Ihre ausdrückliche Einwilligung. Drittlandübermittlungen können insbesondere beim Einsatz von Stripe sowie beim Laden extern eingebundener Logo-Dateien (Abschnitt 9) auftreten.</p>
+
+      <h2>25. Speicherdauer und Löschung</h2>
+      <p>Wir speichern personenbezogene Daten nur so lange, wie dies für die genannten Zwecke erforderlich ist oder gesetzliche Aufbewahrungspflichten bestehen. Nach Wegfall des Zwecks werden Daten gelöscht, anonymisiert oder gesperrt. Orientierungswerte:</p>
+      <ul>
+        <li><strong>Website-Logfiles:</strong> kurzfristige Speicherung, sofern keine Sicherheitsereignisse eine längere Aufbewahrung erfordern.</li>
+        <li><strong>Kontaktanfragen:</strong> bis zum Abschluss der Anfrage zuzüglich einer angemessenen Nachweisfrist.</li>
+        <li><strong>Account- und Profildaten:</strong> für die Dauer der Mitgliedschaft; nach Beendigung Löschung oder Sperrung.</li>
+        <li><strong>Projekt- und Matchingdaten:</strong> für die aktive Nutzung zuzüglich einer Nachweisfrist (u.&nbsp;a. für Kundenschutz und Streitfälle).</li>
+        <li><strong>Rechnungs- und Buchhaltungsdaten:</strong> nach den gesetzlichen Aufbewahrungspflichten, regelmäßig bis zu zehn Jahre.</li>
+        <li><strong>Newsletterdaten:</strong> bis zum Widerruf; Einwilligungsnachweise können länger aufbewahrt werden.</li>
+      </ul>
+
+      <h2>26. Ihre Rechte als betroffene Person</h2>
+      <p>Sie haben nach Maßgabe der DSGVO folgende Rechte:</p>
+      <ul>
+        <li>Auskunft über die verarbeiteten personenbezogenen Daten (Art. 15 DSGVO),</li>
+        <li>Berichtigung unrichtiger Daten (Art. 16 DSGVO),</li>
+        <li>Löschung (Art. 17 DSGVO),</li>
+        <li>Einschränkung der Verarbeitung (Art. 18 DSGVO),</li>
+        <li>Datenübertragbarkeit (Art. 20 DSGVO),</li>
+        <li>Widerspruch gegen Verarbeitungen auf Grundlage berechtigter Interessen (Art. 21 DSGVO),</li>
+        <li>Widerruf erteilter Einwilligungen mit Wirkung für die Zukunft (Art. 7 Abs. 3 DSGVO).</li>
+      </ul>
+      <p>Zur Ausübung Ihrer Rechte genügt eine Nachricht an <a href="mailto:datenschutz@trustworkx.de">datenschutz@trustworkx.de</a>. Sie haben zudem das Recht, sich bei einer Datenschutzaufsichtsbehörde zu beschweren, etwa beim Bayerischen Landesamt für Datenschutzaufsicht (BayLDA), Promenade 18, 91522 Ansbach.</p>
+
+      <div class="legal-note">
+        <strong>Widerspruchsrecht:</strong> Soweit wir personenbezogene Daten auf Grundlage berechtigter Interessen verarbeiten, können Sie aus Gründen, die sich aus Ihrer besonderen Situation ergeben, jederzeit Widerspruch einlegen. Bei Direktwerbung besteht ein uneingeschränktes Widerspruchsrecht.
+      </div>
+
+      <h2>27. Automatisierte Entscheidungen und Profiling</h2>
+      <p>TrustworkX trifft keine Entscheidungen, die ausschließlich auf einer automatisierten Verarbeitung beruhen und gegenüber einer natürlichen Person rechtliche Wirkung entfalten oder sie in ähnlicher Weise erheblich beeinträchtigen (Art. 22 DSGVO). Fit Engine und Matching Engine dienen der B2B-Einordnung von Unternehmensprofilen und Projektanforderungen; sie führen nicht automatisch zu Vertragsschluss, Lieferpflicht, Preisentscheidung oder Entscheidungen über einzelne Personen.</p>
+
+      <h2>28. Datensicherheit</h2>
+      <p>Wir setzen technische und organisatorische Maßnahmen ein, um personenbezogene Daten gegen Verlust, Missbrauch, unbefugten Zugriff, Veränderung oder Offenlegung zu schützen — unter anderem Transportverschlüsselung (TLS), rollenbasierte Zugriffsbeschränkungen, Protokollierung sicherheitsrelevanter Ereignisse und regelmäßige Backups. Die Maßnahmen richten sich nach Risiko, Stand der Technik und Schutzbedarf und werden fortlaufend weiterentwickelt.</p>
+
+      <h2>29. Änderungen dieser Datenschutzerklärung</h2>
+      <p>Wir passen diese Datenschutzerklärung an, wenn sich Rechtslage, Plattformfunktionen oder eingesetzte Dienstleister ändern. Es gilt die jeweils auf dieser Seite veröffentlichte Fassung.</p>
+
+      <p class="legal-stand">Hinweis zur sprachlichen Gleichbehandlung: Aus Gründen der besseren Lesbarkeit wird in diesem Dokument das generische Maskulinum verwendet. Sämtliche Personenbezeichnungen gelten gleichermaßen für alle Geschlechter.</p>
+      <p class="legal-stand">Stand: 16.07.2026 · Version 2.0</p>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-row">
+      <img class="logo-horizontal-footer" src="https://assets.cdn.filesafe.space/zX4w9KMO5mq76LaNi9KH/media/6a3fbc5789d9cd8dc2cb8b9b.svg" alt="trustworkX Logo" />
+      <div class="footer-links">
+        <a href="/impressum.html">Impressum</a>
+        <a href="/datenschutz.html">Datenschutz</a>
+        <a href="/agb.html">AGB</a>
+        <a href="/">Startseite</a>
+      </div>
+    </div>
+    <hr class="footer-divider">
+    <p class="copyright">© 2026 TrustworkX. Alle Rechte vorbehalten.</p>
+  </div>
+</footer>
+
+<script>
+  (function() {
+    var siteNav = document.querySelector('.site-nav');
+    function onNavScroll() { siteNav.classList.toggle('scrolled', window.scrollY > 30); }
+    window.addEventListener('scroll', onNavScroll, { passive: true });
+    onNavScroll();
+
+    var burger = document.getElementById('navBurger');
+    var panel  = document.getElementById('navMobile');
+    if (!burger || !panel) return;
+    burger.addEventListener('click', function() {
+      var open = panel.classList.toggle('open');
+      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  })();
+
+  /* Auf Staging zeigen Plattform-Links auf die Staging-Plattform */
+  (function() {
+    if (location.hostname === 'www.trustworkx.de') return;
+    document.querySelectorAll('a[href^="https://app.trustworkx.de"]').forEach(function(a) {
+      a.href = a.href.replace('https://app.trustworkx.de', 'https://staging.trustworkx.de');
+    });
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, follow" />
+  <meta name="description" content="Impressum der TrustworkX UG (haftungsbeschränkt)." />
+  <title>Impressum | trustworkX</title>
+  <link rel="canonical" href="https://www.trustworkx.de/impressum.html">
+  <link rel="icon" type="image/svg+xml" href="https://assets.cdn.filesafe.space/zX4w9KMO5mq76LaNi9KH/media/6a3fbc57c408020f97c464ab.svg">
+  <link rel="stylesheet" href="/fonts/fonts.css">
+  <style>
+    :root {
+      --navy: #0B1F3B;
+      --teal: #2EC4B6;
+      --text: #0B1F3B;
+      --muted: #5f6b7a;
+      --bg: #F5F7FA;
+      --line: #dfe8ef;
+      --sans: 'Inter', Arial, Helvetica, sans-serif;
+      --mono: 'Geist Mono', ui-monospace, 'SF Mono', 'Courier New', monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--sans);
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.5;
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+    }
+    a { text-decoration: none; color: inherit; }
+    .container { width: min(1180px, 92%); margin: 0 auto; }
+
+    /* ─── HEADER (dark, like main page hero) ─── */
+    .page-header {
+      background:
+        radial-gradient(circle at 78% 38%, rgba(46,196,182,.26), transparent 32%),
+        linear-gradient(135deg, #050f1e 0%, #091a32 55%, #050f1e 100%);
+      color: #fff;
+      padding: 24px 0 32px;
+    }
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .brand { display: flex; align-items: center; font-family: var(--mono); letter-spacing: -1px; }
+    .logo-horizontal { height: 88px; width: auto; display: block; }
+    .nav-actions { display: flex; gap: 10px; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 22px;
+      border-radius: 8px;
+      font-family: var(--mono);
+      font-weight: 600;
+      font-size: 15px;
+      letter-spacing: -.2px;
+      border: 1.5px solid rgba(255,255,255,.3);
+      transition: all .2s ease;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--teal), #22a99d);
+      border: none;
+      color: #fff;
+      box-shadow: 0 4px 18px rgba(46,196,182,.35);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(46,196,182,.45); }
+    .btn-secondary { background: transparent; color: #fff; }
+    .btn-secondary:hover { background: rgba(255,255,255,.08); transform: translateY(-1px); }
+
+    /* ─── LEGAL CONTENT ─── */
+    .legal-page { flex: 1; padding: 64px 0 96px; }
+    .legal-page .inner { max-width: 760px; }
+    .legal-page h1 {
+      font-size: 40px;
+      font-weight: 900;
+      letter-spacing: -1px;
+      margin-bottom: 8px;
+    }
+    .legal-intro { color: var(--muted); margin-bottom: 40px; }
+    .legal-page h2 {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -.3px;
+      margin: 36px 0 12px;
+    }
+    .legal-page p { margin: 0 0 14px; color: #33414f; }
+    .legal-page a { color: var(--teal); font-weight: 600; }
+    .legal-page a:hover { text-decoration: underline; }
+    .legal-stand { margin-top: 40px; color: var(--muted); font-size: 14px; font-style: italic; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: #040d1c;
+      color: #cdd8df;
+      padding: 32px 0 24px;
+    }
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+    footer a { font-size: 13.5px; color: #8fa4b0; transition: color .15s; }
+    footer a:hover { color: var(--teal); }
+    .logo-horizontal-footer { height: 30px; width: auto; display: block; }
+    .footer-divider { border: none; border-top: 1px solid rgba(255,255,255,.07); margin-bottom: 20px; }
+    .copyright { text-align: center; color: #7b90a0; font-size: 13px; font-family: var(--mono); letter-spacing: .02em; }
+
+    @media (max-width: 600px) {
+      .logo-horizontal { height: 64px; }
+      .nav-actions .btn-secondary { display: none; }
+      .nav-actions .btn-primary { padding: 10px 14px; font-size: 13px; }
+      .legal-page { padding: 48px 0 64px; }
+      .legal-page h1 { font-size: 32px; }
+    }
+
+    /* ─── STICKY SITE NAV (schwebende Pill) ─── */
+    .site-nav {
+      position: sticky;
+      top: 0;
+      z-index: 500;
+      padding: 12px 0;
+      pointer-events: none;
+    }
+    .site-nav .nav {
+      pointer-events: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      margin: 0 auto;
+      padding: 8px 18px;
+      background: rgba(5,15,30,.88);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 18px;
+      box-shadow: 0 12px 40px rgba(2,8,18,.4);
+    }
+    .site-nav .logo-horizontal { height: 52px; }
+    .nav-links { display: flex; gap: 26px; }
+    .nav-links a {
+      color: #d8e8ef;
+      font-size: 15px;
+      font-weight: 600;
+      transition: color .15s;
+      white-space: nowrap;
+    }
+    .nav-links a:hover, .nav-links a.on { color: var(--teal); }
+    .nav-burger {
+      display: none;
+      background: none;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      padding: 6px;
+    }
+    .nav-mobile {
+      pointer-events: auto;
+      display: none;
+      flex-direction: column;
+      gap: 2px;
+      width: min(1180px, 92%);
+      margin: 8px auto 0;
+      padding: 8px 12px 12px;
+      background: rgba(5,15,30,.94);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 16px;
+      box-shadow: 0 12px 40px rgba(2,8,18,.4);
+    }
+    .nav-mobile.open { display: flex; }
+    .nav-mobile a {
+      color: #d8e8ef;
+      font-size: 16px;
+      font-weight: 600;
+      padding: 10px 8px;
+      border-radius: 8px;
+    }
+    .nav-mobile a:hover { background: rgba(255,255,255,.06); color: var(--teal); }
+    @media (max-width: 1024px) {
+      .nav-links { display: none; }
+      .nav-burger { display: inline-flex; }
+    }
+    @media (max-width: 600px) {
+      .site-nav { padding: 10px 0; }
+      .site-nav .nav { gap: 8px; padding: 7px 12px; border-radius: 15px; }
+      .site-nav .logo-horizontal { height: 34px; max-width: 40vw; object-fit: contain; }
+      .site-nav .nav-actions { gap: 6px; }
+      .site-nav .btn-primary { padding: 9px 12px; font-size: 12.5px; }
+      .nav-burger { padding: 4px; }
+    }
+    /* Beim Scrollen: kompakter + Liquid-Glass (durchscheinend, starker Blur) */
+    .site-nav .nav {
+      transition: background .35s ease, padding .35s ease, box-shadow .35s ease, border-color .35s ease;
+    }
+    .site-nav .logo-horizontal { transition: height .35s ease; }
+    .site-nav.scrolled .nav {
+      background: rgba(7,18,34,.5);
+      -webkit-backdrop-filter: blur(22px) saturate(160%);
+      backdrop-filter: blur(22px) saturate(160%);
+      border-color: rgba(255,255,255,.14);
+      padding: 5px 14px;
+      box-shadow: 0 10px 34px rgba(2,8,18,.3);
+    }
+    .site-nav.scrolled .logo-horizontal { height: 38px; }
+    .site-nav.scrolled .btn { padding: 9px 16px; font-size: 14px; }
+    @media (max-width: 600px) {
+      .site-nav.scrolled .logo-horizontal { height: 28px; }
+      .site-nav.scrolled .nav { padding: 4px 10px; }
+      .site-nav.scrolled .btn-primary { padding: 8px 10px; font-size: 12px; }
+    }
+    /* Ohne Backdrop-Blur-Unterstützung: deckend bleiben (Lesbarkeit) */
+    @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+      .site-nav.scrolled .nav { background: rgba(5,15,30,.92); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .site-nav .nav, .site-nav .logo-horizontal { transition: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════ SITE NAV ═══ -->
+<div class="site-nav">
+  <div class="container nav">
+    <a href="/" class="brand" aria-label="trustworkX – zur Startseite">
+      <img class="logo-horizontal" src="https://assets.cdn.filesafe.space/zX4w9KMO5mq76LaNi9KH/media/6a3fbc5789d9cd8dc2cb8b9b.svg" alt="trustworkX Logo" />
+    </a>
+    <nav class="nav-links" aria-label="Hauptnavigation">
+      <a href="/#how-it-works">Wie es funktioniert</a>
+      <a href="/#pricing">Preise</a>
+      <a href="/#faq">FAQ</a>
+      <a href="/ueber-uns.html">Über uns</a>
+    </nav>
+    <div class="nav-actions">
+      <a class="btn btn-secondary" href="https://app.trustworkx.de/login">Login</a>
+      <a class="btn btn-primary" href="/#pricing">Jetzt Mitglied werden</a>
+      <button type="button" class="nav-burger" id="navBurger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="navMobile">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+  <nav class="nav-mobile" id="navMobile" aria-label="Mobile Navigation">
+    <a href="/#how-it-works">Wie es funktioniert</a>
+    <a href="/#pricing">Preise</a>
+    <a href="/#faq">FAQ</a>
+    <a href="/ueber-uns.html">Über uns</a>
+    <a href="https://app.trustworkx.de/login">Login</a>
+  </nav>
+</div>
+
+<main class="legal-page">
+  <div class="container">
+    <div class="inner">
+      <h1>Impressum</h1>
+      <p class="legal-intro">Angaben gemäß § 5 DDG</p>
+
+      <h2>Diensteanbieter</h2>
+      <p><strong>TrustworkX UG (haftungsbeschränkt)</strong><br>
+      Ludwigstraße 22<br>
+      82110 Germering<br>
+      Deutschland</p>
+      <p>Vertreten durch den Geschäftsführer: Thomas Becker</p>
+      <p>E-Mail: <a href="mailto:info@trustworkx.de">info@trustworkx.de</a><br>
+      Telefon: <a href="tel:+498924581717">089 24581717</a><br>
+      Website: <a href="https://trustworkx.de">https://trustworkx.de</a></p>
+
+      <h2>Registerangaben</h2>
+      <p>Handelsregister: Handelsregister B des Amtsgerichts München<br>
+      Registergericht: Amtsgericht München<br>
+      Registernummer: HRB 314813</p>
+
+      <h2>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
+      <p>Thomas Becker, Ludwigstraße 22, 82110 Germering, Deutschland</p>
+
+      <h2>Haftung für Inhalte</h2>
+      <p>Als Diensteanbieter sind wir für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Wir sind jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen. Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt.</p>
+
+      <h2>Haftung für Links</h2>
+      <p>Unser Angebot kann Links zu externen Websites Dritter enthalten, auf deren Inhalte wir keinen Einfluss haben. Für diese fremden Inhalte übernehmen wir keine Gewähr. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber verantwortlich.</p>
+
+      <h2>Urheberrecht</h2>
+      <p>Die auf dieser Website erstellten Inhalte und Werke unterliegen dem deutschen Urheberrecht. Beiträge Dritter werden als solche gekennzeichnet. Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechts bedürfen der vorherigen schriftlichen Zustimmung des jeweiligen Rechteinhabers.</p>
+
+      <p class="legal-stand">Stand: 29.06.2026</p>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-row">
+      <img class="logo-horizontal-footer" src="https://assets.cdn.filesafe.space/zX4w9KMO5mq76LaNi9KH/media/6a3fbc5789d9cd8dc2cb8b9b.svg" alt="trustworkX Logo" />
+      <div class="footer-links">
+        <a href="/impressum.html">Impressum</a>
+        <a href="/datenschutz.html">Datenschutz</a>
+        <a href="/agb.html">AGB</a>
+        <a href="/">Startseite</a>
+      </div>
+    </div>
+    <hr class="footer-divider">
+    <p class="copyright">© 2026 TrustworkX. Alle Rechte vorbehalten.</p>
+  </div>
+</footer>
+
+<script>
+  (function() {
+    var siteNav = document.querySelector('.site-nav');
+    function onNavScroll() { siteNav.classList.toggle('scrolled', window.scrollY > 30); }
+    window.addEventListener('scroll', onNavScroll, { passive: true });
+    onNavScroll();
+
+    var burger = document.getElementById('navBurger');
+    var panel  = document.getElementById('navMobile');
+    if (!burger || !panel) return;
+    burger.addEventListener('click', function() {
+      var open = panel.classList.toggle('open');
+      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  })();
+
+  /* Auf Staging zeigen Plattform-Links auf die Staging-Plattform */
+  (function() {
+    if (location.hostname === 'www.trustworkx.de') return;
+    document.querySelectorAll('a[href^="https://app.trustworkx.de"]').forEach(function(a) {
+      a.href = a.href.replace('https://app.trustworkx.de', 'https://staging.trustworkx.de');
+    });
+  })();
+</script>
+</body>
+</html>
