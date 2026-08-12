@@ -41,6 +41,11 @@ without exception.
 - Forms may submit to the external API via JS (XHR/fetch), but this repo
   contains no backend code.
 
+## Communication
+
+- Address the user informally with "du" (never the formal "Sie"), in German,
+  in every session. The user explicitly asked for this permanently.
+
 ## Style
 
 - Keep the site fast and dependency-free: no external fonts/CDNs unless the
