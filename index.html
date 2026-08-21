@@ -3669,7 +3669,7 @@
           <p class="package-sub">Ideal für Unternehmen, die erste Kooperationen über TrustworkX aufbauen möchten.</p>
           <div class="price-amount" id="price-access">49,00 €<span class="price-period"> / Monat</span></div>
           <div class="price-tax">zzgl. gesetzl. MwSt.</div>
-          <div class="price-yearly" id="year-access">(499,00 € / Jahr)</div>
+          <div class="price-yearly" id="year-access">Bei jährlicher Buchung 499,00&nbsp;€&nbsp;/&nbsp;Jahr</div>
           <ul class="features">
             <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
                 stroke-linecap="round" stroke-linejoin="round">
@@ -3721,7 +3721,7 @@
           <p class="package-sub">Für Unternehmen mit regelmäßigem Projektbedarf und wachsendem Partnernetzwerk.</p>
           <div class="price-amount" id="price-core">99,00 €<span class="price-period"> / Monat</span></div>
           <div class="price-tax">zzgl. gesetzl. MwSt.</div>
-          <div class="price-yearly" id="year-core">(999,00 € / Jahr)</div>
+          <div class="price-yearly" id="year-core">Bei jährlicher Buchung 999,00&nbsp;€&nbsp;/&nbsp;Jahr</div>
           <ul class="features">
             <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
                 stroke-linecap="round" stroke-linejoin="round">
@@ -3776,7 +3776,7 @@
             möchten.</p>
           <div class="price-amount" id="price-growth">149,00 €<span class="price-period"> / Monat</span></div>
           <div class="price-tax">zzgl. gesetzl. MwSt.</div>
-          <div class="price-yearly" id="year-growth">(1.499,00 € / Jahr)</div>
+          <div class="price-yearly" id="year-growth">Bei jährlicher Buchung 1.499,00&nbsp;€&nbsp;/&nbsp;Jahr</div>
           <ul class="features">
             <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
                 stroke-linecap="round" stroke-linejoin="round">
@@ -3829,7 +3829,7 @@
           <p class="package-sub">Für Unternehmen mit hohem Projektvolumen und maximalem Kooperationsbedarf.</p>
           <div class="price-amount" id="price-unlimited">199,00 €<span class="price-period"> / Monat</span></div>
           <div class="price-tax">zzgl. gesetzl. MwSt.</div>
-          <div class="price-yearly" id="year-unlimited">(1.999,00 € / Jahr)</div>
+          <div class="price-yearly" id="year-unlimited">Bei jährlicher Buchung 1.999,00&nbsp;€&nbsp;/&nbsp;Jahr</div>
           <ul class="features">
             <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
                 stroke-linecap="round" stroke-linejoin="round">
@@ -4443,7 +4443,7 @@
           document.getElementById('price-' + pkg).innerHTML =
             prices.monthly[pkg] + '<span class="price-period"> / Monat</span>';
           document.getElementById('year-' + pkg).innerHTML =
-            '(' + prices.yearly[pkg] + ' / Jahr)';
+            'Bei jährlicher Buchung ' + prices.yearly[pkg].replace(' ', '\u00a0') + '\u00a0/\u00a0Jahr';
         }
       });
     }
