@@ -2158,6 +2158,82 @@
       }
     }
 
+    /* ─── FACHGEBIETSPARTNER (PRW Group) ─── */
+    .partner-section {
+      background: #fff;
+    }
+
+    .partner-note {
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 44px 48px;
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .partner-note h3 {
+      font-size: 24px;
+      font-weight: 900;
+      letter-spacing: -.4px;
+      color: var(--navy);
+      margin-bottom: 12px;
+    }
+
+    .partner-note p {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.65;
+      margin-bottom: 18px;
+    }
+
+    .partner-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      color: #1d968b;
+      font-weight: 700;
+      font-size: 15px;
+      transition: gap .15s ease, color .15s ease;
+    }
+
+    .partner-link:hover {
+      color: var(--teal);
+      gap: 11px;
+    }
+
+    .partner-logo {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 36px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .partner-logo img {
+      display: block;
+      width: 100%;
+      max-width: 210px;
+      height: auto;
+    }
+
+    @media (max-width: 860px) {
+      .partner-note {
+        grid-template-columns: 1fr;
+        padding: 28px 22px;
+        gap: 28px;
+      }
+
+      .partner-logo {
+        max-width: 260px;
+        margin: 0 auto;
+      }
+    }
+
     /* ─── PRICING ─── */
     .pricing-section {
       background: var(--bg);
@@ -4069,6 +4145,41 @@
   </section>
 
   <!-- ═══════════════════════════════════ KONTAKT-BANNER ═══ -->
+  <!-- ═══════════════════════════ FACHGEBIETSPARTNER (PRW Group) ═══ -->
+  <section class="partner-section" id="partner">
+    <div class="container">
+      <div class="partner-note">
+        <div>
+          <span class="res-eyebrow">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            </svg>
+            Fachgebietspartner
+          </span>
+          <h3>Recht, Datenschutz &amp; Compliance</h3>
+          <p>Die PRW Group ist unser exklusiver Fachgebietspartner für Recht, Datenschutz und Compliance.
+            TrustworkX-Mitglieder profitieren von kostenlosen monatlichen Fachbeiträgen, Webinaren und einer
+            offenen Sprechstunde, praxisnah und speziell für IT-Dienstleister.</p>
+          <a class="partner-link" href="https://www.prw.de" target="_blank" rel="noopener">
+            Mehr über die PRW Group
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+              stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
+          </a>
+        </div>
+        <div class="partner-logo">
+          <!-- PLATZHALTER: wird vor Livegang durch das Original-Logo der PRW Group ersetzt -->
+          <div style="text-align:center;color:#151515;" aria-label="PRW Group Logo">
+            <div style="font-size:58px;font-weight:300;letter-spacing:2px;line-height:1;">PRW</div>
+            <div style="font-size:16px;letter-spacing:.55em;text-indent:.55em;margin-top:10px;">GROUP</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
   <section class="faq-contact-section">
     <div class="container">
       <div
