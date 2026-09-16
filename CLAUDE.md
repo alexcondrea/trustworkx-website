@@ -45,6 +45,11 @@ without exception.
 
 - Address the user informally with "du" (never the formal "Sie"), in German,
   in every session. The user explicitly asked for this permanently.
+- Discuss before implementing: when the user raises an idea or question,
+  first talk through options and give a recommendation. Only start
+  implementing (branches, commits, PRs) after the user explicitly approves
+  an approach. Mockups/previews rendered outside the repo are fine during
+  the discussion phase. The user explicitly asked for this permanently.
 
 ## Style
 
