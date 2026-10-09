@@ -3,9 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Über TrustworkX – die Business-Plattform für sichere und vertrauensvolle Zusammenarbeit zwischen IT-Dienstleistern." />
-  <title>Über uns | trustworkX</title>
-  <link rel="canonical" href="https://www.trustworkx.de/ueber-uns.html">
+  <meta name="description" content="Finden Sie IT-Partner für Ihre Kundenprojekte: vertrauliche Anfragen, direkte Vereinbarungen und keine Projektprovision. Kostenlose TrustworkX-Demo buchen." />
+  <title>IT-Projektpartner für Systemhäuser finden | TrustworkX</title>
+  <link rel="canonical" href="https://www.trustworkx.de/it-projektpartner.html">
+  <!-- Social-Media-Vorschau (og:image braucht absolute URLs, daher hier bewusst die Live-Domain) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="TrustworkX" />
+  <meta property="og:locale" content="de_DE" />
+  <meta property="og:title" content="IT-Projektpartner für Systemhäuser finden | TrustworkX" />
+  <meta property="og:description" content="Finden Sie IT-Partner für Ihre Kundenprojekte: vertrauliche Anfragen, direkte Vereinbarungen und keine Projektprovision." />
+  <meta property="og:url" content="https://www.trustworkx.de/it-projektpartner.html" />
+  <meta property="og:image" content="https://www.trustworkx.de/img/og-image.png" />
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -267,6 +275,102 @@
     }
     .site-nav { margin-bottom: -94px; }
     @media (max-width: 600px) { .site-nav { margin-bottom: -70px; } }
+
+    /* ─── IT-PROJEKTPARTNER (Bausteine aus Startseite/Über uns) ─── */
+    .page-header .hero-lead {
+      color: #c8dce5;
+      font-size: 18px;
+      line-height: 1.65;
+      max-width: 680px;
+      margin-top: 18px;
+    }
+    .page-header .hero-actions { margin-top: 30px; display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-outline-teal { border: 1.5px solid var(--teal); color: var(--teal); background: transparent; }
+    .btn-outline-teal:hover { background: var(--teal); color: #fff; transform: translateY(-1px); }
+    .steps {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin: 8px 0 14px;
+      max-width: none;
+    }
+    .about-page .steps li {
+      display: block;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 24px 22px;
+      box-shadow: 0 8px 24px rgba(8, 24, 43, .05);
+      margin: 0;
+    }
+    .step-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--teal), #22a99d);
+      color: #fff;
+      font-family: var(--mono);
+      font-weight: 700;
+      font-size: 15px;
+      margin-bottom: 14px;
+    }
+    .steps h3 { font-size: 17px; font-weight: 800; color: var(--navy); margin-bottom: 8px; }
+    .about-page .steps p { font-size: 15px; color: var(--muted); margin: 0; }
+    .wide { max-width: 1180px; }
+    .faq-list { border-top: 1px solid var(--line); }
+    .faq-item { border-bottom: 1px solid var(--line); }
+    .faq-q {
+      width: 100%;
+      background: none;
+      border: none;
+      text-align: left;
+      font-family: var(--sans);
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--navy);
+      padding: 20px 0;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      transition: color .15s;
+    }
+    .faq-q:hover, .faq-q.open { color: var(--teal); }
+    .faq-arrow { font-size: 18px; color: var(--teal); flex-shrink: 0; transition: transform .2s; display: inline-block; }
+    .faq-q.open .faq-arrow { transform: rotate(180deg); }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height .3s ease; }
+    .faq-a.open { max-height: 300px; }
+    .about-page .faq-a p { font-size: 15px; color: var(--muted); line-height: 1.7; padding-bottom: 20px; margin: 0; }
+    .final-cta {
+      background: linear-gradient(135deg, #060f20, #091a2e);
+      color: #fff;
+      border-radius: 18px;
+      padding: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 36px;
+      margin-top: 64px;
+      box-shadow: 0 20px 60px rgba(4, 12, 22, .22);
+    }
+    .about-page .final-cta h2 { margin: 0 0 10px; font-size: 30px; color: #fff; }
+    .about-page .final-cta p { color: #c0d0da; max-width: 580px; font-size: 16px; line-height: 1.6; margin: 0; }
+    .final-buttons { display: flex; flex-direction: column; gap: 12px; min-width: 260px; }
+    @media (max-width: 860px) {
+      .steps { grid-template-columns: 1fr; }
+      .final-cta { flex-direction: column; align-items: flex-start; padding: 32px 24px; }
+      .final-buttons { width: 100%; min-width: 0; }
+      .about-page .final-cta h2 { font-size: 24px; }
+    }
+    @media (max-width: 600px) {
+      .page-header .hero-actions .btn { width: 100%; white-space: normal; text-align: center; }
+      .page-header .hero-lead { font-size: 16.5px; }
+    }
   </style>
 </head>
 <body>
@@ -281,7 +385,7 @@
       <a href="/#how-it-works">Wie es funktioniert</a>
       <a href="/#pricing">Preise</a>
       <a href="/#faq">FAQ</a>
-      <a href="/ueber-uns.html" class="on">Über uns</a>
+      <a href="/ueber-uns.html">Über uns</a>
     </nav>
     <div class="nav-actions">
       <a class="btn btn-secondary" href="https://app.trustworkx.de/login">Login</a>
@@ -302,60 +406,78 @@
 
 <header class="page-header">
   <div class="container">
-    <p class="eyebrow">Über uns</p>
-    <h1>Zusammenarbeit neu gedacht.</h1>
+    <p class="eyebrow">Für Systemhäuser und IT-Dienstleister</p>
+    <h1>IT-Projektpartner für Systemhäuser finden</h1>
+    <p class="hero-lead">Ein Kundenprojekt passt zu Ihrem Unternehmen, aber die passenden Fachkräfte sind bereits ausgebucht? Oder für die Umsetzung fehlt eine bestimmte Kompetenz?</p>
+    <p class="hero-lead">Auf TrustworkX finden Systemhäuser und IT-Dienstleister mit eigenen Fachkräften Zugang zu anderen IT-Unternehmen, die ihre Leistungen ergänzen können. Damit aus einem Kapazitätsengpass keine abgesagte Kundenanfrage werden muss.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" target="_blank" rel="noopener" href="https://outlook.office.com/bookwithme/user/f818bdb28b3d4591b460df631b476cae@trustworkx.de?anonymous&amp;ismsaljsauthenabled&amp;ep=plink">Kostenlosen Demotermin buchen</a>
+    </div>
   </div>
 </header>
 
 <main class="about-page">
   <div class="container">
     <div class="inner">
-      <p class="lead">TrustworkX ist aus einer einfachen Beobachtung entstanden:</p>
-      <p>Jeden Tag bleiben bei IT-Dienstleistern hochqualifizierte Mitarbeitende ohne Projekt. Gleichzeitig lehnen andere Unternehmen Kundenanfragen ab, weil ihnen genau diese Kapazitäten fehlen.</p>
-      <p>Nicht, weil der Markt zu klein ist. Sondern weil die richtigen Unternehmen nicht zusammenfinden.</p>
-      <p class="lead">Genau hier setzt TrustworkX an.</p>
+      <h2>Wenn auch der bestehende Partnerkreis nicht weiterhilft</h2>
+      <p>Viele IT-Dienstleister arbeiten bereits mit vertrauten Partnern zusammen. Doch auch diese Unternehmen sind zeitweise ausgelastet oder decken nicht jede Spezialisierung ab.</p>
+      <p>TrustworkX erweitert Ihre Möglichkeiten, passende Unterstützung für Ihre Kundenprojekte zu finden. Die Zusammenarbeit entsteht direkt zwischen den beteiligten IT-Unternehmen.</p>
+    </div>
 
-      <h2>Warum wir TrustworkX gegründet haben</h2>
-      <p>Wir kennen die IT-Dienstleistungsbranche aus eigener Erfahrung. Wir wissen, wie viel Aufwand in Vertrieb, Recruiting und dem Aufbau von Vertrauen steckt. Und wir wissen, dass erfolgreiche Zusammenarbeit nicht durch Zufall entsteht.</p>
-      <p>Deshalb haben wir TrustworkX entwickelt: eine kuratierte Business-Plattform, die Unternehmen dabei unterstützt, freie Kapazitäten und konkrete Projektbedarfe sicher und strukturiert zusammenzubringen.</p>
-      <p>Nicht öffentlich. Keine anonyme Masse. Sondern auf Basis klarer Regeln, geprüfter Mitglieder und eines strukturierten Matching-Prozesses.</p>
+    <div class="wide">
+      <h2>So entsteht eine Zusammenarbeit</h2>
+      <ol class="steps">
+        <li>
+          <span class="step-num">1</span>
+          <h3>Projektbedarf beschreiben</h3>
+          <p>Als freigeschaltetes Mitglied beschreiben Sie die benötigten Kompetenzen, den Zeitraum und die Rahmenbedingungen Ihres Vorhabens.</p>
+        </li>
+        <li>
+          <span class="step-num">2</span>
+          <h3>Passende Partner kennenlernen</h3>
+          <p>Potenzielle Partner werden zunächst anonymisiert angefragt. Bei grundsätzlich bestätigtem Interesse können Ihnen bis zu drei passende Unternehmen vorgeschlagen werden.</p>
+        </li>
+        <li>
+          <span class="step-num">3</span>
+          <h3>Zusammenarbeit direkt vereinbaren</h3>
+          <p>Nach der Kontaktfreigabe besprechen Sie Verfügbarkeit, Leistungsumfang, Preise und Verträge direkt miteinander. Sie entscheiden, mit wem Sie zusammenarbeiten.</p>
+        </li>
+      </ol>
+    </div>
 
-      <h2>Unsere Überzeugung</h2>
-      <p>Wir glauben nicht, dass jede Anfrage ausgeschrieben werden muss. Wir glauben nicht, dass Zusammenarbeit über unübersichtliche Marktplätze oder Massenplattformen entsteht. Wir glauben nicht, dass ungenutzte Kapazitäten zum Alltag gehören müssen.</p>
-      <p>Wir glauben an starke Partnerschaften. An Vertrauen. An langfristige Zusammenarbeit.</p>
-      <p>Und daran, dass man im Netzwerk erfolgreicher ist als allein.</p>
-
-      <h2>Was TrustworkX besonders macht</h2>
-      <ul>
-        <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Ausschließlich geprüfte IT-Dienstleister und Systemhäuser</li>
-        <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Keine Freelancer-Plattform</li>
-        <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Keine Personalvermittlung</li>
-        <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Keine Vermittlungsprovisionen</li>
-        <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Strukturierter Matching-Prozess statt öffentlicher Ausschreibungen</li>
-        <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Fokus auf Qualität statt Quantität</li>
-        <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Klare Regeln für Vertrauen, Kundenschutz und Fairness</li>
-      </ul>
-
-      <h2>Unsere Mission</h2>
+    <div class="inner">
+      <h2>Vertraulich und ohne Vermittlungsprovision</h2>
       <div class="about-card">
-        <p>Wir bauen die Business-Plattform, der IT-Dienstleister vertrauen.</p>
-        <p>Ein Netzwerk, in dem freie Kapazitäten sinnvoll eingesetzt werden, Projekte schneller realisiert werden und Zusammenarbeit einfacher wird.</p>
+        <p>Kundennamen und sensible Projektdetails werden nicht öffentlich ausgeschrieben. TrustworkX erhebt keine Vermittlungsprovision und beteiligt sich nicht am Umsatz Ihrer Projekte.</p>
       </div>
+      <p>Umgekehrt kann die Zusammenarbeit auch helfen, eigene freie Fachkräfte in Kundenprojekten anderer IT-Dienstleister einzusetzen.</p>
 
-      <h2>Unsere Vision</h2>
-      <div class="about-card">
-        <p>Wir möchten dazu beitragen, dass Zusammenarbeit zwischen Unternehmen selbstverständlich wird. Nicht als Ausnahme, sondern als neuer Standard.</p>
-        <p>Heute beginnt das in der IT-Branche. Morgen überall dort, wo Unternehmen gemeinsam erfolgreicher sein können.</p>
+      <h2>Häufige Fragen</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button type="button" class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">Für wen ist TrustworkX gedacht?<span class="faq-arrow" aria-hidden="true">▾</span></button>
+          <div class="faq-a"><p>Für IT-Dienstleister und Systemhäuser, die ihre eigenen Leistungen durch die Zusammenarbeit mit anderen IT-Unternehmen ergänzen möchten.</p></div>
+        </div>
+        <div class="faq-item">
+          <button type="button" class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">Ist ein passender Partner garantiert?<span class="faq-arrow" aria-hidden="true">▾</span></button>
+          <div class="faq-a"><p>Nein. Eine Zusammenarbeit hängt von den Anforderungen, der tatsächlichen Verfügbarkeit und den Entscheidungen beider Unternehmen ab.</p></div>
+        </div>
+        <div class="faq-item">
+          <button type="button" class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">Was kostet die Nutzung?<span class="faq-arrow" aria-hidden="true">▾</span></button>
+          <div class="faq-a"><p>TrustworkX bietet kostenpflichtige Mitgliedschaften. Funktionen und Kontingente richten sich nach dem gewählten Paket. Der Demotermin ist kostenlos.</p></div>
+        </div>
       </div>
+    </div>
 
-      <h2>Hinter TrustworkX</h2>
-      <p>TrustworkX wurde von Menschen gegründet, die den IT-Dienstleistungsmarkt seit vielen Jahren aus der Praxis kennen.</p>
-      <p>Unsere Motivation ist einfach: Wir möchten Unternehmen dabei helfen, vorhandene Potenziale besser zu nutzen, anstatt ständig neue Ressourcen suchen zu müssen.</p>
-      <p>Denn wir sind überzeugt: Die größte Chance liegt oft nicht darin, mehr Unternehmen zu finden, sondern die richtigen miteinander zu verbinden.</p>
-
-      <h2>Unser Versprechen</h2>
-      <p>Wir wollen kein weiteres Netzwerk sein. Wir wollen die Infrastruktur schaffen, auf der vertrauensvolle Zusammenarbeit entsteht.</p>
-      <p class="about-claim">Mehr Umsatz durch Kooperation.</p>
+    <div class="final-cta">
+      <div>
+        <h2>Passt TrustworkX zu Ihrem Unternehmen?</h2>
+        <p>Lernen Sie den Ablauf kennen und besprechen Sie mit uns, wie TrustworkX Sie bei Ihren Kundenprojekten unterstützen kann.</p>
+      </div>
+      <div class="final-buttons">
+        <a class="btn btn-primary" target="_blank" rel="noopener" href="https://outlook.office.com/bookwithme/user/f818bdb28b3d4591b460df631b476cae@trustworkx.de?anonymous&amp;ismsaljsauthenabled&amp;ep=plink">Kostenlosen Demotermin buchen</a>
+        <a class="btn btn-outline-teal" href="/#pricing">Mitgliedschaften ansehen</a>
+      </div>
     </div>
   </div>
 </main>
@@ -401,6 +523,17 @@
       a.href = a.href.replace('https://app.trustworkx.de', 'https://staging.trustworkx.de');
     });
   })();
+  function toggleFaq(btn) {
+    var answer = btn.nextElementSibling;
+    var isOpen = answer.classList.contains('open');
+    document.querySelectorAll('.faq-a.open').forEach(function(a) { a.classList.remove('open'); });
+    document.querySelectorAll('.faq-q.open').forEach(function(q) { q.classList.remove('open'); q.setAttribute('aria-expanded', 'false'); });
+    if (!isOpen) {
+      answer.classList.add('open');
+      btn.classList.add('open');
+      btn.setAttribute('aria-expanded', 'true');
+    }
+  }
 </script>
 </body>
 </html>
