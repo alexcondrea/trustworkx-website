@@ -573,7 +573,7 @@
       })
         .then(function (res) {
           return res.json().catch(function () { return {}; }).then(function (data) {
-            if (res.status === 201 && data.url) {
+            if (res.ok && data.url) {
               window.location.href = data.url;
               return;
             }
