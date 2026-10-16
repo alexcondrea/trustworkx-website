@@ -158,3 +158,4 @@
 @media(max-width:680px){.connection{height:auto;min-height:112px;padding:12px 0;gap:10px}.connection img{width:72px}}
 
 .footer-content nav{flex-wrap:wrap}.footer-content nav a{color:inherit;font-size:11px;padding:0}.footer-copy{margin:14px auto 0}
+@media(max-width:359px){#preise .section-heading h2{font-size:26px}}
