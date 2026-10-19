@@ -150,6 +150,32 @@
 .platform .resources .eyebrow{color:#2ec4b6}.platform .resource-way+.resource-way{border-top-color:#345064}.platform .privacy-note{color:#a9c5d5}
 /* The membership-area demo action uses the same filled primary CTA. */
 .price-after .button{margin-top:12px}
+/* Preisbereich auf Dunkelblau: helle Karten, Türkis als Akzent. Nur Optik. */
+#preise{background:#0b1f3b;color:#fff}
+#preise .section-heading h2{color:#fff}
+#preise .section-heading.center .eyebrow{color:#2ec4b6}
+#preise .membership-principle{color:#bdd0de}
+#preise .billing{color:#9fb4c4}
+#preise .billing .active{color:#fff}
+#preise #billing-toggle{background:#263d55;box-shadow:inset 0 0 0 1px #4b6680}
+#preise #billing-toggle[aria-checked=true]{background:#22a99d;box-shadow:none}
+#preise .pricing-grid{gap:18px}
+#preise .price-card{border:1px solid transparent;box-shadow:none;padding:24px 22px 20px;color:#0b1f3b}
+#preise .price-card.recommended{border:2px solid #2ec4b6;padding:23px 21px 19px;box-shadow:0 0 18px rgba(46,196,182,.12)}
+#preise .package-icon,#preise .package-icon.navy{width:36px;height:36px;border-radius:10px;background:#eaf5f2;margin-bottom:14px}
+#preise .package-icon img{width:20px;filter:brightness(0) saturate(100%) invert(52%) sepia(52%) saturate(560%) hue-rotate(127deg) brightness(92%)}
+#preise .price-card .eyebrow{margin-bottom:6px}
+#preise .price-card h3{margin-bottom:12px}
+#preise .package-description{margin-bottom:18px}
+@media(min-width:1151px){#preise .package-description{min-height:77px}}
+#preise .price-card small{font-size:12px;margin-top:6px}
+#preise .annual{font-size:12px;margin:12px 0 16px}
+#preise .features{margin-bottom:22px}
+#preise .features li{margin-bottom:8px}
+#preise .price-after>p{color:#dce6ee}
+#preise .price-after>p b{color:#fff}
+#preise .price-after>#monthly-membership-term,#preise .price-after>#annual-membership-term{font-size:13px}
+@media(max-width:680px){#preise .price-card{padding:24px}#preise .price-card.recommended{padding:23px}}
 /* Original standalone X anchors the two companies without changing their layout. */
 .connection{flex-direction:column;align-items:center;gap:16px;padding:0}
 .connection img{width:180px;height:auto;flex:none}
