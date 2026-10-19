@@ -41,6 +41,24 @@ without exception.
 - Forms may submit to the external API via JS (XHR/fetch), but this repo
   contains no backend code.
 
+## Cache versioning of CSS/JS (required)
+
+Every reference to a file under `/css/` or `/js/` in an HTML page carries a
+content hash: `?v=` + the first 8 hex chars of the file's SHA-256
+(e.g. `/css/start.css?v=33686df0`). Browsers otherwise keep serving old
+CSS/JS to returning visitors.
+
+- Whenever a CSS or JS file changes, update its hash in ALL pages that
+  reference it, in the same commit. All references to the same file must
+  use the same current hash.
+- Update all hashes (run from the repo root):
+  `for f in css/*.css js/*.js; do h=$(sha256sum "$f" | cut -c1-8); sed -i -E "s#(\"/$f)(\?v=[0-9a-f]+)?\"#\1?v=$h\"#g" *.html; done`
+- Check before every push / PR. The check must print only "Prüfung fertig";
+  any `FALSCH:` line means a missing or outdated hash:
+  `for r in $(grep -ohE '(href|src)="/(css|js)/[^"]+"' *.html | sed -E 's/^(href|src)="\///; s/"$//' | sort -u); do f=${r%%\?*}; v=${r#*\?v=}; [ "$v" = "$r" ] && v=FEHLT; h=$(sha256sum "$f" | cut -c1-8); [ "$v" = "$h" ] || echo "FALSCH: /$r (erwartet ?v=$h)"; done; echo "Prüfung fertig"`
+- New CSS/JS references in HTML must use the root-relative form
+  `/css/…` or `/js/…` so the check finds them.
+
 ## Communication
 
 - Address the user informally with "du" (never the formal "Sie"), in German,
