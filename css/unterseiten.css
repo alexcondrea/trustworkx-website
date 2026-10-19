@@ -1,0 +1,56 @@
+/* Unterseiten im Design der Startseite. Baut auf /css/start.css auf und
+   nutzt nur eigene Klassen (sub-…), damit die Startseite unverändert bleibt. */
+
+/* Kopfbereich: kein Vollbild-Hero, längere Texte linksbündig */
+.sub-hero{min-height:0!important}
+.sub-hero-content{padding:64px 0 72px}
+@media(min-width:1151px){.sub-hero>.wrap.sub-hero-content{width:min(1256px,calc(100% - 96px))}}
+.sub-hero h1{font-size:clamp(32px,3.6vw,46px);line-height:1.12;white-space:normal;max-width:820px}
+.sub-hero .eyebrow{color:#2ec4b6;margin-bottom:20px}
+.sub-lead{font-size:16.5px;line-height:1.7;color:#bdcfdc;max-width:720px;margin-top:22px}
+.sub-lead+.sub-lead{margin-top:14px}
+.sub-hero-actions{margin-top:34px}
+
+/* Inhalt: eine gut lesbare Spalte */
+.sub-content>*{max-width:760px}
+.sub-content h2{font-size:clamp(26px,2.6vw,34px);line-height:1.18;margin:64px 0 20px}
+.sub-content>h2:first-child{margin-top:0}
+.sub-content p{font-size:15px;line-height:1.75;color:#33475e}
+.sub-content p+p{margin-top:14px}
+.sub-link{color:#1d968b;font-weight:650;text-decoration:underline;text-underline-offset:3px}
+.sub-link:hover{color:#0b1f3b}
+.sub-note{background:#eaf5f2;border:1px solid #cde7e0;border-radius:14px;padding:22px 26px;margin:22px 0}
+.sub-note p{color:#0b1f3b}
+
+/* Ablauf in drei Karten */
+.sub-content .sub-steps{max-width:none;list-style:none;margin:28px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.sub-steps li{background:white;border:1px solid #e2e9ee;border-radius:14px;padding:28px}
+.sub-steps h3{font-size:19px;line-height:1.3;letter-spacing:-.02em;margin-top:20px}
+.sub-content .sub-steps p{font-size:14px;line-height:1.65;margin-top:12px}
+
+/* FAQ: Gestaltung der Startseite, schmale Spalte */
+.sub-content .faq-list{margin:8px 0 0}
+.sub-content .faq-item>p{font-size:14.5px}
+
+/* Abschluss */
+.sub-closing>.wrap>div:first-child{max-width:720px}
+.sub-closing p{margin-top:14px;font-size:15px;line-height:1.65}
+.sub-closing-buttons{display:flex;flex-direction:column;gap:12px;flex-shrink:0}
+
+@media(max-width:900px){
+  .sub-content .sub-steps{grid-template-columns:1fr;gap:14px}
+}
+@media(max-width:680px){
+  .sub-hero-content{padding:40px 0 48px}
+  .sub-hero h1{font-size:clamp(27px,7.6vw,34px);line-height:1.18;margin:0}
+  .sub-lead{font-size:15px;line-height:1.65;margin-top:18px}
+  .sub-hero-actions .button{width:100%}
+  .sub-content h2{font-size:clamp(23px,6.4vw,27px);line-height:1.22;margin:48px 0 16px}
+  .sub-content p{font-size:14.5px;line-height:1.7}
+  .sub-note{padding:18px 20px}
+  .sub-steps li{padding:22px}
+  .sub-steps h3{font-size:18px;margin-top:16px}
+  .sub-closing h2{font-size:clamp(22px,6.2vw,26px)}
+  .sub-closing-buttons{margin-top:26px}
+  .sub-closing-buttons .button{width:100%;margin-top:0}
+}
