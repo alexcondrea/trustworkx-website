@@ -186,3 +186,4 @@
 .footer-content nav{flex-wrap:wrap}.footer-content nav a{color:inherit;font-size:11px;padding:0}.footer-copy{margin:14px auto 0}
 @media(max-width:359px){#preise .section-heading h2{font-size:26px}}
 .benefit-card .case-copy .button{margin-top:auto}
+.footer-social{display:flex;align-items:center;gap:12px;flex-shrink:0}.footer-social a{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border:1px solid #263d55;border-radius:50%;color:#9ab1c0;transition:color .18s,border-color .18s}.footer-social a:hover{color:#2ec4b6;border-color:#2ec4b6}
