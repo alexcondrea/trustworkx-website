@@ -159,3 +159,4 @@
 
 .footer-content nav{flex-wrap:wrap}.footer-content nav a{color:inherit;font-size:11px;padding:0}.footer-copy{margin:14px auto 0}
 @media(max-width:359px){#preise .section-heading h2{font-size:26px}}
+.benefit-card .case-copy .button{margin-top:auto}
