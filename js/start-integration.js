@@ -25,7 +25,7 @@
   });
 
   /* Header-Glaswellen (nur Desktop): Kreuzungspunkt (50 % / 61 % der Grafik) hinter das Signet legen */
-  var waves = document.querySelector('.hero-waves img');
+  var waves = document.querySelector('.hero-waves-box');
   var signet = document.querySelector('.connection img');
   function placeWaves() {
     if (!waves || !signet || !waves.offsetParent) return;
@@ -39,52 +39,7 @@
   }
   window.addEventListener('resize', placeWaves);
   window.addEventListener('load', placeWaves);
-  if (waves) waves.addEventListener('load', placeWaves);
   placeWaves();
-
-  /* Wellen-Loop (nur Desktop): Standbild bleibt, bis das Video sicher läuft.
-     Kein Video bei „Bewegung reduzieren“, Datensparmodus, Safari (kein VP9-Alpha) oder Mobil. */
-  var video = document.querySelector('.hero-waves-video');
-  if (video && waves && window.matchMedia) {
-    var wrap = video.parentNode;
-    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
-    var mobile = window.matchMedia('(max-width: 680px)');
-    var ua = navigator.userAgent;
-    var safari = /^((?!chrome|chromium|crios|fxios|edg|android).)*safari/i.test(ua) || /iPad|iPhone|iPod/.test(ua);
-    var saveData = navigator.connection && navigator.connection.saveData;
-    var inView = true;
-    var showStatic = function () { video.pause(); wrap.classList.remove('video-ready'); };
-    var allowed = function () { return !reduce.matches && !mobile.matches && !safari && !saveData; };
-    var start = function () {
-      if (!allowed()) { showStatic(); return; }
-      if (!video.getAttribute('src')) {
-        var need = waves.getBoundingClientRect().width * (window.devicePixelRatio || 1);
-        video.src = video.getAttribute(need <= 2560 ? 'data-src-2560' : 'data-src-4096');
-      }
-      if (!inView || document.hidden) return;
-      var p = video.play();
-      if (p && p.catch) p.catch(showStatic);
-    };
-    var ready = function () {
-      if (!allowed() || video.paused) return;
-      wrap.classList.add('video-ready');
-    };
-    video.addEventListener('playing', function () {
-      if (video.requestVideoFrameCallback) video.requestVideoFrameCallback(ready);
-      else ready();
-    });
-    video.addEventListener('error', showStatic);
-    document.addEventListener('visibilitychange', function () { if (document.hidden) video.pause(); else start(); });
-    if ('IntersectionObserver' in window) {
-      new IntersectionObserver(function (entries) {
-        inView = entries[0].isIntersecting;
-        if (inView) start(); else video.pause();
-      }).observe(wrap);
-    }
-    var onPref = function () { if (allowed()) start(); else showStatic(); };
-    if (reduce.addEventListener) { reduce.addEventListener('change', onPref); mobile.addEventListener('change', onPref); }
-    if (document.readyState === 'complete') start(); else window.addEventListener('load', start);
-  }
 
   var billing = document.getElementById('billing-toggle');
   function isAnnual() { return !!billing && billing.getAttribute('aria-checked') === 'true'; }
