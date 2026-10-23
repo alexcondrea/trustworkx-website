@@ -24,6 +24,20 @@
     });
   });
 
+  /* Header-Glaswellen: Kreuzungspunkt (50 % / 66 % der Grafik) hinter das Signet legen */
+  var waves = document.querySelector('.hero-waves img');
+  var signet = document.querySelector('.connection img');
+  function placeWaves() {
+    if (!waves || !signet) return;
+    var box = waves.parentNode.getBoundingClientRect();
+    var s = signet.getBoundingClientRect();
+    var h = waves.getBoundingClientRect().height;
+    waves.parentNode.style.setProperty('--waves-top', (s.top + s.height / 2 - box.top - h * 0.66) + 'px');
+  }
+  window.addEventListener('resize', placeWaves);
+  window.addEventListener('load', placeWaves);
+  placeWaves();
+
   var billing = document.getElementById('billing-toggle');
   function isAnnual() { return !!billing && billing.getAttribute('aria-checked') === 'true'; }
 
