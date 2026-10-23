@@ -220,6 +220,8 @@
 .features-toggle-icon{width:7px;height:7px;border-right:1.6px solid currentColor;border-bottom:1.6px solid currentColor;transform:translateY(-2px) rotate(45deg)}
 .features-toggle[aria-expanded=true] .features-toggle-icon{transform:translateY(2px) rotate(225deg)}
 .features-more{margin-top:8px}
+#preise .features-wrap>.features:first-child{margin-bottom:4px}
+.features-wrap>.features-toggle{margin-top:auto}
 
 /* Header/Hero „Glas“ (Variante 2): statisch, nur Optik */
 .hero:not(.sub-hero){background-color:#0b1f3b;background-image:radial-gradient(ellipse 85% 60% at 50% -12%,rgba(38,104,160,.55),transparent 70%),linear-gradient(180deg,#0f2a4a 0%,#0b1f3b 55%,#0a1c35 100%)}
