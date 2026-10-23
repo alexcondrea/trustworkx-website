@@ -24,7 +24,8 @@
     });
   });
 
-  /* Header-Glaswellen: Kreuzungspunkt (50 % / 66 % der Grafik) hinter das Signet legen */
+  /* Header-Glaswellen: Kreuzungspunkt hinter das Signet legen
+     (Desktop-Grafik: 50 % / 61 % der Höhe, Mobil-Grafik: Bildmitte) */
   var waves = document.querySelector('.hero-waves img');
   var signet = document.querySelector('.connection img');
   function placeWaves() {
@@ -32,10 +33,13 @@
     var box = waves.parentNode.getBoundingClientRect();
     var s = signet.getBoundingClientRect();
     var h = waves.getBoundingClientRect().height;
-    waves.parentNode.style.setProperty('--waves-top', (s.top + s.height / 2 - box.top - h * 0.66) + 'px');
+    var cross = window.matchMedia('(max-width: 680px)').matches ? 0.5 : 0.61;
+    waves.parentNode.style.setProperty('--waves-top', (s.top + s.height / 2 - box.top - h * cross) + 'px');
+    waves.closest('.hero-waves').classList.add('is-placed');
   }
   window.addEventListener('resize', placeWaves);
   window.addEventListener('load', placeWaves);
+  if (waves) waves.addEventListener('load', placeWaves);
   placeWaves();
 
   var billing = document.getElementById('billing-toggle');
