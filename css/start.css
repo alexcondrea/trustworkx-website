@@ -249,3 +249,7 @@
 @media(min-width:901px){.hero:not(.sub-hero){min-height:0}.hero:not(.sub-hero) .hero-content{padding-top:clamp(48px,3.6vw,76px);padding-bottom:clamp(48px,3.6vw,76px)}}
 @media(max-width:680px){.hero-waves{display:none}}
 .hero-waves.is-placed img{visibility:visible}
+/* Wellen-Loop: gleicher Bildkasten wie das Standbild; sichtbar erst, wenn das Video wirklich läuft */
+.hero-waves-video{position:absolute;left:50%;top:var(--waves-top,22%);width:max(100%,1100px);height:auto;aspect-ratio:5120/2788;transform:translateX(-50%);visibility:hidden;pointer-events:none}
+.hero-waves.video-ready .hero-waves-video{visibility:visible}
+.hero-waves.video-ready img{visibility:hidden}
