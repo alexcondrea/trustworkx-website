@@ -201,15 +201,20 @@
 .tender-art img{display:block;width:100%;height:auto;object-fit:contain;user-select:none;pointer-events:none}
 @media(max-width:680px){.tender-teaser{padding-bottom:44px}.tender-box{grid-template-columns:1fr;gap:20px;padding:22px 20px}.tender-copy h2{font-size:26px}.tender-sub{font-size:16px}.tender-text{font-size:14.5px}.tender-more{width:100%}}
 
-/* Paketkarten: fünf Leistungspunkte, Rest aufklappbar */
+/* Paketkarten: fünf Leistungspunkte, Rest aufklappbar; ruhige Darstellung */
 .features-wrap{flex:1;display:flex;flex-direction:column;align-items:flex-start;margin-bottom:22px}
 .features-wrap .features,#preise .features-wrap .features{flex:none;margin-bottom:0;width:100%}
-.features .feature-sub{list-style:none;margin:6px 0 0;padding:0}
-.features .feature-sub li{padding-left:14px;margin-bottom:4px}
-.features .feature-sub li:before{content:'';width:5px;height:5px;border-radius:50%;background:#8fd3cb;top:.75em;left:2px}
+.features-wrap .features li{display:flex;flex-wrap:wrap;align-items:flex-start;gap:0 8px}
+.features-wrap .feature-text{flex:1;min-width:0}
+.feature-date{display:block;font-size:11px;font-weight:600;color:#1d8a80;margin-top:1px}
+.features .feature-sub{list-style:none;flex-basis:100%;margin:4px 0 0;padding:0}
+.features .feature-sub li{padding-left:0;margin-bottom:4px;color:#3d5164}
+.features .feature-sub li:before{content:none}
 .features li.feature-missing{color:#6b7c8c}
 .features li.feature-missing:before{content:'–';color:#8b9aa8}
-.feature-new{display:inline-block;margin-top:3px;font-size:10.5px;font-weight:700;line-height:1.6;color:#0b5f58;background:#e3f6f3;border-radius:10px;padding:1px 8px}
+.info-btn{flex:0 0 auto;display:inline-grid;place-items:center;width:26px;height:26px;margin:-5px -6px -5px 0;padding:0;background:none;border-radius:50%;cursor:pointer}
+.info-btn>span{display:grid;place-items:center;width:15px;height:15px;border:1px solid #6faaa2;border-radius:50%;font-size:10px;font-weight:750;line-height:1;color:#238e83}
+.info-btn:hover>span,.info-btn[aria-expanded=true]>span{background:#2ec4b6;border-color:#2ec4b6;color:#0b1f3b}
 .features-toggle{display:inline-flex;align-items:center;gap:9px;min-height:36px;margin-top:4px;padding:6px 2px;background:none;border-radius:4px;font-size:12px;font-weight:700;color:#127e74}
 .features-toggle:hover{color:#0b1f3b}
 .features-toggle-icon{width:7px;height:7px;border-right:1.6px solid currentColor;border-bottom:1.6px solid currentColor;transform:translateY(-2px) rotate(45deg)}
