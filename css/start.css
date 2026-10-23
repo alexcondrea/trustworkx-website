@@ -187,3 +187,63 @@
 @media(max-width:359px){#preise .section-heading h2{font-size:26px}}
 .benefit-card .case-copy .button{margin-top:auto}
 .footer-social{display:flex;align-items:center;gap:12px;flex-shrink:0}.footer-social a{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border:1px solid #263d55;border-radius:50%;color:#9ab1c0;transition:color .18s,border-color .18s}.footer-social a:hover{color:#2ec4b6;border-color:#2ec4b6}
+/* Tendermatching-Vorankündigung (Variante A, helltürkis) am Ende des weißen Bereichs */
+.tender-teaser{background:white;padding:0 0 64px}
+.tender-box{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:32px;align-items:center;background:#93e9e1;border-radius:14px;padding:26px 26px 26px 32px}
+.tender-flag{font-size:11px;font-weight:750;letter-spacing:.14em;text-transform:uppercase;color:#0b5f58;line-height:1.4}
+.tender-copy h2{font-size:30px;line-height:1.15;font-weight:750;margin-top:8px}
+.tender-sub{font-size:17px;font-weight:700;line-height:1.35;color:#0b1f3b;margin-top:4px}
+.tender-text{font-size:15px;line-height:1.55;color:#12324a;margin-top:8px}
+.tender-included{display:flex;align-items:center;gap:8px;font-size:14px;line-height:1.4;color:#12324a;margin-top:10px}
+.tender-included svg{flex:0 0 20px}
+.tender-more{margin-top:16px;min-width:146px}
+.tender-art{background:radial-gradient(ellipse 60% 70% at 50% 60%,#123c55,#0b1f3b 75%);border-radius:10px;padding:16px 18px;box-shadow:0 10px 24px rgba(11,31,59,.18)}
+.tender-art img{display:block;width:100%;height:auto;object-fit:contain;user-select:none;pointer-events:none}
+@media(max-width:680px){.tender-teaser{padding-bottom:44px}.tender-box{grid-template-columns:1fr;gap:20px;padding:22px 20px}.tender-copy h2{font-size:26px}.tender-sub{font-size:16px}.tender-text{font-size:14.5px}.tender-more{width:100%}}
+
+/* Paketkarten: fünf Leistungspunkte, Rest aufklappbar; ruhige Darstellung */
+.features-wrap{flex:1;display:flex;flex-direction:column;align-items:flex-start;margin-bottom:22px}
+.features-wrap .features,#preise .features-wrap .features{flex:none;margin-bottom:0;width:100%}
+.features-wrap .features li{display:flex;flex-wrap:wrap;align-items:flex-start;gap:0 8px}
+.features-wrap .feature-text{flex:1;min-width:0}
+.feature-date{display:block;font-size:11px;font-weight:600;color:#1d8a80;margin-top:1px}
+.features .feature-sub{list-style:none;flex-basis:100%;margin:4px 0 0;padding:0}
+.features .feature-sub li{padding-left:0;margin-bottom:4px;color:#3d5164}
+.features .feature-sub li:before{content:none}
+.features li.feature-missing{color:#6b7c8c}
+.features li.feature-missing:before{content:'–';color:#8b9aa8}
+.info-btn{flex:0 0 auto;display:inline-grid;place-items:center;width:26px;height:26px;margin:-5px -6px -5px 0;padding:0;background:none;border-radius:50%;cursor:pointer}
+.info-btn>span{display:grid;place-items:center;width:15px;height:15px;border:1px solid #6faaa2;border-radius:50%;font-size:10px;font-weight:750;line-height:1;color:#238e83}
+.info-btn:hover>span,.info-btn[aria-expanded=true]>span{background:#2ec4b6;border-color:#2ec4b6;color:#0b1f3b}
+.features-toggle{display:inline-flex;align-items:center;gap:9px;min-height:36px;margin-top:4px;padding:6px 2px;background:none;border-radius:4px;font-size:12px;font-weight:700;color:#127e74}
+.features-toggle:hover{color:#0b1f3b}
+.features-toggle-icon{width:7px;height:7px;border-right:1.6px solid currentColor;border-bottom:1.6px solid currentColor;transform:translateY(-2px) rotate(45deg)}
+.features-toggle[aria-expanded=true] .features-toggle-icon{transform:translateY(2px) rotate(225deg)}
+.features-more{margin-top:8px}
+
+/* Header/Hero „Glas“ (Variante 2): statisch, nur Optik */
+.hero:not(.sub-hero){background-color:#0b1f3b;background-image:radial-gradient(ellipse 85% 60% at 50% -12%,rgba(38,104,160,.55),transparent 70%),linear-gradient(180deg,#0f2a4a 0%,#0b1f3b 55%,#0a1c35 100%)}
+.hero:not(.sub-hero){isolation:isolate}
+.hero-waves{position:absolute;inset:0;z-index:0;pointer-events:none;user-select:none;overflow:hidden}
+.hero-waves img{visibility:hidden;position:absolute;left:50%;top:var(--waves-top,22%);width:max(100%,1100px);max-width:none;height:auto;aspect-ratio:5120/2788;transform:translateX(-50%);opacity:1}
+.company-orbit{display:none}
+.hero:not(.sub-hero) .navigation{border-bottom-color:rgba(160,200,225,.22)}
+.hero .company-card{position:relative;isolation:isolate;overflow:hidden;
+ background:linear-gradient(118deg,rgba(255,255,255,.62) 0%,rgba(255,255,255,0) 34%),radial-gradient(ellipse 80% 60% at 85% 115%,rgba(150,190,215,.45),transparent 70%),linear-gradient(165deg,rgba(250,252,255,.96),rgba(214,226,236,.9));
+ border:1px solid rgba(255,255,255,.9);
+ box-shadow:inset 0 1px 0 rgba(255,255,255,1),inset 0 -1px 0 rgba(160,190,210,.6),inset 0 0 0 1px rgba(255,255,255,.35),0 0 0 1px rgba(200,230,255,.18),0 0 26px rgba(170,215,240,.22),0 26px 48px rgba(2,10,24,.55)}
+.hero .company-card.supply{background:linear-gradient(118deg,rgba(220,255,251,.55) 0%,rgba(220,255,251,0) 34%),radial-gradient(ellipse 80% 60% at 85% 115%,rgba(20,150,140,.45),transparent 70%),linear-gradient(165deg,rgba(104,236,224,.97),rgba(46,196,182,.94));
+ border-color:rgba(205,255,250,.95);
+ box-shadow:inset 0 1px 0 rgba(235,255,253,1),inset 0 -1px 0 rgba(20,140,130,.6),inset 0 0 0 1px rgba(220,255,251,.3),0 0 0 1px rgba(120,240,228,.3),0 0 40px rgba(46,196,182,.45),0 26px 48px rgba(2,10,24,.5)}
+.hero .company-card::after{content:'';position:absolute;left:8%;right:8%;top:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.95),transparent);pointer-events:none}
+.hero:not(.sub-hero) .situation-switch{background:transparent;border-color:transparent;box-shadow:none}
+.hero .situation-switch button[aria-selected=true]{background:linear-gradient(125deg,#62e6d9,#2ec4b6);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 0 20px rgba(46,196,182,.35)}
+.connection img,.connection img.signal-active{filter:drop-shadow(0 0 12px rgba(46,196,182,.45));transition:none}
+@media(min-width:681px){.hero:not(.sub-hero) .connection img{width:126px}}
+.hero .hero-cta-row .button.teal{box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 0 22px rgba(46,196,182,.3)}
+.hero .hero-cta-row .quiet-link{background:rgba(255,255,255,.04);border-color:rgba(160,200,225,.4)}
+.hero:not(.sub-hero) .navigation .button.outline{background:rgba(255,255,255,.04);border-color:rgba(160,200,225,.45)}
+/* Header: Höhe aus dem Inhalt statt aus der Fensterhöhe; ruhige feste Abstände oben/unten */
+@media(min-width:901px){.hero:not(.sub-hero){min-height:0}.hero:not(.sub-hero) .hero-content{padding-top:clamp(48px,3.6vw,76px);padding-bottom:clamp(48px,3.6vw,76px)}}
+@media(max-width:680px){.hero-waves{display:none}}
+.hero-waves.is-placed img{visibility:visible}

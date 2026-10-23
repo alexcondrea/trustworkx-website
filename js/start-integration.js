@@ -11,6 +11,36 @@
     });
   }
 
+  /* Paketkarten: weitere Leistungen auf- und zuklappen */
+  document.querySelectorAll('.features-toggle').forEach(function (btn) {
+    var panel = document.getElementById(btn.getAttribute('aria-controls'));
+    var label = btn.querySelector('.features-toggle-label');
+    if (!panel) return;
+    btn.addEventListener('click', function () {
+      var open = btn.getAttribute('aria-expanded') !== 'true';
+      btn.setAttribute('aria-expanded', String(open));
+      panel.hidden = !open;
+      label.textContent = open ? 'Weniger anzeigen' : 'Alle Leistungen anzeigen';
+    });
+  });
+
+  /* Header-Glaswellen (nur Desktop): Kreuzungspunkt (50 % / 61 % der Grafik) hinter das Signet legen */
+  var waves = document.querySelector('.hero-waves img');
+  var signet = document.querySelector('.connection img');
+  function placeWaves() {
+    if (!waves || !signet || !waves.offsetParent) return;
+    var box = waves.parentNode.getBoundingClientRect();
+    var s = signet.getBoundingClientRect();
+    var h = waves.getBoundingClientRect().height;
+    var cross = 0.61;
+    waves.parentNode.style.setProperty('--waves-top', (s.top + s.height / 2 - box.top - h * cross) + 'px');
+    waves.closest('.hero-waves').classList.add('is-placed');
+  }
+  window.addEventListener('resize', placeWaves);
+  window.addEventListener('load', placeWaves);
+  if (waves) waves.addEventListener('load', placeWaves);
+  placeWaves();
+
   var billing = document.getElementById('billing-toggle');
   function isAnnual() { return !!billing && billing.getAttribute('aria-checked') === 'true'; }
 
