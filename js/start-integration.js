@@ -24,16 +24,15 @@
     });
   });
 
-  /* Header-Glaswellen: Kreuzungspunkt hinter das Signet legen
-     (Desktop-Grafik: 50 % / 61 % der Höhe, Mobil-Grafik: Bildmitte) */
+  /* Header-Glaswellen (nur Desktop): Kreuzungspunkt (50 % / 61 % der Grafik) hinter das Signet legen */
   var waves = document.querySelector('.hero-waves img');
   var signet = document.querySelector('.connection img');
   function placeWaves() {
-    if (!waves || !signet) return;
+    if (!waves || !signet || !waves.offsetParent) return;
     var box = waves.parentNode.getBoundingClientRect();
     var s = signet.getBoundingClientRect();
     var h = waves.getBoundingClientRect().height;
-    var cross = window.matchMedia('(max-width: 680px)').matches ? 0.5 : 0.61;
+    var cross = 0.61;
     waves.parentNode.style.setProperty('--waves-top', (s.top + s.height / 2 - box.top - h * cross) + 'px');
     waves.closest('.hero-waves').classList.add('is-placed');
   }
