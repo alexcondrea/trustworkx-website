@@ -245,7 +245,3 @@
 .hero:not(.sub-hero) .navigation .button.outline{background:rgba(255,255,255,.04);border-color:rgba(160,200,225,.45)}
 @media(max-width:680px){.hero-waves img{width:calc(100% - 40px);aspect-ratio:390/560}}
 .hero-waves.is-placed img{visibility:visible}
-/* Header-Wellen: sehr langsame, leichte Bewegung nur der Dekoration (hin und zurück, ohne Sprung) */
-@keyframes heroWavesDrift{from{translate:0 -3px}to{translate:0 3px}}
-.hero-waves.is-placed img{animation:heroWavesDrift 16s ease-in-out infinite alternate}
-@media(prefers-reduced-motion:reduce){.hero-waves.is-placed img{animation:none}}
