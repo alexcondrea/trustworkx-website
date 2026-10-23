@@ -225,7 +225,7 @@
 .hero:not(.sub-hero){background-color:#0b1f3b;background-image:radial-gradient(ellipse 85% 60% at 50% -12%,rgba(38,104,160,.55),transparent 70%),linear-gradient(180deg,#0f2a4a 0%,#0b1f3b 55%,#0a1c35 100%)}
 .hero:not(.sub-hero){isolation:isolate}
 .hero-waves{position:absolute;inset:0;z-index:0;pointer-events:none;user-select:none;overflow:hidden}
-.hero-waves img{visibility:hidden;position:absolute;left:50%;top:var(--waves-top,22%);width:max(100%,1100px);max-width:none;height:auto;aspect-ratio:5120/2788;transform:translateX(-50%);opacity:.72}
+.hero-waves img{visibility:hidden;position:absolute;left:50%;top:var(--waves-top,22%);width:max(100%,1100px);max-width:none;height:auto;aspect-ratio:5120/2788;transform:translateX(-50%);opacity:1}
 .company-orbit{display:none}
 .hero:not(.sub-hero) .navigation{border-bottom-color:rgba(160,200,225,.22)}
 .hero .company-card{position:relative;isolation:isolate;overflow:hidden;
