@@ -24,11 +24,6 @@
     });
   });
 
-  /* Nur Staging-Vorschau: sehr langsame Wellen im Hero mit ?wellen=1 */
-  if (!LIVE && /[?&]wellen=1(&|$)/.test(location.search)) {
-    document.documentElement.classList.add('hero-waves-preview');
-  }
-
   var billing = document.getElementById('billing-toggle');
   function isAnnual() { return !!billing && billing.getAttribute('aria-checked') === 'true'; }
 
