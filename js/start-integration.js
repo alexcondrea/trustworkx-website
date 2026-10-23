@@ -11,6 +11,24 @@
     });
   }
 
+  /* Paketkarten: weitere Leistungen auf- und zuklappen */
+  document.querySelectorAll('.features-toggle').forEach(function (btn) {
+    var panel = document.getElementById(btn.getAttribute('aria-controls'));
+    var label = btn.querySelector('.features-toggle-label');
+    if (!panel) return;
+    btn.addEventListener('click', function () {
+      var open = btn.getAttribute('aria-expanded') !== 'true';
+      btn.setAttribute('aria-expanded', String(open));
+      panel.hidden = !open;
+      label.textContent = open ? 'Weniger anzeigen' : 'Alle Leistungen anzeigen';
+    });
+  });
+
+  /* Nur Staging-Vorschau: sehr langsame Wellen im Hero mit ?wellen=1 */
+  if (!LIVE && /[?&]wellen=1(&|$)/.test(location.search)) {
+    document.documentElement.classList.add('hero-waves-preview');
+  }
+
   var billing = document.getElementById('billing-toggle');
   function isAnnual() { return !!billing && billing.getAttribute('aria-checked') === 'true'; }
 
