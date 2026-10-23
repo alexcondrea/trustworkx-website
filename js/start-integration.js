@@ -25,20 +25,20 @@
   });
 
   /* Header-Glaswellen (nur Desktop): Kreuzungspunkt (50 % / 61 % der Grafik) hinter das Signet legen */
-  var waves = document.querySelector('.hero-waves img');
+  var waves = document.querySelector('.hero-waves-box');
   var signet = document.querySelector('.connection img');
   function placeWaves() {
     if (!waves || !signet || !waves.offsetParent) return;
-    var box = waves.parentNode.getBoundingClientRect();
+    var layer = waves.closest('.hero-waves');
+    var box = layer.getBoundingClientRect();
     var s = signet.getBoundingClientRect();
     var h = waves.getBoundingClientRect().height;
     var cross = 0.61;
-    waves.parentNode.style.setProperty('--waves-top', (s.top + s.height / 2 - box.top - h * cross) + 'px');
+    layer.style.setProperty('--waves-top', (s.top + s.height / 2 - box.top - h * cross) + 'px');
     waves.closest('.hero-waves').classList.add('is-placed');
   }
   window.addEventListener('resize', placeWaves);
   window.addEventListener('load', placeWaves);
-  if (waves) waves.addEventListener('load', placeWaves);
   placeWaves();
 
   var billing = document.getElementById('billing-toggle');
