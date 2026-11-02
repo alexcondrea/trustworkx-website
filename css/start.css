@@ -264,3 +264,4 @@
 .video-dialog-close:hover{background:rgba(255,255,255,.18)}
 @media(max-width:680px){.connection{margin-bottom:52px}.video-pill{top:calc(50% + 54px)}
  .video-dialog{width:100vw;height:100dvh;margin:0;inset:0}.video-dialog[open]{display:grid;place-items:center;background:#000}.video-dialog::backdrop{background:#000}.video-dialog-box{width:100%;border-radius:0;box-shadow:none}.video-dialog-close{top:12px;right:12px;z-index:1;background:rgba(0,0,0,.45)}}
+@media(min-width:681px) and (max-width:900px){.video-pill{top:calc(50% + 128px)}.hero:not(.sub-hero) .hero-action{margin-top:100px}}
