@@ -1,6 +1,6 @@
 /* Video im Header: Button unter dem X öffnet das Video in einem Fenster.
    Die Videodatei wird erst bei Interesse (Hover/Fokus) bzw. beim Öffnen geladen.
-   Kleine Bildschirme und Datensparmodus bekommen die 720p-Fassung. */
+   Optional: data-src-small (kleinere Fassung für kleine Bildschirme, Datensparmodus, langsame Netze). */
 (function () {
   'use strict';
   var btn = document.querySelector('.video-pill');
@@ -13,7 +13,7 @@
     var conn = navigator.connection || {};
     var small = matchMedia('(max-width: 900px)').matches || conn.saveData ||
       /^(slow-2g|2g|3g)$/.test(conn.effectiveType || '');
-    return video.getAttribute(small ? 'data-src-small' : 'data-src');
+    return (small && video.getAttribute('data-src-small')) || video.getAttribute('data-src');
   }
 
   /* Quelle setzen und nur die Eckdaten vorladen (wenige KB), damit der Start nach dem Klick schneller geht */
