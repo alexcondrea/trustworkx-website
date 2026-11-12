@@ -250,11 +250,6 @@
 @media(max-width:680px){.hero-waves{display:none}}
 .hero-waves.is-placed .hero-waves-box{visibility:visible}
 
-/* Leitsatz zwischen Header und „Zwei Wege“ */
-.claim-section{background:#f5f7fa;padding:72px 0 0;text-align:center}
-.claim{font-size:clamp(26px,2.5vw,34px);font-weight:750;line-height:1.25;letter-spacing:-.025em;color:#0b1f3b;margin:0 auto;max-width:900px;text-wrap:balance}
-.claim span{color:#1d968b}
-@media(max-width:680px){.claim-section{padding:48px 0 0}.claim{font-size:23px;line-height:1.3}}
 /* Kundenschutz: konkrete Regeln */
 .trust-points .trust-rules{list-style:none;margin:12px 0 0;padding:0}
 .trust-points .trust-rules li{position:relative;padding-left:22px;margin:0 0 9px;font-size:13.5px;line-height:1.55;color:#33475e}
