@@ -144,9 +144,9 @@ export function mountDesktopWaves(host, {
   if (!host) return;
   const desktop = matchMedia('(min-width: 681px)');
   const base = '/assets/header/';
-  let mounted = false;
+  let mounted = false, held = false;
   function mount() {
-    if (mounted || !desktop.matches) return;
+    if (mounted || held || !desktop.matches) return;
     mounted = true;
     const need = host.getBoundingClientRect().width * (window.devicePixelRatio || 1);
     const still = [1700, 2560, 4096, 5120].find(n => n >= need) || 5120;
@@ -164,6 +164,14 @@ export function mountDesktopWaves(host, {
       webmUrl: base + 'wellen-desktop-' + (need <= 2560 ? '2560' : '4096') + '.webm',
     });
   }
+  /* Während das Header-Video läuft: Wellen komplett anhalten und ihren Download abbrechen,
+     damit Leitung und Decoder dem Video gehören. Danach neu starten (Dateien liegen meist im Cache). */
+  window.trustworkxWavesHold = on => {
+    held = !!on;
+    if (held) {
+      if (window.trustworkxWaves) { window.trustworkxWaves.destroy(); window.trustworkxWaves = null; mounted = false; }
+    } else mount();
+  };
   if (desktop.addEventListener) desktop.addEventListener('change', mount);
   mount();
 })();
