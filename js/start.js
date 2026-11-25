@@ -1,44 +1,8 @@
 (()=>{'use strict';
-const tabs=[...document.querySelectorAll('[data-situation]')],diagram=document.getElementById('hero-diagram');let situation='need';
-function setSituation(value,focus=false){situation=value;const offer=value==='capacity';tabs.forEach(t=>{const active=t.dataset.situation===value;t.setAttribute('aria-selected',String(active));t.tabIndex=active?0:-1;if(active&&focus)t.focus()});diagram.setAttribute('aria-labelledby',offer?'tab-capacity':'tab-need');const own=diagram.querySelector('.own'),partner=diagram.querySelector('.partner');own.classList.toggle('supply',offer);partner.classList.toggle('supply',!offer);own.querySelector('h2').textContent=offer?'Ihr Team hat freie Kapazitäten und passende Kompetenzen.':'Sie brauchen Unterstützung für ein Kundenprojekt.';partner.querySelector('h2').textContent=offer?'Ein anderes IT-Unternehmen braucht Unterstützung für ein Kundenprojekt.':'Ein anderes IT-Unternehmen hat freie Kapazitäten mit passenden Kompetenzen.';}
-tabs.forEach(t=>{t.addEventListener('click',()=>setSituation(t.dataset.situation));t.addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight','Home','End'].includes(e.key)){e.preventDefault();setSituation(e.key==='Home'?'need':e.key==='End'?'capacity':situation==='need'?'capacity':'need',true)}})});
-let touchStart=null;diagram.addEventListener('touchstart',e=>{touchStart=[e.changedTouches[0].clientX,e.changedTouches[0].clientY]},{passive:true});diagram.addEventListener('touchend',e=>{if(!touchStart)return;const dx=e.changedTouches[0].clientX-touchStart[0],dy=e.changedTouches[0].clientY-touchStart[1];if(Math.abs(dx)>65&&Math.abs(dx)>Math.abs(dy)*1.5)setSituation(dx<0?'capacity':'need');touchStart=null},{passive:true});
 const menu=document.querySelector('.menu-toggle'),nav=document.getElementById('nav-links');menu.addEventListener('click',()=>{const open=menu.getAttribute('aria-expanded')!=='true';menu.setAttribute('aria-expanded',String(open));menu.setAttribute('aria-label',open?'Menü schließen':'Menü öffnen');nav.classList.toggle('open',open)});nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{menu.setAttribute('aria-expanded','false');nav.classList.remove('open')}));
 const billing=document.getElementById('billing-toggle');billing.addEventListener('click',()=>{const annual=billing.getAttribute('aria-checked')!=='true';billing.setAttribute('aria-checked',String(annual));document.getElementById('monthly-membership-term').hidden=annual;document.getElementById('annual-membership-term').hidden=!annual;document.getElementById('monthly-label').classList.toggle('active',!annual);document.getElementById('yearly-label').classList.toggle('active',annual);document.querySelectorAll('.amount strong').forEach(el=>el.textContent=(annual?el.dataset.year:el.dataset.month)+' €');document.querySelectorAll('.period').forEach(el=>el.textContent=annual?'/ Jahr':'/ Monat');document.querySelectorAll('.annual').forEach(el=>{el.replaceChildren();el.append(document.createTextNode(annual?'Bei monatlicher Buchung':'Bei jährlicher Buchung'),document.createElement('br'));const b=document.createElement('b');b.textContent=(annual?el.dataset.month+' € / Monat':el.dataset.year+' € / Jahr');el.append(b)})});
 const more=document.getElementById('faq-more');more.addEventListener('click',()=>{const open=more.getAttribute('aria-expanded')!=='true';more.setAttribute('aria-expanded',String(open));document.querySelectorAll('.extra-faq').forEach(el=>{el.hidden=!open;if(!open)el.open=false});more.firstChild.textContent=open?'Weniger Fragen anzeigen ':'Weitere Fragen anzeigen '});document.querySelectorAll('.faq-item').forEach(el=>el.addEventListener('toggle',()=>{if(el.open)document.querySelectorAll('.faq-item').forEach(other=>{if(other!==el)other.open=false})}));
 
-})();
-
-// A deliberate company -> existing TX logo -> company signal, without visible lines.
-(()=>{'use strict';
-const hero=document.querySelector('.hero'),logo=hero.querySelector('.connection img'),diagram=hero.querySelector('.hero-diagram'),icons=[...hero.querySelectorAll('.orbit-company')],dot=hero.querySelector('.company-signal');
-const reduced=matchMedia('(prefers-reduced-motion: reduce)'),wide=matchMedia('(min-width: 1360px)'),pairs=[[2,1],[6,5],[3,4],[7,0]];let visible=true,raf=0,last=0,time=0,cycle=0,geometry;
-const capacityTab=hero.querySelector('#tab-capacity');let offer=capacityTab.getAttribute('aria-selected')==='true';
-const navigation=hero.querySelector('.navigation'),headline=hero.querySelector('h1'),action=hero.querySelector('.hero-action');
-function spreadIcons(h){
- if(!wide.matches||!navigation||!headline||!action)return;
- const nav=navigation.getBoundingClientRect(),title=headline.getBoundingClientRect(),cta=action.getBoundingClientRect();
- if(![nav.bottom,title.top,cta.bottom,h.height,h.width].every(Number.isFinite))return;
- [4,5,6,7].forEach(i=>{['left','right','top','transform'].forEach(key=>{icons[i].style[key]=''})});
- function place(i,xFraction,start,end,yFraction){
-  const icon=icons[i],r=icon.getBoundingClientRect(),inset=12+r.height/2;
-  if(end-start<2*inset)return; // On short viewports keep the safe side placement.
-  const x=Math.max(24+r.width/2,Math.min(h.width-24-r.width/2,h.width*xFraction)),y=Math.max(start+inset,Math.min(end-inset,start+(end-start)*yFraction));
-  icon.style.left=x+'px';icon.style.right='auto';icon.style.top=y+'px';icon.style.transform='translate(-50%,-50%)';
- }
- const topStart=nav.bottom-h.top,topEnd=title.top-h.top,bottomStart=cta.bottom-h.top;
- place(4,.29,topStart,topEnd,.46);place(6,.68,topStart,topEnd,.68);
- place(5,.37,bottomStart,h.height,.43);place(7,.76,bottomStart,h.height,.70);
-}
-
-function measure(){const h=hero.getBoundingClientRect();spreadIcons(h);const l=logo.getBoundingClientRect(),d=diagram.getBoundingClientRect();geometry={hub:[l.left+l.width/2-h.left,l.top+l.height/2-h.top],top:d.top-h.top-20,bottom:d.bottom-h.top+24,points:icons.map(el=>{const r=el.getBoundingClientRect();return[r.left+r.width/2-h.left,r.top+r.height/2-h.top]})}}
-function position(index,t){const p=geometry.points[index],hub=geometry.hub;return[p[0]+(hub[0]-p[0])*t,p[1]+(hub[1]-p[1])*t]}
-function reset(){dot.style.opacity='0';logo.classList.remove('signal-active');icons.forEach(i=>i.classList.remove('signal-active'))}
-function render(){const pair=pairs[cycle%pairs.length],[source,target]=offer?[pair[1],pair[0]]:pair;let point=null;icons.forEach((icon,i)=>icon.classList.toggle('signal-active',(i===source&&time>=900&&time<1900)||(i===target&&time>=9400&&time<10400)));logo.classList.toggle('signal-active',time>=5100&&time<6200);if(time>=1900&&time<5100)point=position(source,(time-1900)/3200);else if(time>=6200&&time<9400)point=position(target,1-(time-6200)/3200);dot.style.opacity=point?'.85':'0';if(point)dot.style.transform=`translate(${point[0]-4}px,${point[1]-4}px)`;if(time>=15000){time=0;cycle++;measure()}}
-function frame(ts){raf=0;if(!last)last=ts;const delta=ts-last;if(delta>=33){time+=Math.min(delta,100);last=ts;render()}raf=requestAnimationFrame(frame)}
-function update(){const active=wide.matches&&!reduced.matches&&!document.hidden&&visible;if(active&&!raf){measure();last=0;raf=requestAnimationFrame(frame)}else if(!active){cancelAnimationFrame(raf);raf=0;last=0;reset()}}
-new MutationObserver(()=>{const next=capacityTab.getAttribute('aria-selected')==='true';if(next!==offer){offer=next;time=0;cycle=0;last=0;reset();measure()}}).observe(capacityTab,{attributes:true,attributeFilter:['aria-selected']});
-wide.addEventListener('change',update);reduced.addEventListener('change',update);document.addEventListener('visibilitychange',update);window.addEventListener('resize',measure,{passive:true});if('ResizeObserver'in window){const observer=new ResizeObserver(measure);[hero,diagram,logo,navigation,headline,action].filter(Boolean).forEach(el=>observer.observe(el))}if('IntersectionObserver'in window)new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;update()},{threshold:0}).observe(hero);measure();update();
 })();
 
 // Decode the two eager preview images before a hidden product panel is selected.
