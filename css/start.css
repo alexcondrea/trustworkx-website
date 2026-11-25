@@ -229,9 +229,9 @@
 @keyframes video-spin{to{transform:rotate(360deg)}}
 @media(prefers-reduced-motion:reduce){.video-dialog.is-loading .video-dialog-loader{animation-duration:2.4s}}
 /* Header ohne Umschalter: X mit Video-Button mittig in der Achse, ruhige Abstände */
-.hero:not(.sub-hero) .hero-diagram{display:flex;justify-content:center;max-width:none;margin-top:clamp(110px,22vh,220px)}
+.hero:not(.sub-hero) .hero-diagram{display:flex;justify-content:center;max-width:none;margin-top:130px}
 .hero:not(.sub-hero) .connection{display:flex;flex-direction:column;align-items:center;gap:30px;height:auto;min-height:0;padding:0;margin:0}
 .hero:not(.sub-hero) .hero-action{margin-top:64px}
 @media(min-width:901px){.hero:not(.sub-hero) .hero-content{padding-bottom:clamp(64px,5.4vw,96px)}}
-@media(min-width:681px) and (max-width:900px){.hero:not(.sub-hero) .hero-diagram{margin-top:clamp(96px,12vh,150px)}.hero:not(.sub-hero) .hero-action{margin-top:56px}.hero:not(.sub-hero) .hero-content{padding-bottom:56px}}
-@media(max-width:680px){.hero:not(.sub-hero) .hero-diagram{margin-top:56px}.hero:not(.sub-hero) .connection{gap:22px}.hero:not(.sub-hero) .hero-action{margin-top:44px}}
+@media(min-width:681px) and (max-width:900px){.hero:not(.sub-hero) .hero-diagram{margin-top:122px}.hero:not(.sub-hero) .hero-action{margin-top:56px}.hero:not(.sub-hero) .hero-content{padding-bottom:56px}}
+@media(max-width:680px){.hero:not(.sub-hero) .hero-diagram{margin-top:86px}.hero:not(.sub-hero) .connection{gap:20px}.hero:not(.sub-hero) .hero-action{margin-top:30px}}
