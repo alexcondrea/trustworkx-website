@@ -6,6 +6,10 @@
   var API_BASE = LIVE ? 'https://app.trustworkx.de' : 'https://staging.trustworkx.de';
 
   if (!LIVE) {
+    /* Staging nicht indexieren */
+    var robots = document.createElement('meta');
+    robots.name = 'robots'; robots.content = 'noindex, nofollow';
+    document.head.appendChild(robots);
     document.querySelectorAll('a[href^="https://app.trustworkx.de"]').forEach(function (a) {
       a.href = a.href.replace('https://app.trustworkx.de', 'https://staging.trustworkx.de');
     });

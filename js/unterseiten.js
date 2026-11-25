@@ -18,8 +18,11 @@
     });
   }
 
-  /* Auf Staging zeigen Plattform-Links auf die Staging-Plattform */
+  /* Auf Staging zeigen Plattform-Links auf die Staging-Plattform; Staging nicht indexieren */
   if (location.hostname !== 'www.trustworkx.de') {
+    var robots = document.createElement('meta');
+    robots.name = 'robots'; robots.content = 'noindex, nofollow';
+    document.head.appendChild(robots);
     document.querySelectorAll('a[href^="https://app.trustworkx.de"]').forEach(function (a) {
       a.href = a.href.replace('https://app.trustworkx.de', 'https://staging.trustworkx.de');
     });
